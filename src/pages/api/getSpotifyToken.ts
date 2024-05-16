@@ -1,11 +1,15 @@
 // src/pages/api/getSpotifyToken.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { Buffer } from 'buffer';
 
 type Data = {
   access_token?: string;
   error?: string;
+};
+
+type SpotifyTokenResponse = {
+  access_token: string;
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -30,9 +34,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   };
 
   try {
-    const response: AxiosResponse = await axios(authOptions);
+    const response: AxiosResponse<SpotifyTokenResponse> = await axios(authOptions);
     res.status(200).json({ access_token: response.data.access_token });
-  } catch (error: any) {
-    res.status(error.response ? error.response.status : 500).json({ error: 'Failed to fetch token' });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      res.status(error.response ? error.response.status : 500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'An unknown error occurred' });
+    }
   }
 }
