@@ -33,6 +33,7 @@ export default function HomePage() {
       </SignedOut>
       <SignedIn>
         <ConnectBtn />
+        {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
       </SignedIn>
     </main>
   );

@@ -1,4 +1,3 @@
-'user server';
 // src/pages/api/getSpotifyToken.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios, { AxiosResponse } from 'axios';
