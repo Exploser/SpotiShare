@@ -1,18 +1,23 @@
 'use client';
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { useEffect, useState } from 'react';
 import ConnectBtn from '../_components/connectBtn';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
+
+interface SpotifyTokenResponse {
+  access_token: string;
+  error?: string;
+}
 
 export default function HomePage() {
-    const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchToken = async () => {
       try {
         const response = await fetch('/api/getSpotifyToken');
-        const data = await response.json();
+        const data: SpotifyTokenResponse = await response.json();
         if (data.access_token) {
           setToken(data.access_token);
         } else {
@@ -23,11 +28,13 @@ export default function HomePage() {
       }
     };
 
-    fetchToken();
+    fetchToken().catch((error) => {
+      console.error('Error in fetchToken:', error);
+    });
   }, []);
+
   return (
     <main className="">
-
       <SignedOut>
         <div className="h-full w-full text-2xl text-center">Please Sign In :)</div>
       </SignedOut>
