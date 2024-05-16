@@ -4,9 +4,13 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3
 
 ## TODO
 
+<<<<<<< Updated upstream
+
 - [] Deploy (w/ vercel)
+   =======
+- [X] Deploy (w/ vercel)
+- [X] Add Auth (w/Clerk)
 - [] Scaffold Basic UI
-- [] Add Auth (w/Clerk)
 - [] Connect Spotify API
 - [] Get info from API
 - [] Customize Info
