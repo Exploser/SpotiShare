@@ -17,7 +17,7 @@ export default function HomePage() {
     const fetchToken = async () => {
       try {
         const response = await fetch('/api/getSpotifyToken');
-        const data: SpotifyTokenResponse = await response.json();
+        const data = (await response.json()) as SpotifyTokenResponse;
         if (data.access_token) {
           setToken(data.access_token);
         } else {
