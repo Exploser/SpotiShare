@@ -51,10 +51,16 @@ const Callback: React.FC = () => {
       }
     };
 
-    if (router.isReady && router.query.code) {
-      fetchToken().catch((error) => {
+    const handleFetchToken = async () => {
+      try {
+        await fetchToken();
+      } catch (error) {
         console.error('Error in fetchToken:', error);
-      });
+      }
+    };
+
+    if (router.isReady && router.query.code) {
+      handleFetchToken();
     }
   }, [router.isReady, router.query]);
 
