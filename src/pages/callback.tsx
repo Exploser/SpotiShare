@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -40,22 +42,26 @@ const Callback: React.FC = () => {
           if (data.access_token) {
             sessionStorage.setItem('spotify_access_token', data.access_token);
           }
-
-          router.push('/');
+          return data; // return the data to the next then
         } catch (err) {
           console.error('Error fetching access token:', err);
+          throw err; // rethrow to catch in catch block
         }
+      } else {
+        throw new Error("No code provided");
       }
     };
 
-    // Always handle the promise regardless of the conditions
-    fetchToken().catch((error) => {
-      console.error('Unhandled error in fetchToken:', error);
-    });
-    fetchToken().then((success?) => {
-      console.log('Success in fetchToken:', success);
-    });
-
+    fetchToken()
+      .then((data) => {
+        // Assuming you want to redirect after successful token handling
+        if (data && data.access_token) {
+          router.push('/');
+        }
+      })
+      .catch((error) => {
+        console.error('Unhandled error in fetchToken:', error);
+      });
   }, [router.isReady, router.query]);
 
   return <div>Loading...</div>;
