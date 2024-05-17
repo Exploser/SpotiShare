@@ -3,6 +3,8 @@ import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import ConnectBtn from '../_components/connectBtn';
 import LogCookieButton from '~/_components/LogCookieButton';
+import SpotifyProfile from '~/_components/SpotifyProfile';
+import GetTopTracks from '~/_components/GetTopTracks';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,13 +39,15 @@ export default function HomePage() {
 
   return (
     <main>
-      <div className="h-16 w-full text-white flex flex-col items-center justify-center">
+      <div className="h-auto w-full text-white flex flex-col items-center justify-center">
         <SignedOut>
           <div className="h-full w-full text-2xl text-center">Please Sign In :)</div>
         </SignedOut>
         <SignedIn>
           <ConnectBtn />
           <LogCookieButton />
+          <SpotifyProfile />
+          <GetTopTracks />
           {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
         </SignedIn>
       </div>

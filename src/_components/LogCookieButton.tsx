@@ -7,7 +7,7 @@ interface ApiResponse {
 const LogCookieButton: React.FC = () => {
   const handleLogCookie = async () => {
     try {
-      const response = await fetch('/api/logCookie', {
+      const response = await fetch('/api/getSpotifyInfo', {
         method: 'GET',
       });
 
@@ -18,9 +18,9 @@ const LogCookieButton: React.FC = () => {
     }
   };
 
-  return (
-    <button onClick={handleLogCookie} className="btn">
-      Log Spotify Access Token
+    return (
+    <button onClick={handleLogCookie} className="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 border border-red-700 rounded my-4 h-fit">
+      Log Token
     </button>
   );
 };
