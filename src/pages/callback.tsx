@@ -36,7 +36,7 @@ const Callback: React.FC = () => {
             body: JSON.stringify({ code, state }),
           });
 
-          const data: TokenResponse = await response.json();
+          const data = await response.json() as TokenResponse;
           console.log('Access token response:', data);
 
           if (data?.access_token) {
