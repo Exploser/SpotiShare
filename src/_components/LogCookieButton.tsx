@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ApiResponse {
-  message: string;
+  message?: string;
 }
 
 const LogCookieButton: React.FC = () => {
@@ -12,7 +12,7 @@ const LogCookieButton: React.FC = () => {
       });
 
       // Explicitly typing the JSON response
-      const data: ApiResponse = await response.json();
+      const data = await response.json() as ApiResponse;
       console.log(data.message);
     } catch (error) {
       console.error('Error logging cookie:', error);

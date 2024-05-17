@@ -3,6 +3,18 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { serialize } from 'cookie';
 
+interface SpotifyTokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  refresh_token?: string;
+  scope: string;
+}
+
+interface ErrorResponse {
+  error: string;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code, state, error } = req.query;
 
@@ -35,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const params = new URLSearchParams({
     grant_type: 'authorization_code',
-    code: code as string,
+    code: code,
     redirect_uri: redirect_uri,
   });
 
@@ -51,7 +63,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const response = await axios(authOptions);
-    const token = response.data.access_token as string;
+    const data: SpotifyTokenResponse = response.data;
+
+    const token = data.access_token;
 
     // Set token in a cookie
     res.setHeader('Set-Cookie', serialize('spotify_access_token', token, {
@@ -64,8 +78,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Redirect to the home page
     res.redirect('/');
-  } catch (err: any) {
-    console.error('Error fetching access token:', err.message);
+  } catch (err) {
+    const errorMessage = (err as Error).message;
+    console.error('Error fetching access token:', errorMessage);
     res.status(500).json({ error: 'Failed to fetch access token' });
   }
 }
