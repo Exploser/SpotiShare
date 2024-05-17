@@ -9,6 +9,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Log the callback parameters for debugging
   console.log('Callback parameters:', { code, state, error });
 
+  if (Array.isArray(error) || Array.isArray(code)) {
+    res.status(400).json({ error: 'Invalid parameter format' });
+    return;
+  }
+
   if (error) {
     res.status(400).json({ error: `Error during authentication: ${error}` });
     return;
@@ -38,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     method: 'post',
     url: 'https://accounts.spotify.com/api/token',
     headers: {
-      'Authorization': 'Basic ' + Buffer.from(client_id + ':' + client_secret).toString('base64'),
+      'Authorization': `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     data: params.toString(),
@@ -46,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const response = await axios(authOptions);
-    const token = response.data.access_token;
+    const token = response.data.access_token as string;
 
     // Set token in a cookie
     res.setHeader('Set-Cookie', serialize('spotify_access_token', token, {
@@ -59,8 +64,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Redirect to the home page
     res.redirect('/');
-  } catch (err) {
-    console.error('Error fetching access token:', err);
+  } catch (err: any) {
+    console.error('Error fetching access token:', err.message);
     res.status(500).json({ error: 'Failed to fetch access token' });
   }
 }

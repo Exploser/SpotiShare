@@ -1,8 +1,8 @@
 // src/pages/api/connectSpotify.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const client_id = process.env.SPOTIFY_CLIENT_ID || 'CLIENT_ID';
-const redirect_uri = process.env.SPOTIFY_REDIRECT_URI || 'http://localhost:3000/callback';
+const client_id = process.env.SPOTIFY_CLIENT_ID ?? 'CLIENT_ID';
+const redirect_uri = process.env.SPOTIFY_REDIRECT_URI ?? 'http://localhost:3000/callback';
 
 const generateRandomString = (length: number) => {
   let text = '';

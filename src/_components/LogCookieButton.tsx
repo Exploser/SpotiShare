@@ -1,5 +1,8 @@
-// src/components/LogCookieButton.tsx
 import React from 'react';
+
+interface ApiResponse {
+  message: string;
+}
 
 const LogCookieButton: React.FC = () => {
   const handleLogCookie = async () => {
@@ -7,7 +10,9 @@ const LogCookieButton: React.FC = () => {
       const response = await fetch('/api/logCookie', {
         method: 'GET',
       });
-      const data = await response.json();
+
+      // Explicitly typing the JSON response
+      const data: ApiResponse = await response.json();
       console.log(data.message);
     } catch (error) {
       console.error('Error logging cookie:', error);

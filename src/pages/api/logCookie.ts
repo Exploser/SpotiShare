@@ -1,4 +1,3 @@
-// src/pages/api/logCookie.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { parse } from 'cookie';
 

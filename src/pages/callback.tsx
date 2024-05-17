@@ -1,6 +1,10 @@
-// src/pages/callback.tsx
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+
+interface TokenResponse {
+  access_token: string;
+  error?: string;
+}
 
 const Callback: React.FC = () => {
   const router = useRouter();
@@ -9,6 +13,11 @@ const Callback: React.FC = () => {
     const fetchToken = async () => {
       const { code, state, error } = router.query;
       console.log('Callback parameters:', { code, state, error });
+
+      if (Array.isArray(error) || Array.isArray(code)) {
+        console.error('Invalid parameter format');
+        return;
+      }
 
       if (error) {
         console.error('Error during authentication:', error);
@@ -24,7 +33,9 @@ const Callback: React.FC = () => {
             },
             body: JSON.stringify({ code, state }),
           });
-          const data = await response.json();
+
+          // Explicitly type the response
+          const data: TokenResponse = await response.json();
           console.log('Access token response:', data);
 
           // Store the token in session storage
