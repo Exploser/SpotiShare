@@ -48,10 +48,8 @@ const Callback: React.FC = () => {
       }
     };
 
-    // Always handle the promise regardless of the conditions
-    fetchToken().catch((error) => {
-      console.error('Unhandled error in fetchToken:', error);
-    });
+    // Use void to explicitly ignore the promise if that's intentional
+    void fetchToken();
 
   }, [router.isReady, router.query]);
 
