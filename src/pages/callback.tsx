@@ -36,33 +36,26 @@ const Callback: React.FC = () => {
             body: JSON.stringify({ code, state }),
           });
 
-          const data = await response.json() as TokenResponse;
+          const data: TokenResponse = await response.json();
           console.log('Access token response:', data);
 
-          if (data.access_token) {
+          if (data?.access_token) {
             sessionStorage.setItem('spotify_access_token', data.access_token);
           }
-          return data; // return the data to the next then
+
+          await router.push('/');
         } catch (err) {
           console.error('Error fetching access token:', err);
-          throw err; // rethrow to catch in catch block
         }
-      } else {
-        throw new Error("No code provided");
       }
     };
 
-    fetchToken()
-      .then((data) => {
-        // Assuming you want to redirect after successful token handling
-        if (data && data.access_token) {
-          router.push('/');
-        }
-      })
-      .catch((error) => {
-        console.error('Unhandled error in fetchToken:', error);
+    if (router.isReady && router.query.code) {
+      fetchToken().catch((error) => {
+        console.error('Error in fetchToken:', error);
       });
-  }, [router.isReady, router.query]);
+    }
+  }, [router, router.isReady, router.query]);
 
   return <div>Loading...</div>;
 };

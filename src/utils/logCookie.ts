@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest } from 'next';
 import { parse } from 'cookie';
 
 export const logCookie = (req: NextApiRequest, cookieName: string): void => {
