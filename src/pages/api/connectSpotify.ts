@@ -1,4 +1,6 @@
 // src/pages/api/connectSpotify.ts
+
+// Connect To Spotify
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const client_id = process.env.SPOTIFY_CLIENT_ID ?? 'CLIENT_ID';
@@ -16,7 +18,8 @@ const generateRandomString = (length: number) => {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const state = generateRandomString(16);
-  const scope = 'playlist-read-private user-top-read user-read-recently-played user-top-read';
+  // Required scopes for the application 
+  const scope = 'playlist-read-private user-top-read user-library-read user-read-recently-played user-top-read'; 
 
   const params = new URLSearchParams({
     response_type: 'code',

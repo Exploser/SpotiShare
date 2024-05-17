@@ -5,4 +5,11 @@
 :root {
   --color-primary: #16ed84;
   --color-secondary: #2aa80b;
+  --background-color: #336921;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--background-color);
 }

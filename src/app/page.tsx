@@ -36,15 +36,17 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="">
-      <SignedOut>
-        <div className="h-full w-full text-2xl text-center">Please Sign In :)</div>
-      </SignedOut>
-      <SignedIn>
-        <ConnectBtn />
-        <LogCookieButton />
-        {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
-      </SignedIn>
+    <main>
+      <div className="h-16 w-full text-white flex flex-col items-center justify-center">
+        <SignedOut>
+          <div className="h-full w-full text-2xl text-center">Please Sign In :)</div>
+        </SignedOut>
+        <SignedIn>
+          <ConnectBtn />
+          <LogCookieButton />
+          {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
+        </SignedIn>
+      </div>
     </main>
   );
 }

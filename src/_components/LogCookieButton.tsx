@@ -11,7 +11,6 @@ const LogCookieButton: React.FC = () => {
         method: 'GET',
       });
 
-      // Explicitly typing the JSON response
       const data = await response.json() as ApiResponse;
       console.log(data.message);
     } catch (error) {

@@ -7,7 +7,7 @@ const ConnectBtn: React.FC = () => {
   };
 
   return (
-    <button className="btn" onClick={handleConnectClick}>
+    <button className="bg-lime-600 hover:bg-lime-500 text-white font-bold py-2 px-4 border border-lime-700 rounded" onClick={handleConnectClick}>
       Connect with Spotify
     </button>
   );
