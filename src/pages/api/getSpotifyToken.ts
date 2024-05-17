@@ -1,6 +1,6 @@
 // src/pages/api/getSpotifyToken.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Buffer } from 'buffer';
 
 type Data = {
