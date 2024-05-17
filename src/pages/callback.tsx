@@ -35,7 +35,7 @@ const Callback: React.FC = () => {
           });
 
           // Explicitly type the response
-          const data: TokenResponse = await response.json();
+          const data = await response.json() as TokenResponse;
           console.log('Access token response:', data);
 
           // Store the token in session storage

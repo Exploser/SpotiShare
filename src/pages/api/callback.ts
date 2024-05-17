@@ -63,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const response = await axios(authOptions);
-    const data: SpotifyTokenResponse = response.data;
+    const data = response.data as SpotifyTokenResponse;
 
     const token = data.access_token;
 
