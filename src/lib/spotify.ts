@@ -10,6 +10,12 @@ export interface SpotifyTrack {
     spotify: string;
   };
 }
+export interface SpotifyError {
+  error: {
+    status: number;
+    message: string;
+  };
+}
 export interface SpotifyUser {
   display_name: string;
   email: string;
@@ -43,17 +49,20 @@ export const fetchSpotifyTopTracks = async (
   );
 
   if (!response.ok) {
-    const error = await response.json();
+    const error = await response.json() as SpotifyError;
     throw new Error(`Spotify API Error: ${error.error.message}`);
   }
 
-  return response.json();
+  const data = await response.json() as SpotifyTopTracksResponse;
+  return data;
 };
+
 
 export const fetchSpotifyToken = async () => {
   const response = await fetch('/api/spotify-token');
   if (!response.ok) {
-    throw new Error('Failed to fetch Spotify token');
+    const error = await response.json() as SpotifyError;
+    throw new Error(`Spotify API Error: ${error.error.message}`);
   }
-  return response.json();
+  return response.json.toString();
 };
