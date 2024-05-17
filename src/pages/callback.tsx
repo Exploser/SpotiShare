@@ -34,16 +34,13 @@ const Callback: React.FC = () => {
             body: JSON.stringify({ code, state }),
           });
 
-          // Explicitly type the response
           const data = await response.json() as TokenResponse;
           console.log('Access token response:', data);
 
-          // Store the token in session storage
           if (data.access_token) {
             sessionStorage.setItem('spotify_access_token', data.access_token);
           }
 
-          // Redirect to home page or another page
           router.push('/');
         } catch (err) {
           console.error('Error fetching access token:', err);
@@ -51,17 +48,11 @@ const Callback: React.FC = () => {
       }
     };
 
-    const handleFetchToken = async () => {
-      try {
-        await fetchToken();
-      } catch (error) {
-        console.error('Error in fetchToken:', error);
-      }
-    };
+    // Always handle the promise regardless of the conditions
+    fetchToken().catch((error) => {
+      console.error('Unhandled error in fetchToken:', error);
+    });
 
-    if (router.isReady && router.query.code) {
-      handleFetchToken();
-    }
   }, [router.isReady, router.query]);
 
   return <div>Loading...</div>;
