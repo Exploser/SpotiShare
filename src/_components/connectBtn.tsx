@@ -1,11 +1,16 @@
-export default function connectBtn() {
+// src/_components/connectBtn.tsx
+import React from 'react';
 
-    return (
-        <div className="flex w-full items-center justify-between p-4 text-xl font-semibold">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Hello!
-            </button>    
-        </div>
+const ConnectBtn: React.FC = () => {
+  const handleConnectClick = () => {
+    window.location.href = '/api/connectSpotify';
+  };
 
-    );
-}
+  return (
+    <button className="btn" onClick={handleConnectClick}>
+      Connect with Spotify
+    </button>
+  );
+};
+
+export default ConnectBtn;
