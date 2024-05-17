@@ -2,6 +2,7 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import ConnectBtn from '../_components/connectBtn';
+import LogCookieButton from '~/_components/LogCookieButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,6 +10,7 @@ interface SpotifyTokenResponse {
   access_token: string;
   error?: string;
 }
+
 
 export default function HomePage() {
   const [token, setToken] = useState<string | null>(null);
@@ -40,6 +42,7 @@ export default function HomePage() {
       </SignedOut>
       <SignedIn>
         <ConnectBtn />
+        <LogCookieButton />
         {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
       </SignedIn>
     </main>
