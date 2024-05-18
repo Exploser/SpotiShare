@@ -18,6 +18,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const limit = parseInt(req.query.limit as string) || 20;
         const offset = parseInt(req.query.offset as string) || 0;
 
+        console.log('time_range:', time_range);
+        console.log('limit:', limit);
+        console.log('offset:', offset);
+
         const topTracks = await fetchSpotifyTopTracks(accessToken, time_range, limit, offset);
         res.status(200).json(topTracks);
     } catch (error) {
