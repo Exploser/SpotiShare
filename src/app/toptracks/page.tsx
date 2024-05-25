@@ -61,6 +61,34 @@ export default function TopTracks() {
         fetchTopTracks().catch((err) => console.error(err));
 
     }, []);
+    
+    const getColorFromImage = (imageUrl: string) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        
+        const context = canvas.getContext('2d');
+        if (!context) return;
+
+        const image = new Image();
+        image.crossOrigin = "Anonymous"; // This is important to avoid CORS issues
+        image.src = imageUrl;
+
+        image.onload = () => {
+            context.drawImage(image, 0, 0, 1, 1);
+            const pixelData = context.getImageData(0, 0, 1, 1);
+            if (!pixelData) return;
+            const pixel = pixelData.data;
+            const color = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, ${pixel[3] / 255})`;
+            setSampleColor(color);
+        };
+    };
+
+    useEffect(() => {
+        if (tracks.length > 0 && tracks[0]?.album.images[0]?.url) {
+            getColorFromImage(tracks[0].album.images[0].url);
+        }
+    }, [tracks]);
+
 
     return (
         <div>
@@ -93,6 +121,7 @@ export default function TopTracks() {
                                 </div>
                                 <p className="text-lg font-semibold text-center">{tracks[trackNo++]?.name}</p>
                             </div>
+                            <div style={{ backgroundColor: sampleColor }} className="w-full h-8 rounded-b-lg"></div>
                         </li>
                     )}
                 </div>
