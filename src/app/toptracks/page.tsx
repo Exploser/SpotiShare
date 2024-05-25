@@ -32,12 +32,12 @@ interface SpotifyTopTracksResponse {
     items: Track[];
 }
 export default function TopTracks() {
-    var position = 1;
-    var trackNo = 0;
+    let position = 1;
+    let trackNo = 0;
     const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
-    const [sampleColors, setSampleColors] = useState<{ [key: string]: string }>({}); // Track ID -> Color
+    const [sampleColors, setSampleColors] = useState<Record<string, string>>({}); // Track ID -> Color
     const [timeRange, setTimeRange] = useState('medium_term');
     const [limit, setLimit] = useState(19);
 
@@ -183,7 +183,7 @@ export default function TopTracks() {
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
-                                <div className="relative w-full h-64">
+                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
                                     <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
