@@ -280,19 +280,25 @@ export default function TopTracks() {
                 </div>
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                        {tracks.slice(3).map((track) => (
-                            <li key={track.id} className="rounded-lg shadow-md p-4 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }} >
-                                <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-4" />
-                                <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
-                                <p className="text-sm text-grey-600 dark:text-gray-400 text-center mb-2" id="tracks-rest-artist">{track.artists.map(artist => artist.name).join(', ')}</p>
-                                <button
-                                    className="play-button bg-blue-500 text-white px-4 py-2 rounded-md"
-                                // onClick={() => handlePlay(track.id)}
-                                >
-                                    {currentTrackId === track.id ? 'Pause' : 'Play'}
-                                </button>
-                                <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
-                                <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                        {tracks.slice(3).map((track, trackNo) => (
+                            <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
+                                <div className="relative w-full h-64">
+                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-4" />
+                                    <p className="text-lg font-semibold text-center mt-4 mb-2">{removeTextInParentheses(track.name)}</p>
+                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            By: {track.artists.map(artist => artist.name).join(', ')}
+                                        </p>
+                                        <button
+                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                        // onClick={() => handlePlay(track.id)}
+                                        >
+                                            {currentTrackId === track.id ? 'Pause' : 'Play'}
+                                        </button>
+                                        <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
+                                        <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    </div>
+                                </div>
                             </li>
                         ))}
                     </ul>
