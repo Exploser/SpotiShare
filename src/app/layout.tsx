@@ -3,6 +3,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 
 import { GeistSans } from "geist/font/sans";
 import { Navbar } from "~/_components/navbar";
+import { VolumeProvider } from "~/context/VolumeContext";
 
 export const metadata = {
   title: "Create T3 App",
@@ -20,7 +21,9 @@ export default function RootLayout({
       <html lang="en" className={`${GeistSans.variable}`}>
         <body>
           <Navbar />
+          <VolumeProvider>
           {children}
+          </VolumeProvider>
         </body>
       </html>
     </ClerkProvider>
