@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import VolumeController from "~/_components/VolumeController";
+import { VolumeProvider } from "~/context/VolumeContext";
 
 interface Artist {
     name: string;
@@ -122,188 +124,191 @@ export default function TopTracks() {
     };
 
     return (
-        <div>
+        <VolumeProvider>
             <div>
-                <div className="flex flex-col items-center justify-center mb-4">
-                    <div>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="short_term"
-                                checked={timeRange === 'short_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Short Term
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="medium_term"
-                                checked={timeRange === 'medium_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Medium Term
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="long_term"
-                                checked={timeRange === 'long_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Long Term
-                        </label>
+                <div>
+                    <div className="flex flex-col items-center justify-center mb-4">
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="timeRange"
+                                    value="short_term"
+                                    checked={timeRange === 'short_term'}
+                                    onChange={handleTimeRangeChange}
+                                />
+                                Short Term
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="timeRange"
+                                    value="medium_term"
+                                    checked={timeRange === 'medium_term'}
+                                    onChange={handleTimeRangeChange}
+                                />
+                                Medium Term
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="timeRange"
+                                    value="long_term"
+                                    checked={timeRange === 'long_term'}
+                                    onChange={handleTimeRangeChange}
+                                />
+                                Long Term
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                Limit:
+                                <input
+                                    type="number"
+                                    value={limit}
+                                    onChange={handleLimitChange}
+                                    className="ml-2"
+                                />
+                            </label>
+                        </div>
+                        <button
+                            onClick={handleRefetch}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
+                        >
+                            Refetch Tracks
+                        </button>
+                        <VolumeController />
                     </div>
-                    <div>
-                        <label>
-                            Limit:
-                            <input
-                                type="number"
-                                value={limit}
-                                onChange={handleLimitChange}
-                                className="ml-2"
-                            />
-                        </label>
+                </div>
+                <div>
+                    <div className="flex flex-row items-center justify-center mb-4">
+                        <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
+                            <h1>#{position++}</h1>
+                            <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
+                            {tracks.length > 0 && (
+                                <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                                    <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
+                                        <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Album: {tracks[trackNo]?.album.name}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
+                                            </p>
+                                            <button
+                                                className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                            // onClick={() => handlePlay(tracks[0].id)}
+                                            >
+                                                {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        </div>
+                                    </div>
+                                    <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    </div>
+                                </li>
+                            )}
+                        </div>
+                        <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
+                            <h1>#{position++}</h1>
+                            <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
+                            {tracks.length > 0 && (
+                                <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                                    <div className="relative w-full h-64">
+                                        <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Album: {tracks[trackNo]?.album.name}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
+                                            </p>
+                                            <button
+                                                className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                            // onClick={() => handlePlay(tracks[0].id)}
+                                            >
+                                                {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        </div>
+                                    </div>
+                                    <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    </div>
+                                </li>
+                            )}
+                        </div>
+                        <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
+                            <h1>#{position++}</h1>
+                            <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
+                            {tracks.length > 0 && (
+                                <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                                    <div className="relative w-full h-64">
+                                        <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Album: {tracks[trackNo]?.album.name}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
+                                            </p>
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
+                                            </p>
+                                            <button
+                                                className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                            // onClick={() => handlePlay(tracks[0].id)}
+                                            >
+                                                {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        </div>
+                                    </div>
+                                    <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    </div>
+                                </li>
+                            )}
+                        </div>
                     </div>
-                    <button
-                        onClick={handleRefetch}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                    >
-                        Refetch Tracks
-                    </button>
+                    <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                            {tracks.slice(3).map((track, trackNo) => (
+                                <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
+                                    <div className="relative w-full h-64">
+                                        <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-4" />
+                                        <p className="text-lg font-semibold text-center mt-4 mb-2">{removeTextInParentheses(track.name)}</p>
+                                        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                            <p className="text-sm text-gray-300 text-center mb-2">
+                                                By: {track.artists.map(artist => artist.name).join(', ')}
+                                            </p>
+                                            <button
+                                                className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                            // onClick={() => handlePlay(track.id)}
+                                            >
+                                                {currentTrackId === track.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
+                                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div>
-                <div className="flex flex-row items-center justify-center mb-4">
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
-                        <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
-                        {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
-                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                        // onClick={() => handlePlay(tracks[0].id)}
-                                        >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                                    </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
-                                </div>
-                            </li>
-                        )}
-                    </div>
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
-                        <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
-                        {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
-                                <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                        // onClick={() => handlePlay(tracks[0].id)}
-                                        >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                                    </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
-                                </div>
-                            </li>
-                        )}
-                    </div>
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
-                        <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
-                        {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
-                                <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                        // onClick={() => handlePlay(tracks[0].id)}
-                                        >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                                    </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
-                                </div>
-                            </li>
-                        )}
-                    </div>
-                </div>
-                <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                        {tracks.slice(3).map((track, trackNo) => (
-                            <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
-                                <div className="relative w-full h-64">
-                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-4" />
-                                    <p className="text-lg font-semibold text-center mt-4 mb-2">{removeTextInParentheses(track.name)}</p>
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {track.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                        // onClick={() => handlePlay(track.id)}
-                                        >
-                                            {currentTrackId === track.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
-                                        <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                                    </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </div>
+        </VolumeProvider>
     );
 }
