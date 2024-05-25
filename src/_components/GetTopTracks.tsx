@@ -1,7 +1,7 @@
 // src/_components/GetTopTracks.tsx
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useVolume } from '../context/VolumeContext';
+import { VolumeProvider, useVolume } from '../context/VolumeContext';
 import VolumeController from './VolumeController';
 
 interface Artist {
@@ -90,27 +90,28 @@ const GetTopTracks: React.FC = () => {
     }
 
     return (
-        <div className="max-w-screen-lg mx-auto p-4 h-auto">
-            <h1 className="text-3xl font-bold mb-6">Top Tracks</h1>
-            <VolumeController />
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {tracks.map((track) => (
-                    <li key={track.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
-                        <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-32 object-cover rounded-md mb-4" />
-                        <p className="text-lg font-semibold text-center">{track.name}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">{track.artists.map(artist => artist.name).join(', ')}</p>
-                        <button
-                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md"
-                            onClick={() => handlePlay(track.id)}
-                        >
-                            {currentTrackId === track.id ? 'Pause' : 'Play'}
-                        </button>
-                        <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
-                        <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <VolumeProvider>
+            <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
+                <VolumeController />
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                    {tracks.map((track) => (
+                        <li key={track.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
+                            <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-32 object-cover rounded-md mb-4" />
+                            <p className="text-lg font-semibold text-center">{track.name}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">{track.artists.map(artist => artist.name).join(', ')}</p>
+                            <button
+                                className="play-button bg-blue-500 text-white px-4 py-2 rounded-md"
+                                onClick={() => handlePlay(track.id)}
+                            >
+                                {currentTrackId === track.id ? 'Pause' : 'Play'}
+                            </button>
+                            <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
+                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </VolumeProvider>
     );
 };
 

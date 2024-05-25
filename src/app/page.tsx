@@ -5,7 +5,6 @@ import ConnectBtn from '../_components/connectBtn';
 import LogCookieButton from '~/_components/LogCookieButton';
 import SpotifyProfile from '~/_components/SpotifyProfile';
 import GetTopTracks from '~/_components/GetTopTracks';
-import VolumeController from '~/_components/VolumeController';
 import { VolumeProvider } from '~/context/VolumeContext';
 
 export const dynamic = 'force-dynamic';
