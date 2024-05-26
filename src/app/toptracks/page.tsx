@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import TopTracksController from "~/_components/TopTracksController";
 import VolumeController from "~/_components/VolumeController";
 import { VolumeProvider, useVolume } from "~/context/VolumeContext";
 
@@ -150,57 +151,15 @@ export default function TopTracks() {
 
     return (
         <div>
-            <div>
+            <div id="controller">
                 <div className="flex flex-col items-center justify-center mb-4">
-                    <div>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="short_term"
-                                checked={timeRange === 'short_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Short Term
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="medium_term"
-                                checked={timeRange === 'medium_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Medium Term
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="timeRange"
-                                value="long_term"
-                                checked={timeRange === 'long_term'}
-                                onChange={handleTimeRangeChange}
-                            />
-                            Long Term
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Limit:
-                            <input
-                                type="number"
-                                value={limit}
-                                onChange={handleLimitChange}
-                                className="ml-2"
-                            />
-                        </label>
-                    </div>
-                    <button
-                        onClick={handleRefetch}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                    >
-                        Refetch Tracks
-                    </button>
+                    <TopTracksController
+                        timeRange={timeRange}
+                        setTimeRange={setTimeRange}
+                        limit={limit}
+                        setLimit={setLimit}
+                        handleRefetch={() => fetchTopTracks(timeRange, limit)}
+                    />
                     <VolumeController />
                 </div>
             </div>
