@@ -137,33 +137,11 @@ export default function TopTracks() {
         }
         return str;
     };
-    const handleTimeRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTimeRange(e.target.value);
-    };
-
-    const handleLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLimit(Number(e.target.value));
-    };
-
-    const handleRefetch = () => {
-        fetchTopTracks(timeRange, limit).catch((err) => console.error(err));
-    };
 
     return (
         <div>
-            <div id="controller">
-                <div className="flex flex-col items-center justify-center mb-4">
-                    <TopTracksController
-                        timeRange={timeRange}
-                        setTimeRange={setTimeRange}
-                        limit={limit}
-                        setLimit={setLimit}
-                        handleRefetch={() => fetchTopTracks(timeRange, limit)}
-                    />
-                    <VolumeController />
-                </div>
-            </div>
             <div>
+                <VolumeController />
                 <div className="flex flex-row items-center justify-center mb-4">
                     <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
                         <h1>#{position++}</h1>
@@ -290,6 +268,17 @@ export default function TopTracks() {
                             </li>
                         ))}
                     </ul>
+                </div>
+            </div>
+            <div id="controller">
+                <div className="flex flex-col items-center justify-center mb-4">
+                    <TopTracksController
+                        timeRange={timeRange}
+                        setTimeRange={setTimeRange}
+                        limit={limit}
+                        setLimit={setLimit}
+                        handleRefetch={() => fetchTopTracks(timeRange, limit)}
+                    />
                 </div>
             </div>
         </div>
