@@ -31,23 +31,37 @@ const SpotifyProfile: React.FC = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>Please Connect your Spotify Account</div>;
   if (!user) return <div>No user data available.</div>;
   const secondImageUrl = user.images?.[1]?.url;
 
   return (
-    <div className='h-fit'>
-      <h1>Spotify Profile</h1>
-      <div className="images">
+    <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-tr from-green-600 via-blue-900 to-black rounded-lg shadow-xl transition-transform transform hover:scale-105 my-12">
+      <h1 className="text-2xl font-bold text-white mb-4">Spotify Profile</h1>
+      <div className="images mb-4">
         {secondImageUrl && (
-          <img src={secondImageUrl} alt={`${user.display_name} second image`} />
+          <img
+            src={secondImageUrl}
+            alt={`${user.display_name}`}
+            className="w-32 h-32 rounded-full shadow-lg object-cover"
+          />
         )}
       </div>
       {user.external_urls.spotify && (
-        <p>Spotify Profile: <a href={user.external_urls.spotify} target='_blank'>{user.display_name}</a></p>
+        <p className="text-center text-white">
+          <a
+            href={user.external_urls.spotify}
+            target='_blank'
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-300"
+            id='spotify-profile-name'
+          >
+            {user.display_name}
+          </a>
+        </p>
       )}
-      {user.id && <p>ID: {user.id}</p>}
     </div>
+
   );
 };
 
