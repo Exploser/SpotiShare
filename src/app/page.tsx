@@ -6,6 +6,7 @@ import LogCookieButton from '~/_components/LogCookieButton';
 import SpotifyProfile from '~/_components/SpotifyProfile';
 import GetTopTracks from '~/_components/GetTopTracks';
 import { VolumeProvider } from '~/context/VolumeContext';
+import SpotifyFeatures from '~/_components/Features';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,27 +17,6 @@ interface SpotifyTokenResponse {
 
 
 export default function HomePage() {
-  const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const response = await fetch('/api/getSpotifyToken');
-        const data = (await response.json()) as SpotifyTokenResponse;
-        if (data.access_token) {
-          setToken(data.access_token);
-        } else {
-          console.error('Error fetching token:', data.error);
-        }
-      } catch (error) {
-        console.error('Error fetching token:', error);
-      }
-    };
-
-    fetchToken().catch((error) => {
-      console.error('Error in fetchToken:', error);
-    });
-  }, []);
 
   return (
     <main>
@@ -46,11 +26,9 @@ export default function HomePage() {
         </SignedOut>
         <SignedIn>
           <VolumeProvider>
-          <ConnectBtn />
-          <LogCookieButton />
-          <SpotifyProfile />
-          <GetTopTracks />
-          {token ? <p>Access Token: {token}</p> : <p>Loading...</p>}
+            <SpotifyProfile />  
+            <ConnectBtn />
+            <SpotifyFeatures />
           </VolumeProvider>
         </SignedIn>
       </div>
