@@ -5,7 +5,7 @@
 :root {
   --color-primary: #16ed84;
   --color-secondary: #2aa80b;
-  --background-color: #336921;
+  --background-color: #409c22;
 }
 body {
   margin: 0;
@@ -20,4 +20,17 @@ body {
 #tracks-rest-artist{
   color: white;
   text-shadow: 1px 1px 1px #000000;
+}
+#spotify-profile-name{
+  color: white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #000000;
+}
+#spotify-features{
+  width: 90%;
+  a{
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000000;
+  }
 }
