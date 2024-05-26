@@ -169,9 +169,9 @@ export default function TopTracks() {
                         <h1>#{position++}</h1>
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
                                 <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[trackNo]?.album.name}
@@ -194,7 +194,7 @@ export default function TopTracks() {
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
                                 </div>
                             </li>
                         )}
@@ -203,9 +203,9 @@ export default function TopTracks() {
                         <h1>#{position++}</h1>
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[trackNo]?.album.name}
@@ -227,7 +227,7 @@ export default function TopTracks() {
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
                                 </div>
                             </li>
                         )}
@@ -236,9 +236,9 @@ export default function TopTracks() {
                         <h1>#{position++}</h1>
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 flex flex-col items-center">
+                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl" />
+                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[trackNo]?.album.name}
@@ -260,7 +260,7 @@ export default function TopTracks() {
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
                                 </div>
                             </li>
                         )}
@@ -268,11 +268,11 @@ export default function TopTracks() {
                 </div>
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                        {tracks.slice(3).map((track, trackNo) => (
+                        {tracks.slice(3).map((track) => (
                             <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-4" />
-                                    <p className="text-lg font-semibold text-center mt-4 mb-2">{removeTextInParentheses(track.name)}</p>
+                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-2" />
+                                    <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             By: {track.artists.map(artist => artist.name).join(', ')}
