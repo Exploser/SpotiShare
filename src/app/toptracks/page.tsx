@@ -146,7 +146,7 @@ export default function TopTracks() {
 
                 <div className="flex flex-row mb-4 p-12" id="spotify-top-tracks-main">
 
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-second">
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInLeft" id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
@@ -180,7 +180,7 @@ export default function TopTracks() {
                         <h1>#{++position}</h1>
                     </div>
 
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-first">
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInDown" id="spotify-top-track-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
@@ -215,7 +215,7 @@ export default function TopTracks() {
                         <h1>#1</h1>
                     </div>
 
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-third">
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInRight" id="spotify-top-track-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
