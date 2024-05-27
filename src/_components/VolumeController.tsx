@@ -11,7 +11,7 @@ const VolumeController: React.FC = () => {
   };
 
   useEffect(() => {
-    const audioElements = document.querySelectorAll('audio.playing') as NodeListOf<HTMLAudioElement>;
+    const audioElements : NodeListOf<HTMLAudioElement> = document.querySelectorAll('audio.playing');
     audioElements.forEach(audio => {
       audio.volume = volume;
     });
