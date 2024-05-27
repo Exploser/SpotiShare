@@ -73,9 +73,9 @@ body {
 }
 
 #controller {
+  justify-content: center;
   padding: 0 16px;
 }
-
 
 /* Mobile view adjustments */
 @media (max-width: 768px) {

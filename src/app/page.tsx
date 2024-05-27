@@ -27,7 +27,6 @@ export default function HomePage() {
         <SignedIn>
           <VolumeProvider>
             <SpotifyProfile />  
-            <ConnectBtn />
             <SpotifyFeatures />
           </VolumeProvider>
         </SignedIn>

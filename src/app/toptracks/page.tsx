@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import TopTracksController from "~/_components/TopTracksController";
 import VolumeController from "~/_components/VolumeController";
 import { VolumeProvider, useVolume } from "~/context/VolumeContext";
+import 'animate.css';
 
 interface Artist {
     name: string;
@@ -36,7 +37,6 @@ interface SpotifyTopTracksResponse {
 }
 export default function TopTracks() {
     let position = 1;
-    let trackNo = 0;
     const { volume } = useVolume();
     const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -185,7 +185,7 @@ export default function TopTracks() {
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
                                 <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
-                                <img src={tracks[0]?.album.images[0]?.url} alt={tracks[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <img src={tracks[0]?.album.images[0]?.url} alt={tracks[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[0]?.album.name}
@@ -247,7 +247,7 @@ export default function TopTracks() {
                             </li>
                         )}
                         <h1>#3</h1>
-                    </div>                    
+                    </div>
                 </div>
 
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
@@ -270,14 +270,16 @@ export default function TopTracks() {
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             By: {track.artists.map(artist => artist.name).join(', ')}
                                         </p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
                                         <button
                                             className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
                                             onClick={() => handlePlay(track.id)}
                                         >
                                             {currentTrackId === track.id ? 'Pause' : 'Play'}
                                         </button>
-                                        <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
-                                        <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                            <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
+                                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline"><img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" /></a>
+                                        </div>
                                     </div>
                                 </div>
                             </li>

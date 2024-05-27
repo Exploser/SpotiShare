@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { SpotifyUser } from '~/lib/spotify';
+import ConnectBtn from './connectBtn';
 
 const SpotifyProfile: React.FC = () => {
   const [user, setUser] = useState<SpotifyUser | null>(null);
@@ -31,7 +32,16 @@ const SpotifyProfile: React.FC = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Please Connect your Spotify Account</div>;
+
+  if (error) return (
+    <div>
+      <div className='flex flex-col'>
+        Please Connect your Spotify Account
+        <ConnectBtn />
+      </div>
+    </div>
+    );
+
   if (!user) return <div>No user data available.</div>;
   const secondImageUrl = user.images?.[1]?.url;
 
@@ -55,7 +65,7 @@ const SpotifyProfile: React.FC = () => {
             rel="noopener noreferrer"
             className="underline hover:text-gray-300"
             id='spotify-profile-name'
-          >
+          > 
             {user.display_name}
           </a>
         </p>
