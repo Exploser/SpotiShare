@@ -144,7 +144,7 @@ export default function TopTracks() {
                 {/* Volume Controller component */}
                 <VolumeController />
 
-                <div className="flex flex-row mb-4 p-12" id="spotify-top-track-main">
+                <div className="flex flex-row mb-4 p-12" id="spotify-top-tracks-main">
 
                     <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
@@ -254,7 +254,7 @@ export default function TopTracks() {
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {tracks.slice(3).map((track) => (
                             <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
-                                <div className="relative w-full h-64">
+                                <div className="relative w-full h-64" id="spotify-tracks-rest">
                                     <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-2" />
                                     <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
