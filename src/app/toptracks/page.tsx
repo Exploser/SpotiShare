@@ -141,109 +141,115 @@ export default function TopTracks() {
     return (
         <div>
             <div>
+                {/* Volume Controller component */}
                 <VolumeController />
-                <div className="flex flex-row items-center justify-center mb-4">
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
-                        <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
-                        {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
-                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
-                                <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(tracks[0]?.id ?? '')}
-                                        >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[0]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
 
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
-                                    </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
-                                </div>
-                            </li>
-                        )}
-                    </div>
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
+                <div className="flex flex-row mb-4 p-12" id="spotify-top-track-main">
+
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
+                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <img src={tracks[1]?.album.images[0]?.url} alt={tracks[1]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
+                                            Album: {tracks[1]?.album.name}
                                         </p>
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
+                                            Track: {tracks[1]?.track_number} of {tracks[1]?.album.total_tracks}
                                         </p>
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
+                                            By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}
                                         </p>
                                         <button
                                             className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
                                             onClick={() => handlePlay(tracks[1]?.id ?? '')}
                                         >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
+                                            {currentTrackId === tracks[1]?.id ? 'Pause' : 'Play'}
                                         </button>
-                                        <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        <audio id={`audio-${tracks[1]?.id}`} src={tracks[1]?.preview_url} className="hidden"></audio>
+                                        <a href={tracks[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                <div style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[1]?.name ?? '')}</p>
                                 </div>
                             </li>
                         )}
+                        <h1>#{++position}</h1>
                     </div>
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center">
-                        <h1>#{position++}</h1>
+
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[trackNo]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }}>
-                                <div className="relative w-full h-64">
-                                    <img src={tracks[trackNo]?.album.images[0]?.url} alt={tracks[trackNo]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                            <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
+                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
+                                <img src={tracks[0]?.album.images[0]?.url} alt={tracks[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[trackNo]?.album.name}
+                                            Album: {tracks[0]?.album.name}
                                         </p>
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[trackNo]?.track_number} of {tracks[trackNo]?.album.total_tracks}
+                                            Track: {tracks[0]?.track_number} of {tracks[0]?.album.total_tracks}
                                         </p>
                                         <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[trackNo]?.artists.map(artist => artist.name).join(', ')}
+                                            By: {tracks[0]?.artists.map(artist => artist.name).join(', ')}
+                                        </p>
+                                        <button
+                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+                                            onClick={() => handlePlay(tracks[0]?.id ?? '')}
+                                        >
+                                            {currentTrackId === tracks[0]?.id ? 'Pause' : 'Play'}
+                                        </button>
+                                        <audio id={`audio-${tracks[0]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
+
+                                        <a href={tracks[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    </div>
+                                </div>
+                                <div style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[0]?.name ?? '')}</p>
+                                </div>
+                            </li>
+                        )}
+                        <h1>#1</h1>
+                    </div>
+
+                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center" id="spotify-top-track-third">
+                        <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
+                        {tracks.length > 0 && (
+                            <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
+                                <div className="relative w-full h-64">
+                                    <img src={tracks[2]?.album.images[0]?.url} alt={tracks[2]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            Album: {tracks[2]?.album.name}
+                                        </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            Track: {tracks[2]?.track_number} of {tracks[2]?.album.total_tracks}
+                                        </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            By: {tracks[2]?.artists.map(artist => artist.name).join(', ')}
                                         </p>
                                         <button
                                             className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
                                             onClick={() => handlePlay(tracks[2]?.id ?? '')}
                                         >
-                                            {currentTrackId === tracks[trackNo]?.id ? 'Pause' : 'Play'}
+                                            {currentTrackId === tracks[2]?.id ? 'Pause' : 'Play'}
                                         </button>
-                                        <audio id={`audio-${tracks[trackNo]?.id}`} src={tracks[trackNo]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[trackNo]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                        <audio id={`audio-${tracks[2]?.id}`} src={tracks[2]?.preview_url} className="hidden"></audio>
+                                        <a href={tracks[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[trackNo]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[trackNo++]?.name ?? '')}</p>
+                                <div style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[2]?.name ?? '')}</p>
                                 </div>
                             </li>
                         )}
-                    </div>
+                        <h1>#3</h1>
+                    </div>                    
                 </div>
+
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {tracks.slice(3).map((track) => (
@@ -255,9 +261,18 @@ export default function TopTracks() {
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             By: {track.artists.map(artist => artist.name).join(', ')}
                                         </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            Album: {track.album.name}
+                                        </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            Track: {track.track_number} of {track.album.total_tracks}
+                                        </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">
+                                            By: {track.artists.map(artist => artist.name).join(', ')}
+                                        </p>
                                         <button
                                             className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                        // onClick={() => handlePlay(track.id)}
+                                            onClick={() => handlePlay(track.id)}
                                         >
                                             {currentTrackId === track.id ? 'Pause' : 'Play'}
                                         </button>

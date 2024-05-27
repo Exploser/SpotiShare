@@ -45,3 +45,18 @@ body {
 #volume-controller{
   color: white;
 }
+#spotify-top-track-main{
+  margin-top: 20px;
+  h1{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    text-shadow: 1px 1px 3px #000000;
+  }
+}
+
+#spotify-top-track-second{
+  margin-top: 15%;
+}
+#spotify-top-track-third{
+  margin-top: 15%;
+}
