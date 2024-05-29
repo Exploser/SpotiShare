@@ -57,6 +57,31 @@ export const fetchSpotifyTopTracks = async (
   return data;
 };
 
+export const fetchSpotifyTopArtists = async (
+  accessToken: string,
+  time_range: string,
+  limit: number,
+  offset: number
+): Promise<SpotifyTopTracksResponse> => {
+  const response = await fetch(
+    `https://api.spotify.com/v1/me/top/artists?time_range=${time_range}&limit=${limit}&offset=${offset}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json() as SpotifyError;
+    throw new Error(`Spotify API Error: ${error.error.message}`);
+  }
+
+  const data = await response.json() as SpotifyTopTracksResponse;
+  return data;
+};
 
 export const fetchSpotifyToken = async () => {
   const response = await fetch('/api/spotify-token');
