@@ -65,11 +65,23 @@ export default function TopTracks() {
             }
             const data: SpotifyTopTracksResponse = await response.json() as SpotifyTopTracksResponse;
             setTracks(data.items);
+            console.log(data.items);
+            const saveTracks = await fetch('/api/saveTracks', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tracks: data.items }),
+            });
+            if (!saveTracks.ok) {
+                throw new Error('Failed to save tracks');
+            }
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             }
         }
+        
         console.log(error);
         return error;
     };

@@ -1,18 +1,22 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { drizzle } from 'drizzle-orm/vercel-postgres';
+import * as schema from './schema';
+import { sql } from "@vercel/postgres";
 
-import { env } from "~/env";
-import * as schema from "./schema";
+import {
 
-/**
- * Cache the database connection in development. This avoids creating a new connection on every HMR
- * update.
- */
-const globalForDb = globalThis as unknown as {
-  conn: postgres.Sql | undefined;
-};
+  pgTable,
 
-const conn = globalForDb.conn ?? postgres(env.DATABASE_URL);
-if (env.NODE_ENV !== "production") globalForDb.conn = conn;
+  serial,
 
-export const db = drizzle(conn, { schema });
+  text,
+
+  timestamp,
+
+  uniqueIndex,
+
+} from 'drizzle-orm/pg-core';
+
+
+// Use this object to send drizzle queries to your DB
+
+export const db = drizzle(sql,{schema});
