@@ -149,7 +149,7 @@ export default function TopTracks() {
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center">
+                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center"  style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
                                     <img
                                         src={tracks[1]?.album.images[0]?.url}
@@ -191,7 +191,7 @@ export default function TopTracks() {
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
-                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
+                                <div className="relative w-full h-64" id="test">
                                     <img src={tracks[0]?.album.images[0]?.url} alt={tracks[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
@@ -257,7 +257,7 @@ export default function TopTracks() {
                     </div>
                 </div>
 
-                <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
+                <div className="max-w-screen-lg mx-auto h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {tracks.slice(3).map((track) => (
                             <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
@@ -284,6 +284,7 @@ export default function TopTracks() {
                         ))}
                     </ul>
                 </div>
+
                 <div id="controller">
                     <div className="flex flex-col items-center justify-center mb-4">
                         <TopTracksController
@@ -296,6 +297,7 @@ export default function TopTracks() {
                     </div>
                 </div>
             </div>
+
             <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
                 {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
                 <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -79,7 +79,7 @@ export default function TopTracks() {
             const pixelData = context.getImageData(0, 0, 1, 1);
             if (!pixelData) return;
             const pixel = pixelData.data;
-            const color = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}`;
+            const color = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, 0.9`;
             setSampleColors(prevColors => ({ ...prevColors, [artistId]: color }));
         };
     };
@@ -217,9 +217,9 @@ export default function TopTracks() {
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {artists.map((artist) => (
-                            <li key={artist.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[artist.id] }}>
+                            <li key={artist.id} className={`min-h-fit relative rounded-lg shadow-md p-2 flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[artist.id] }}>
                                 <div className="relative w-full" id="spotify-artists-rest">
-                                    <img src={artist.images[0]?.url} alt={artist.name} className="w-full object-contain shadow-xl rounded-md mb-2" onLoad={() => {
+                                    <img src={artist.images[0]?.url} alt={artist.name} className="shadow-xl rounded-md mb-2" onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}/>
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
@@ -232,7 +232,7 @@ export default function TopTracks() {
                                         </div>
                                         <p className="text-sm text-gray-300 text-center mb-2">{artist.genres.map(genres => genres).join(', ')}</p>
                                     </div>
-                                    <p className="text-lg font-semibold text-center spotify-artist-title">#{position++} {removeTextInParentheses(artist.name)}</p>
+                                    <p className="text-lg font-semibold text-center spotify-artist-title object-contain text-nowrap">#{position++} {removeTextInParentheses(artist.name)}</p>
                                 </div>
                             </li>
 
@@ -253,7 +253,7 @@ export default function TopTracks() {
             </div>
             <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
                 {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
-                <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                {/* <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <style>
                         {`.spinner_GmWz{ 
                             fill: white;
@@ -267,7 +267,11 @@ export default function TopTracks() {
                     <rect className="spinner_GmWz" x="1" y="4" width="6" height="14" />
                     <rect className="spinner_GmWz spinner_NuDr" x="9" y="4" width="6" height="14" />
                     <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
-                </svg>
+                </svg> */}
+                <div id="loader">
+                    <div id="box"></div>
+                    <div id="hill"></div>
+                </div>
             </div>
         </div>
     );
