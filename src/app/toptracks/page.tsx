@@ -36,10 +36,11 @@ interface SpotifyTopTracksResponse {
     items: Track[];
 }
 export default function TopTracks() {
-    let position = 1;
+    let position = 3;
     const { volume } = useVolume();
     const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
     const [sampleColors, setSampleColors] = useState<Record<string, string>>({}); // Track ID -> Color
     const [timeRange, setTimeRange] = useState('medium_term');
@@ -140,18 +141,22 @@ export default function TopTracks() {
 
     return (
         <div>
-            <div>
-                {/* Volume Controller component */}
-                <VolumeController />
-
+            <VolumeController />
+            <div className={`${imageLoaded ? "" : "hidden" }`}>
                 <div className="flex flex-row mb-4 p-12" id="spotify-top-tracks-main">
-
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInLeft" id="spotify-top-track-second">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
+                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center">
                                 <div className="relative w-full h-64">
-                                    <img src={tracks[1]?.album.images[0]?.url} alt={tracks[1]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <img
+                                        src={tracks[1]?.album.images[0]?.url}
+                                        alt={tracks[1]?.name}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                        onLoad={() => {
+                                            setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        }}
+                                    />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[1]?.album.name}
@@ -177,10 +182,10 @@ export default function TopTracks() {
                                 </div>
                             </li>
                         )}
-                        <h1>#{++position}</h1>
+                        <h1>#2</h1>
                     </div>
 
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInDown" id="spotify-top-track-first">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-top-track-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
@@ -215,7 +220,7 @@ export default function TopTracks() {
                         <h1>#1</h1>
                     </div>
 
-                    <div className="max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center animate__animated animate__backInRight" id="spotify-top-track-third">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-track-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
@@ -253,36 +258,27 @@ export default function TopTracks() {
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {tracks.slice(3).map((track) => (
-                            <li key={track.id} className="relative rounded-lg shadow-md p-2 flex flex-col items-center" style={{ backgroundColor: sampleColors[track.id] }}>
-                                <div className="relative w-full h-64" id="spotify-tracks-rest">
-                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full h-45 object-contain shadow-xl rounded-md mb-2" />
-                                    <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
+                            <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUpBig' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
+                                <div className="relative w-full" id="spotify-tracks-rest">
+                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full object-contain shadow-xl rounded-md mb-2" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {track.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {track.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {track.track_number} of {track.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {track.artists.map(artist => artist.name).join(', ')}
-                                        </p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Album: {track.album.name}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {track.track_number} of {track.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">By: {track.artists.map(artist => artist.name).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(track.id)}
-                                        >
-                                            {currentTrackId === track.id ? 'Pause' : 'Play'}
-                                        </button>
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(track.id)}>
+                                                {currentTrackId === track.id ? 'Pause' : 'Play'}
+                                            </button>
                                             <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
-                                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline"><img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" /></a>
+                                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
                                         </div>
                                     </div>
+                                    <p className="text-lg font-semibold text-center spotify-track-title">#{position++} {removeTextInParentheses(track.name)}</p>
                                 </div>
                             </li>
+
                         ))}
                     </ul>
                 </div>
