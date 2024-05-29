@@ -14,8 +14,13 @@ body {
   background-color: var(--background-color);
 }
 
-
-#track-cards{
+#spotify-profile-card{
+  background: rgb(5,150,14);
+  background: linear-gradient(38deg, rgba(5,150,14,0.8) 0%, rgba(0,85,103,0.8) 38%, rgba(2,47,112,0.8) 64%, rgba(57,175,16,0.8) 100%);
+}
+#spotify-profile-card:hover{
+  background: rgb(5,150,14);
+  background: linear-gradient(38deg, rgba(5,150,14,1) 0%, rgba(0,85,103,1) 38%, rgba(2,47,112,1) 64%, rgba(57,175,16,1) 100%);
 }
 #tracks-rest-artist{
   color: white;
@@ -26,13 +31,16 @@ body {
   text-decoration: none;
   text-shadow: 1px 1px 1px #000000;
 }
-#spotify-features {
-  width: 90%;
+#spotify-features{
   background: rgb(5, 150, 7, 0.6);
   background: linear-gradient(27deg, rgba(5, 150, 7, 0.8) 0%, rgba(19, 103, 0, 0.8) 41%, rgba(24, 112, 2, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
   border-radius: 1rem; 
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#spotify-features:hover{
+  background: rgb(5, 150, 7, 0.8);
+  background: linear-gradient(27deg, rgba(5, 150, 7, 1) 0%, rgba(19, 103, 0, 1) 41%, rgba(24, 112, 2, 1) 64%, rgba(57, 175, 16, 1) 100%);
 }
 
 #spotify-features a {

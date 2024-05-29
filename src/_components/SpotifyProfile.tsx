@@ -46,7 +46,8 @@ const SpotifyProfile: React.FC = () => {
   const secondImageUrl = user.images?.[1]?.url;
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-tr from-green-600 via-blue-900 to-black rounded-lg shadow-xl transition-transform transform hover:scale-105 my-12">
+    <div className="flex flex-col items-center justify-center p-6 rounded-lg shadow-xl transition-transform transform hover:scale-105 my-12"
+    id='spotify-profile-card'>
       <h1 className="text-2xl font-bold text-white mb-4">Spotify Profile</h1>
       <div className="images mb-4">
         {secondImageUrl && (

@@ -1,6 +1,6 @@
 const SpotifyFeatures: React.FC = () => {
     return (
-        <div className="flex flex-col items-center bg-opacity-10 p-6 rounded-xl shadow-xl my-8"
+        <div className="flex flex-col items-center bg-opacity-10 p-6 rounded-xl shadow-xl my-8  transition-transform transform hover:scale-105 "
             id="spotify-features">
             <h1 className="text-3xl font-bold text-white mb-4">Features!</h1>
                 <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105"
