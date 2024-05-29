@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { parse } from 'cookie';
-import { SpotifyUser } from '~/lib/spotify';
+import type { SpotifyUser } from '~/lib/spotify';
 
 interface SpotifyError {
     error: {

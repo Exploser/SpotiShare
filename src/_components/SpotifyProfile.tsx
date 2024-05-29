@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { SpotifyUser } from '~/lib/spotify';
+import type { SpotifyUser } from '~/lib/spotify';
 import ConnectBtn from './connectBtn';
 
 const SpotifyProfile: React.FC = () => {

@@ -11,10 +11,6 @@ interface SpotifyTokenResponse {
   scope: string;
 }
 
-interface ErrorResponse {
-  error: string;
-}
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { code, state, error } = req.query;
 

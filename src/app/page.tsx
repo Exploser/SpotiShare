@@ -1,20 +1,9 @@
-'use client';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
-import { useEffect, useState } from 'react';
-import ConnectBtn from '../_components/connectBtn';
-import LogCookieButton from '~/_components/LogCookieButton';
 import SpotifyProfile from '~/_components/SpotifyProfile';
-import GetTopTracks from '~/_components/GetTopTracks';
 import { VolumeProvider } from '~/context/VolumeContext';
 import SpotifyFeatures from '~/_components/Features';
 
 export const dynamic = 'force-dynamic';
-
-interface SpotifyTokenResponse {
-  access_token: string;
-  error?: string;
-}
-
 
 export default function HomePage() {
 

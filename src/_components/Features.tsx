@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const SpotifyFeatures: React.FC = () => {
     return (
         <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-bl from-green-700 via-gray-900 to-green-900 rounded-lg shadow-xl transition-transform transform my-12"

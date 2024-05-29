@@ -1,6 +1,6 @@
 // src/_components/GetTopTracks.tsx
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VolumeProvider, useVolume } from '../context/VolumeContext';
 import VolumeController from './VolumeController';
 

@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import TopTracksController from "~/_components/TopTracksController";
-import VolumeController from "~/_components/VolumeController";
-import { VolumeProvider, useVolume } from "~/context/VolumeContext";
+import { useVolume } from "~/context/VolumeContext";
 import 'animate.css';
 
 interface Artist {
@@ -65,13 +64,14 @@ export default function TopTracks() {
                 throw new Error('Failed to fetch top tracks');
             }
             const data: SpotifyTopTracksResponse = await response.json() as SpotifyTopTracksResponse;
-            console.log(data.items);
             setTracks(data.items);
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             }
         }
+        console.log(error);
+        return error;
     };
 
     useEffect(() => {
