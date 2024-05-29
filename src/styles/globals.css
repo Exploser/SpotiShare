@@ -48,7 +48,7 @@ body {
 }
 
 #spotify-top-tracks-main {
-  margin-top: 100px;
+  margin-top: 50px;
   flex-direction: row;
   padding: 0;
   h1{
@@ -122,4 +122,9 @@ body {
   .spotify-track-title {
     font-size: 1.5rem;
   }
+}
+
+#top-track-heading{
+  color: white;
+  text-shadow: 3px 4px 5px #000000;
 }

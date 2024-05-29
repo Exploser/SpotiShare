@@ -18,9 +18,8 @@ const VolumeController: React.FC = () => {
   }, [volume]);
 
   return (
-    <div className="flex justify-center align-middle" id='volume-controller'>
-      <div className='w-fit bg-gradient-to-bl from-green-700 via-gray-900 to-green-900 p-4 rounded-2xl shadow-xl transition-transform transform text-center'>
-        <label className='m-2' htmlFor="volume">Volume: {Math.round(volume * 100)}%</label>
+      <div className='flex flex-row w-full px-12 '>
+        <label className='w-fit' htmlFor="volume"> {Math.round(volume * 100)}% </label>
         <input
           id="volume"
           type="range"
@@ -29,9 +28,8 @@ const VolumeController: React.FC = () => {
           step="0.01"
           value={volume}
           onChange={handleVolumeChange}
-          className="w-full mt-2"
+          className="w-full mt-2 mx-4"
         />
-      </div>
     </div>
   );
 };

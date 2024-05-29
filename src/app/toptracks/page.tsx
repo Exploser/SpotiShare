@@ -36,7 +36,7 @@ interface SpotifyTopTracksResponse {
     items: Track[];
 }
 export default function TopTracks() {
-    let position = 3;
+    let position = 4;
     const { volume } = useVolume();
     const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -141,9 +141,11 @@ export default function TopTracks() {
 
     return (
         <div>
-            <VolumeController />
-            <div className={`${imageLoaded ? "" : "hidden" }`}>
-                <div className="flex flex-row mb-4 p-12" id="spotify-top-tracks-main">
+            <h1 className={`${imageLoaded ? "font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-4 mx-auto max-w-2xl" : "hidden"}`} id="top-track-heading">
+                Top Tracks
+            </h1>
+            <div className={`${imageLoaded ? "" : "hidden"}`}>
+                <div className="flex flex-row mb-4 p-4" id="spotify-top-tracks-main">
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
@@ -258,7 +260,7 @@ export default function TopTracks() {
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {tracks.slice(3).map((track) => (
-                            <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUpBig' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
+                            <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className="relative w-full" id="spotify-tracks-rest">
                                     <img src={track.album.images[0]?.url} alt={track.name} className="w-full object-contain shadow-xl rounded-md mb-2" />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
@@ -282,17 +284,35 @@ export default function TopTracks() {
                         ))}
                     </ul>
                 </div>
-            </div>
-            <div id="controller">
-                <div className="flex flex-col items-center justify-center mb-4">
-                    <TopTracksController
-                        timeRange={timeRange}
-                        setTimeRange={setTimeRange}
-                        limit={limit}
-                        setLimit={setLimit}
-                        handleRefetch={() => fetchTopTracks(timeRange, limit)}
-                    />
+                <div id="controller">
+                    <div className="flex flex-col items-center justify-center mb-4">
+                        <TopTracksController
+                            timeRange={timeRange}
+                            setTimeRange={setTimeRange}
+                            limit={limit}
+                            setLimit={setLimit}
+                            handleRefetch={() => fetchTopTracks(timeRange, limit)}
+                        />
+                    </div>
                 </div>
+            </div>
+            <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
+                {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
+                <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        {`.spinner_GmWz{ 
+                            fill: white;
+                            animation: spinner_Ctle 0.8s linear infinite; 
+                            animation-delay: -0.8s; }
+
+                            .spinner_NuDr { animation-delay: -0.65s; }
+                            .spinner_OlQ0 { animation-delay: -0.5s; }
+                            @keyframes spinner_Ctle { 93.75%, 100% { opacity: 0.2; } }`}
+                    </style>
+                    <rect className="spinner_GmWz" x="1" y="4" width="6" height="14" />
+                    <rect className="spinner_GmWz spinner_NuDr" x="9" y="4" width="6" height="14" />
+                    <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
+                </svg>
             </div>
         </div>
     );
