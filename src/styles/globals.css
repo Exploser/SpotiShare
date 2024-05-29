@@ -128,3 +128,8 @@ body {
   color: white;
   text-shadow: 3px 4px 5px #000000;
 }
+
+#navbar{
+  background: rgb(61,222,61);
+  background: linear-gradient(298deg, rgba(61,222,61,1) 0%, rgba(33,215,0,1) 7%, rgba(21,130,26,1) 70%);
+}

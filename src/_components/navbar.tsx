@@ -24,7 +24,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50">
       <nav
-        className={`flex justify-between items-center text-xl font-semibold transition-colors duration-300 h-20 bg-opacity-5 ${scrolled ? 'bg-gradient-to-bl from-green-800 to-lime-500 p-4 text-black' : 'text-white bg-transparent p-2'
+        className={`flex justify-between items-center text-xl font-semibold duration-100 h-20 ${scrolled ? 'bg-green-600 bg-opacity-60 p-4 text-black h-fit' : 'text-white bg-transparent h-20 p-2'
           }`}
       >
         <div className="max-w-screen-xl flex justify-between items-center w-full mx-auto">
@@ -34,12 +34,15 @@ export function Navbar() {
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark">Wrapify</span>
             </a>
           </div>
+          
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
+              <div className="clerk-image-auth" id="prof-image">
               <UserButton />
+              </div>
             </SignedIn>
           </div>
         </div>
