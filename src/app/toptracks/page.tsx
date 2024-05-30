@@ -299,6 +299,7 @@ export default function TopTracks() {
                             setLimit={setLimit}
                             handleRefetch={() => fetchTopTracks(timeRange, limit)}
                         />
+                        <SaveTracksButton items={tracks} />
                     </div>
                 </div>
             </div>
