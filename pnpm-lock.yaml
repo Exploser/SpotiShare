@@ -94,7 +94,7 @@ importers:
         specifier: ^7.1.1
         version: 7.9.0(eslint@8.57.0)(typescript@5.4.5)
       drizzle-kit:
-        specifier: ^0.21.0
+        specifier: ^0.21.2
         version: 0.21.2
       eslint:
         specifier: ^8.57.0
