@@ -1,15 +1,13 @@
 // src/server/db/schema.ts
-import { sql } from "drizzle-orm";
+import { sql, relations, One } from "drizzle-orm";
 import {
   index,
   pgTableCreator,
-  serial,
   timestamp,
   varchar,
-  uuid,
   numeric,
-  primaryKey,
   text,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -24,61 +22,100 @@ export const createTable = pgTableCreator((name) => `spotify_share_${name}`);
 export const users = createTable(
   "users",
   {
-    id: uuid("id").notNull().primaryKey().default('gen_random_uuid()'),
+    id: varchar("id").notNull().primaryKey(),
   }
 );
+export const usersRelations = relations(users, ({ many }) => ({
+  tracks: many(tracks),
+}));
 
 // Albums table
 export const albums = createTable(
   "albums",
   {
-    id: serial("id").notNull().primaryKey(), 
+    id: varchar("id").notNull().primaryKey(), 
     name: text("name").notNull(),
+    image: text("image_url"),
     release_date: text("release_date"),
     total_tracks: numeric("total_tracks"),
+    external_url: varchar("external_url"),
   }
-);
-
-// Images table
-export const images = createTable(
-  "images",
-  {
-    id: serial("id").notNull().primaryKey(),
-    url: text("url").notNull(),
-    album_id: varchar("album_id").references(() => albums.id),
-  }
-);
+)
+export const albumsRelations = relations(albums, ({ many }) => ({
+  tracks: many(tracks),
+}));
 
 // Artists table
 export const artists = createTable(
   "artists",
   {
-    id: serial("id").notNull().primaryKey(),
+    id: varchar("id").primaryKey().notNull(),
     name: text("name").notNull(),
+    external_url: text("external_url"),
   }
 );
+export const artistsRelations = relations(artists, ({ many }) => ({
+  tracks: many(tracks),
+}));
+
 
 // Tracks table
 export const tracks = createTable(
   "tracks",
   {
-    id: uuid("id").notNull().primaryKey().default('gen_random_uuid()'),
+    id: varchar("id").primaryKey().notNull(),
     name: text("name").notNull(),
     preview_url: text("preview_url"),
     track_number: numeric("track_number"),
-    album_id: uuid("album_id").references(() => albums.id),
-    user_id: uuid("user_id").references(() => users.id),
+    artists_name: text("artists_name").references(() => artists.name),
+    album_name: text("album_name").references(() => albums.name),
+    user_id: text("user_id").references(() => users.id),
+    popularity: numeric("popularity"),
   }
 );
 
-// Track-Artists table (many-to-many relationship)
-export const trackArtists = createTable(
-  "track_artists",
+export const tracksRelations = relations(tracks, ({ one }) => ({
+  album_id: one(albums,{
+    fields: [tracks.album_name],
+    references: [albums.name],
+  }),
+  user_id: one(users,{
+    fields: [tracks.user_id],
+    references: [users.id],
+  }),
+  artists_id: one(artists,{
+    fields: [tracks.artists_name],
+    references: [artists.name],
+  }),
+}));
+
+export const savedTracks = createTable(
+  "saved_tracks",
   {
-    track_id: uuid("track_id").references(() => tracks.id),
-    artist_id: uuid("artist_id").references(() => artists.id),
-  },
-  (table) => ({
-    pk: primaryKey(table.track_id, table.artist_id),
-  })
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    user_id: text("user_id").references(() => users.id),
+    track_name: text("track_name").references(() => tracks.name),
+    album_name: text("album_name").references(() => albums.name),
+    artists_name: text("artists_name").references(() => artists.name),
+    created_at: timestamp("created_at").default(sql`current_timestamp`),
+  }
 );
+
+export const savedTracksRelations = relations(savedTracks, ({ one }) => ({
+  user_id: one(users, {
+    fields: [savedTracks.user_id],
+    references: [users.id],
+  }),
+  track_name: one(tracks, {
+    fields: [savedTracks.track_name],
+    references: [tracks.name],
+  }),
+  album_id: one(albums, {
+    fields: [savedTracks.album_name],
+    references: [albums.name],
+  }),
+  artists_id: one(artists, {
+    fields: [savedTracks.artists_name],
+    references: [artists.name],
+  }),
+}));
