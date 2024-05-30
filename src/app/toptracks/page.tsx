@@ -4,34 +4,38 @@ import { useEffect, useRef, useState } from "react";
 import TopTracksController from "~/_components/TopTracksController";
 import { useVolume } from "~/context/VolumeContext";
 import 'animate.css';
+import SaveTracksButton from "~/_components/saveButton";
 
-interface Artist {
+export interface Artist {
+    id: string;
     name: string;
     external_urls: {
         spotify: string;
     };
 }
 
-interface Album {
+export interface Album {
+    id: string;
     name: string;
     release_date: string;
     total_tracks: number;
     images: Array<{ url: string; height: number; width: number }>;
 }
 
-interface Track {
+export interface Track {
     id: string;
     name: string;
     artists: Artist[];
     album: Album;
     preview_url: string;
     track_number: number;
+    popularity: number;
     external_urls: {
         spotify: string;
     };
 }
 
-interface SpotifyTopTracksResponse {
+export interface SpotifyTopTracksResponse {
     items: Track[];
 }
 export default function TopTracks() {
@@ -65,23 +69,12 @@ export default function TopTracks() {
             }
             const data: SpotifyTopTracksResponse = await response.json() as SpotifyTopTracksResponse;
             setTracks(data.items);
-            console.log(data.items);
-            const saveTracks = await fetch('/api/saveTracks', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ tracks: data.items }),
-            });
-            if (!saveTracks.ok) {
-                throw new Error('Failed to save tracks');
-            }
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             }
         }
-        
+
         console.log(error);
         return error;
     };
@@ -161,7 +154,7 @@ export default function TopTracks() {
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center"  style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
+                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
                                     <img
                                         src={tracks[1]?.album.images[0]?.url}
