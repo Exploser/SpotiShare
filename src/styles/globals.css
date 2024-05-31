@@ -160,47 +160,45 @@ body {
 }
 #controller-buttons {
   display: flex;
-  height: fit-content;
-  margin-top: 10px;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  transition: all 3s;
+  margin-top: 10px;
+  width: 50%;
 }
 
 #refetch-controller-button {
   width: 120px;
-  max-height: fit-content;
+  flex-grow: 1;
   background-color: rgb(59, 130, 246);
-  border-radius: 8px;
+  flex-basis: 0;
+  transition: flex-grow .3s;
+  -webkit-transition: flex-grow .3s;
+  border: 1px solid rgb(59, 130, 246);
+  border-radius: 10px;
   padding: 10px;
-  flex-shrink: 1;
-  transition: background-color 100ms, flex-grow 300ms ease, flex-basis 6s ease-in-out;
 }
-
 #refetch-controller-button:hover {
+  flex-grow: 5;
   background-color: rgb(14, 66, 150);
-  flex-grow: 2;
-  flex-basis: 200px;
+  transition: flex-grow .3s;
+  -webkit-transition: flex-grow .3s;
 }
-
 #save-controller-button {
-  width: 120px;
   margin-left: 5px;
+  width: 120px;
+  flex-grow: 1;
   background-color: rgb(43, 213, 49);
-  flex-shrink: 1;
-  border-radius: 8px;
+  flex-basis: 0;
+  transition: flex-grow .3s;
+  -webkit-transition: flex-grow .3s;
+  border: 1px solid #0f0;
+  border-radius: 10px;
   padding: 10px;
-  transition: background-color 100ms, flex-grow 300ms ease, flex-basis 6s ease-in-out;
 }
-
 #save-controller-button:hover {
+  flex-grow: 5;
+  transition: flex-grow .3s;
   background-color: rgb(14, 150, 48);
-  flex-grow: 2;
-  flex-basis: 200px;
+  -webkit-transition: flex-grow .3s;
 }
 
 /* Mobile view adjustments */
