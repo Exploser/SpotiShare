@@ -92,11 +92,12 @@ body {
 }
 
 #spotify-top-tracks-main {
-  margin-top: 50px;
+  margin-top: 25px;
   transition-duration: 100ms;
   flex-direction: row;
   padding: 0;
-
+  width: 100%;
+  height: fit-content;
   h1 {
     font-size: 1.5rem;
     margin-top: 10px;
