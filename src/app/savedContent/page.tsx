@@ -1,14 +1,13 @@
 import { db } from "~/server/db";
 
 export default async function Test() {
-    const test = await db.query.tracks.findMany();
+    const test = await db.query.savedTracks.findMany();
     return (
         <div>
-            <h1>Test</h1>
             <ul>
                 {test.map((track) => (
                     <li key={track.id}>
-                        {track.name}
+                        {track.track_name} - {track.album_name} - {track.artists_name}
                     </li>
                 ))}
             </ul>
