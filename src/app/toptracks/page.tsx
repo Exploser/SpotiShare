@@ -282,8 +282,8 @@ export default function TopTracks() {
                             <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className="relative w-full" id="spotify-tracks-rest">
                                     <img 
-                                        src={track.album.images[0]?.url} 
-                                        alt={track.name} 
+                                        src={track.album.images[0]?.url}
+                                        alt={track.name}
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
