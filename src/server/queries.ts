@@ -8,10 +8,10 @@ export async function getMyTracks() {
   
     if (!user.userId) throw new Error("Unauthorized");
 
-    const tracks = await db.query.savedTracks.findMany({
+    const tracks = await db.query.tracks.findMany({
       where: (model, { eq }) => eq(model.user_id, user.userId),
       orderBy: (model, { desc }) => desc(model.id),
     });
-    
+
     return tracks;
   }

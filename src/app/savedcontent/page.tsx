@@ -1,8 +1,10 @@
 import { db } from "~/server/db";
 import { getMyTracks } from "~/server/queries";
 
-export default async function Test() {
+export default async function savedcontent() {
+    console.log("Saved Content Page");
     const tracks = await getMyTracks();
+    console.log(tracks);
     return (
         <div>
             <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
@@ -11,7 +13,7 @@ export default async function Test() {
                             <li key={track.id} className={`min-h-fit relative rounded-lg shadow-md p-2 flex flex-col items-center justify-center`}>
                                 <div className="relative w-full" id="spotify-tracks-rest">
                                     <div className="flex flex-col items-center justify-center">
-                                        <h1 className="text-lg font-bold">{track.track_name}</h1>
+                                        <h1 className="text-lg font-bold">{track.name}</h1>
                                         <h2 className="text-sm">{track.artists_name}</h2>
                                         <h2 className="text-sm">{track.album_name}</h2>
                                     </div>
