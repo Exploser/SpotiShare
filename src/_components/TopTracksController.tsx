@@ -12,13 +12,52 @@ interface TopTracksControllerProps {
   items: any[];
 }
 
-const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, setTimeRange, limit, setLimit, handleRefetch }) => {
+const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, setTimeRange, limit, setLimit, handleRefetch, items }) => {
+  const [isSaving, setIsSaving] = useState(false);
+  const [refetchAttempted, setRefetchAttempted] = useState(false);
+  const initialTimeRange = 'medium_term';
+  const initialLimit = 19;
+
   const handleTimeRangeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTimeRange(e.target.value);
   };
 
   const handleLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLimit(Number(e.target.value));
+  };
+
+  const handleSaveTracks = async () => {
+    if (isSaving) return; // Prevent the function from running if it's already in progress
+
+    setIsSaving(true);
+    try {
+      const response = await fetch('/api/saveTracks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save tracks');
+      }
+
+      // Handle success (optional)
+      console.log('Tracks saved successfully');
+    } catch (error) {
+      console.error(error);
+      // Handle error (optional)
+    } finally {
+      setIsSaving(false); // Re-enable the button after the operation is complete
+    }
+  };
+
+  const handleRefetchIfDifferent = () => {
+    setRefetchAttempted(true);
+    if (timeRange !== initialTimeRange || limit != initialLimit) {
+      handleRefetch();
+    }
   };
 
   return (
@@ -60,6 +99,9 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
         className={`bg-blue-500 text-white px-4 py-2 rounded-md my-2`}
       >
         Refetch Tracks
+      </button>
+      <button onClick={handleSaveTracks} disabled={isSaving}>
+        {isSaving ? 'Saving...' : 'Save Tracks'}
       </button>
     </div>
   );
