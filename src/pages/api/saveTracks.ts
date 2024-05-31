@@ -36,7 +36,7 @@ const saveTracks = async (req: NextApiRequest, res: NextApiResponse) => {
 
           if (!trackAlbum) {
             console.error('Album data or album id is missing:', trackAlbum);
-            continue; // Skip to the next trackData
+            // continue; // Skip to the next trackData
           }
 
           try {
@@ -48,18 +48,18 @@ const saveTracks = async (req: NextApiRequest, res: NextApiResponse) => {
             });
           } catch (error) {
             console.error('Error inserting album:', error);
-            continue; // Skip to the next trackData if album insertion fails
+            // continue; // Skip to the next trackData if album insertion fails
           }
 
           if (!trackArtist || !Array.isArray(trackArtist)) {
             console.error('Artists data is missing or not an array:', artists);
-            continue; // Skip to the next trackData
+            // continue; // Skip to the next trackData
           }
 
           for (const artist of trackArtist) {
             if (!artist.id) {
               console.error('Artist id is missing:', artist);
-              continue; // Skip to the next artist
+              // continue; // Skip to the next artist
             }
 
             try {
@@ -74,7 +74,7 @@ const saveTracks = async (req: NextApiRequest, res: NextApiResponse) => {
 
           if (!trackData.id) {
             console.error('Track id is missing:', trackData);
-            continue; // Skip to the next trackData
+            // continue; // Skip to the next trackData
           }
 
           try {
