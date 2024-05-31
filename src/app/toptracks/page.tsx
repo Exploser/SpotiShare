@@ -61,7 +61,6 @@ export default function TopTracks() {
     };
     const fetchTopTracks = async (timeRange: string, limit: number) => {
         try {
-            setImageLoaded(false);
             const url = buildSpotifyAPIUrl(timeRange, limit);
             const response = await fetch(url);
             if (!response.ok) {

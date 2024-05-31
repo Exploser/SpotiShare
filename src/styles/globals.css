@@ -231,7 +231,7 @@ body {
 }
 #spotify-tracks-rest:hover {
   transition-duration: 100ms;
-  scale: 1.03;
+  scale: 1.06;
   #spotify-tracks-rest-details {
     opacity: 1;
     visibility: visible;
