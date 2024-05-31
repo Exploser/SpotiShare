@@ -247,6 +247,7 @@ export default function TopTracks() {
                             limit={limit}
                             setLimit={setLimit}
                             handleRefetch={() => fetchTopTracks(timeRange, limit)}
+                            items={artists}
                         />
                     </div>
                 </div>

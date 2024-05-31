@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import VolumeController from './VolumeController';
+import { Artist, Track } from '~/app/toptracks/page';
 
 interface TopTracksControllerProps {
   timeRange: string;
@@ -9,7 +10,7 @@ interface TopTracksControllerProps {
   limit: number;
   setLimit: (value: number) => void;
   handleRefetch: () => void;
-  items: any[];
+  items: Track[] | Artist[];
 }
 
 const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, setTimeRange, limit, setLimit, handleRefetch, items }) => {
