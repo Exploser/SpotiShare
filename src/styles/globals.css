@@ -7,6 +7,7 @@
   --color-secondary: #2aa80b;
   --background-color: #409c22;
 }
+
 body {
   box-sizing: border-box;
   margin: 0;
@@ -17,42 +18,49 @@ body {
 
 body {
   margin: auto;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
-  background: linear-gradient(315deg, rgb(22, 101, 0) 3%, rgba(60,132,206,1) 38%, rgb(124, 238, 48) 68%, rgb(75, 255, 25) 98%);
+  background: linear-gradient(315deg, rgb(22, 101, 0) 3%, rgba(60, 132, 206, 1) 38%, rgb(124, 238, 48) 68%, rgb(75, 255, 25) 98%);
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
   background-attachment: fixed;
 }
-.animated-hover{
+
+.animated-hover {
   animation: float 6s ease-in-out infinite;
 }
 
-#spotify-profile-card{
-  background: rgb(5,150,14);
-  background: linear-gradient(38deg, rgba(5,150,14,0.8) 0%, rgba(0,85,103,0.8) 38%, rgba(2,47,112,0.8) 64%, rgba(57,175,16,0.8) 100%);
+#spotify-profile-card {
+  background: rgb(5, 150, 14);
+  background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
+  animation: gradient 10s ease infinite;
+  background-size: 200% 200%;
 }
-#spotify-profile-card:hover{
-  background: rgb(5,150,14);
-  background: linear-gradient(38deg, rgba(5,150,14,1) 0%, rgba(0,85,103,1) 38%, rgba(2,47,112,1) 64%, rgba(57,175,16,1) 100%);
+
+#spotify-profile-card:hover {
+  background: rgb(5, 150, 14);
+  background: linear-gradient(38deg, rgb(7, 174, 19) 0%, rgb(6, 119, 142) 38%, rgb(2, 58, 137) 64%, rgb(58, 202, 10) 100%);
 }
-#tracks-rest-artist{
+
+#tracks-rest-artist {
   color: white;
   text-shadow: 1px 1px 1px #000000;
 }
-#spotify-profile-name{
+
+#spotify-profile-name {
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px #000000;
 }
-#spotify-features{
+
+#spotify-features {
   background: rgb(5, 150, 7, 0.6);
-  background: linear-gradient(27deg, rgba(5, 150, 7, 0.8) 0%, rgba(19, 103, 0, 0.8) 41%, rgba(24, 112, 2, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
-  border-radius: 1rem; 
+  background: linear-gradient(27deg, rgba(5, 150, 7, 0.2) 0%, rgba(12, 133, 71, 0.4) 41%, rgba(56, 177, 26, 0.4) 64%, rgba(57, 175, 16, 0.2) 100%);
+  border-radius: 1rem;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-#spotify-features:hover{
+
+#spotify-features:hover {
   background: rgb(5, 150, 7, 0.8);
   background: linear-gradient(27deg, rgba(5, 150, 7, 1) 0%, rgba(19, 103, 0, 1) 41%, rgba(24, 112, 2, 1) 64%, rgba(57, 175, 16, 1) 100%);
 }
@@ -69,15 +77,16 @@ body {
   transform: scale(1.05);
 }
 
-#top-tracks-controller{
+#top-tracks-controller {
   width: 50%;
-
 }
-.spotify-track-title{
+
+.spotify-track-title {
   color: white;
   text-shadow: 1px 1px 3px #000000;
 }
-#volume-controller{
+
+#volume-controller {
   margin-top: 10px;
   color: white;
 }
@@ -87,30 +96,36 @@ body {
   transition-duration: 100ms;
   flex-direction: row;
   padding: 0;
-  h1{
+
+  h1 {
     font-size: 1.5rem;
     margin-top: 10px;
   }
 }
 
-#spotify-top-tracks-main > div {
+#spotify-top-tracks-main>div {
   margin-bottom: 16px;
 }
 
-#spotify-top-track-first{
+#spotify-top-track-first {
   rotate: 5deg;
   margin-bottom: 10px;
+  h1{
+    rotate: 0deg;
+  }
 }
-#spotify-top-track-first:hover{
+
+#spotify-top-track-first:hover {
   transition-duration: 100ms;
   rotate: 0deg;
   scale: 1.05;
 }
 
-#spotify-top-track-second{
+#spotify-top-track-second {
   margin-top: 10%;
-} 
-#spotify-top-track-second:hover{
+}
+
+#spotify-top-track-second:hover {
   transition-duration: 100ms;
   scale: 1.05;
 }
@@ -118,22 +133,26 @@ body {
 #spotify-top-track-third {
   margin-top: 10%;
 }
-#spotify-top-track-third:hover{
+
+#spotify-top-track-third:hover {
   transition-duration: 100ms;
   scale: 1.05;
 }
+
 #spotify-artists-rest {
   width: auto;
   padding-top: 4px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  img{
+
+  img {
     object-fit: contain;
     border: 0px;
     border-radius: 10%;
   }
 }
+
 #controller {
   justify-content: center;
   padding: 0 16px;
@@ -145,13 +164,16 @@ body {
     margin-top: 10px;
     padding: 10px;
     flex-direction: column;
-    h1{
+
+    h1 {
       font-size: 1.5rem;
       margin-top: 10px;
     }
   }
 
-  #spotify-top-track-first, #spotify-top-track-second, #spotify-top-track-third {
+  #spotify-top-track-first,
+  #spotify-top-track-second,
+  #spotify-top-track-third {
     margin-bottom: 10px;
   }
 
@@ -163,6 +185,26 @@ body {
     height: fit-content;
     object-fit: cover;
   }
+}
+#spotify-tracks-rest:hover {
+  transition-duration: 100ms;
+  scale: 1.03;
+  #spotify-tracks-rest-details {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
+  }
+}
+#spotify-tracks-rest-details {
+  opacity: 0;
+  border-radius: 10px;
+  transition-duration: 300ms;
+  width: full;
+  scale: 1.02;
+}
+#controller{
+  width: 100%;
 }
 
 /* Tablet view adjustments */
@@ -176,7 +218,9 @@ body {
     padding: 0 16px;
   }
 
-  #spotify-top-track-first, #spotify-top-track-second, #spotify-top-track-third {
+  #spotify-top-track-first,
+  #spotify-top-track-second,
+  #spotify-top-track-third {
     width: 50%;
     margin-bottom: 16px;
   }
@@ -186,14 +230,14 @@ body {
   }
 }
 
-#top-track-heading{
+#top-track-heading {
   color: white;
   text-shadow: 3px 4px 5px #000000;
 }
 
-#navbar{
-  background: rgb(61,222,61);
-  background: linear-gradient(298deg, rgba(61,222,61,1) 0%, rgba(33,215,0,1) 7%, rgba(21,130,26,1) 70%);
+#navbar {
+  background: rgb(61, 222, 61);
+  background: linear-gradient(298deg, rgba(61, 222, 61, 1) 0%, rgba(33, 215, 0, 1) 7%, rgba(21, 130, 26, 1) 70%);
 }
 
 #loader {
@@ -272,83 +316,107 @@ body {
   0% {
     transform: translate(0, -1em) rotate(-45deg);
   }
+
   5% {
     transform: translate(0, -1em) rotate(-50deg);
   }
+
   20% {
     transform: translate(1em, -2em) rotate(47deg);
   }
+
   25% {
     transform: translate(1em, -2em) rotate(45deg);
   }
+
   30% {
     transform: translate(1em, -2em) rotate(40deg);
   }
+
   45% {
     transform: translate(2em, -3em) rotate(137deg);
   }
+
   50% {
     transform: translate(2em, -3em) rotate(135deg);
   }
+
   55% {
     transform: translate(2em, -3em) rotate(130deg);
   }
+
   70% {
     transform: translate(3em, -4em) rotate(217deg);
   }
+
   75% {
     transform: translate(3em, -4em) rotate(220deg);
   }
+
   100% {
     transform: translate(0, -1em) rotate(-225deg);
   }
 }
+
 @keyframes float {
-	0% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
-	50% {
-		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-		transform: translatey(-20px);
-	}
-	100% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
+  0% {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
+  }
+
+  50% {
+    box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+    transform: translatey(-20px);
+  }
+
+  100% {
+    box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+    transform: translatey(0px);
+  }
 }
 
 @keyframes wave {
   2% {
-      transform: translateX(1);
+    transform: translateX(1);
   }
 
   25% {
-      transform: translateX(-25%);
+    transform: translateX(-25%);
   }
 
   50% {
-      transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 
   75% {
-      transform: translateX(-25%);
+    transform: translateX(-25%);
   }
 
   100% {
-      transform: translateX(1);
+    transform: translateX(1);
   }
 }
 
 @keyframes gradient {
   0% {
-      background-position: 0% 0%;
+    background-position: 0% 0%;
   }
+
   50% {
-      background-position: 100% 100%;
+    background-position: 100% 100%;
   }
+
   100% {
-      background-position: 0% 0%;
+    background-position: 0% 0%;
   }
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
