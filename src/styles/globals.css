@@ -158,6 +158,50 @@ body {
   justify-content: center;
   padding: 0 16px;
 }
+#controller-buttons {
+  display: flex;
+  height: fit-content;
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 3s;
+}
+
+#refetch-controller-button {
+  width: 120px;
+  max-height: fit-content;
+  background-color: rgb(59, 130, 246);
+  border-radius: 8px;
+  padding: 10px;
+  flex-shrink: 1;
+  transition: background-color 100ms, flex-grow 300ms ease, flex-basis 6s ease-in-out;
+}
+
+#refetch-controller-button:hover {
+  background-color: rgb(14, 66, 150);
+  flex-grow: 2;
+  flex-basis: 200px;
+}
+
+#save-controller-button {
+  width: 120px;
+  margin-left: 5px;
+  background-color: rgb(43, 213, 49);
+  flex-shrink: 1;
+  border-radius: 8px;
+  padding: 10px;
+  transition: background-color 100ms, flex-grow 300ms ease, flex-basis 6s ease-in-out;
+}
+
+#save-controller-button:hover {
+  background-color: rgb(14, 150, 48);
+  flex-grow: 2;
+  flex-basis: 200px;
+}
 
 /* Mobile view adjustments */
 @media (max-width: 768px) {

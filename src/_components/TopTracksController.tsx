@@ -95,15 +95,20 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
         </div>
       </div>
       <VolumeController />
-      <button
-        onClick={handleRefetchIfDifferent}
-        className={`bg-blue-500 text-white px-4 py-2 rounded-md my-2`}
-      >
-        Refetch Tracks
-      </button>
-      <button onClick={handleSaveTracks} disabled={isSaving}>
-        {isSaving ? 'Saving...' : 'Save Tracks'}
-      </button>
+      <div id='controller-buttons'>
+        <button
+          onClick={handleRefetchIfDifferent}
+          id='refetch-controller-button'
+        >
+          Refetch
+        </button>
+        <button 
+        onClick={handleSaveTracks} disabled={isSaving}
+        id='save-controller-button'
+        >
+          {isSaving ? 'Saving...' : 'Save'}
+        </button>
+      </div>
     </div>
   );
 };
