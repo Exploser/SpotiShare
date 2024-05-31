@@ -200,6 +200,30 @@ body {
   background-color: rgb(14, 150, 48);
   -webkit-transition: flex-grow .3s;
 }
+#spotify-features-buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: full;
+  a{
+    margin-left: 5px;
+    width: 120px;
+    height: fit-content;
+    flex-basis: 0;
+    transition: flex-grow .3s;
+    flex-grow: 1;
+    -webkit-transition: flex-grow .3s;
+    border: 1px solid #0f0;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  a:hover{
+    flex-grow: 5;
+    transition: flex-grow .3s;
+    background-color: rgb(14, 150, 48);
+    -webkit-transition: flex-grow .3s;
+  }
+}
 
 /* Mobile view adjustments */
 @media (max-width: 768px) {
