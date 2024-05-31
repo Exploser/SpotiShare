@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import VolumeController from './VolumeController';
 import { Artist, Track } from '~/app/toptracks/page';
+import { useVolume } from '~/context/VolumeContext';
 
 interface TopTracksControllerProps {
   timeRange: string;
@@ -60,6 +60,19 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
       handleRefetch();
     }
   };
+  const { volume, setVolume } = useVolume();
+
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(Number(event.target.value));
+  };
+
+  useEffect(() => {
+    const audioElements: NodeListOf<HTMLAudioElement> = document.querySelectorAll('audio.playing');
+    audioElements.forEach(audio => {
+      audio.volume = volume;
+    });
+  }, [volume]);
+
 
   return (
     <div className="flex flex-col items-center text-white justify-center p-6 bg-gradient-to-bl from-green-700 via-gray-900 to-green-900 rounded-lg shadow-xl transition-transform transform my-12" id="top-tracks-controller">
@@ -67,47 +80,61 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
       {refetchAttempted && (timeRange === initialTimeRange || limit === initialLimit) && (
         <p className="text-red-500 mt-2">Please change the time range or offset to refetch tracks.</p>
       )}
-      <div className="flex flex-row my-2">
-        <div className="flex flex-col justify-between mr-4">
-          <label className="mb-2">
-            Time Range:
-            <select
-              value={timeRange}
-              onChange={handleTimeRangeChange}
-              className="ml-2 p-2 rounded-md text-black bg-white"
-            >
-              <option value="short_term">Short Term</option>
-              <option value="medium_term">Medium Term</option>
-              <option value="long_term">Long Term</option>
-            </select>
-          </label>
+      <div className='flex flex-col justify-center items-center w-full'>
+        <div className="flex flex-row my-2 w-full px-24 justify-center items-center">
+          <div className="flex flex-col justify-between items-center mr-4">
+            <label>
+              Time Range:
+              <select
+                value={timeRange}
+                onChange={handleTimeRangeChange}
+                className="ml-2 p-2 rounded-md text-black bg-white"
+              >
+                <option value="short_term">Short Term</option>
+                <option value="medium_term">Medium Term</option>
+                <option value="long_term">Long Term</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Limit:
+              <input
+                type="number"
+                value={limit}
+                onChange={handleLimitChange}
+                className="w-12 text-black bg-white rounded-md p-1 ml-2"
+              />
+            </label>
+          </div>
         </div>
-        <div>
-          <label>
-            Limit:
-            <input
-              type="number"
-              value={limit}
-              onChange={handleLimitChange}
-              className="w-12 text-black bg-white rounded-md p-1 ml-2"
-            />
-          </label>
+        <div className='flex flex-row my-2 w-full px-24'>
+          <label className=' whitespace-nowrap mx-2' htmlFor="volume"> Volume: {Math.round(volume * 100)}% </label>
+          <input
+            id="volume"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="w-full"
+          />
         </div>
-      </div>
-      <VolumeController />
-      <div id='controller-buttons'>
-        <button
-          onClick={handleRefetchIfDifferent}
-          id='refetch-controller-button'
-        >
-          Refetch
-        </button>
-        <button 
-        onClick={handleSaveTracks} disabled={isSaving}
-        id='save-controller-button'
-        >
-          {isSaving ? 'Saving...' : 'Save'}
-        </button>
+        <div id='controller-buttons'>
+          <button
+            onClick={handleRefetchIfDifferent}
+            id='refetch-controller-button'
+          >
+            Refetch
+          </button>
+          <button
+            onClick={handleSaveTracks} disabled={isSaving}
+            id='save-controller-button'
+          >
+            {isSaving ? 'Saving...' : 'Save'}
+          </button>
+        </div>
       </div>
     </div>
   );
