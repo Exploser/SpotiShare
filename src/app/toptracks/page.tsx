@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import TopTracksController from "~/_components/TopTracksController";
 import { useVolume } from "~/context/VolumeContext";
 import 'animate.css';
-import SaveTracksButton from "~/_components/saveButton";
 
 export interface Artist {
     id: string;
@@ -62,6 +61,7 @@ export default function TopTracks() {
     };
     const fetchTopTracks = async (timeRange: string, limit: number) => {
         try {
+            setImageLoaded(false);
             const url = buildSpotifyAPIUrl(timeRange, limit);
             const response = await fetch(url);
             if (!response.ok) {
@@ -145,11 +145,13 @@ export default function TopTracks() {
     };
 
     return (
+
         <div>
             <h1 className={`${imageLoaded ? "font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-4 mx-auto max-w-2xl" : "hidden"}`} id="top-track-heading">
                 Top Tracks
             </h1>
-            <div className={`${imageLoaded ? "" : "hidden"}`}>
+            <div className={`${imageLoaded ? "w-full flex flex-col justify-center items-center" : "hidden"}`}>
+
                 <div className="flex flex-row mb-4 p-4" id="spotify-top-tracks-main">
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
@@ -197,7 +199,13 @@ export default function TopTracks() {
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
                                 <div className="relative w-full h-64" id="test">
-                                    <img src={tracks[0]?.album.images[0]?.url} alt={tracks[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <img src={tracks[0]?.album.images[0]?.url}
+                                        onLoad={() => {
+                                            setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        }}
+                                        alt={tracks[0]?.name}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                    />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[0]?.album.name}
@@ -230,9 +238,15 @@ export default function TopTracks() {
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-track-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
+                            <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center flex-shrink-1" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={tracks[2]?.album.images[0]?.url} alt={tracks[2]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <img src={tracks[2]?.album.images[0]?.url}
+                                        alt={tracks[2]?.name}
+                                        onLoad={() => {
+                                            setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        }}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                    />
                                     <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
                                         <p className="text-sm text-gray-300 text-center mb-2">
                                             Album: {tracks[2]?.album.name}
@@ -262,13 +276,20 @@ export default function TopTracks() {
                     </div>
                 </div>
 
-                <div className="max-w-screen-lg mx-auto h-auto w-full text-white flex flex-col items-center justify-center">
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                <div className="max-w-screen-lg h-full w-fit text-white">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full">
                         {tracks.slice(3).map((track) => (
                             <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className="relative w-full" id="spotify-tracks-rest">
-                                    <img src={track.album.images[0]?.url} alt={track.name} className="w-full object-contain shadow-xl rounded-md mb-2" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                    <img 
+                                        src={track.album.images[0]?.url} 
+                                        alt={track.name} 
+                                        onLoad={() => {
+                                            setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        }}
+                                        className="w-full object-contain shadow-xl rounded-md mb-2"
+                                    />
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {track.album.name}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Track: {track.track_number} of {track.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {track.artists.map(artist => artist.name).join(', ')}</p>
@@ -298,8 +319,8 @@ export default function TopTracks() {
                             limit={limit}
                             setLimit={setLimit}
                             handleRefetch={() => fetchTopTracks(timeRange, limit)}
+                            items={tracks}
                         />
-                        <SaveTracksButton items={tracks} />
                     </div>
                 </div>
             </div>
