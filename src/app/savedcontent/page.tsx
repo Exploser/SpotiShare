@@ -1,8 +1,8 @@
-import { db } from "~/server/db";
 import { getMyTracks } from "~/server/queries";
 
 export default async function savedcontent() {
     const tracks = await getMyTracks();
+
     const removeTextInParentheses = (str: string) => {
         const splitStr = str.split('(');
         if (splitStr.length > 0) {
