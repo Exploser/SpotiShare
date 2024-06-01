@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { VolumeProvider, useVolume } from '../context/VolumeContext';
-import VolumeController from './VolumeController';
 
 interface Artist {
     name: string;
@@ -92,7 +91,6 @@ const GetTopTracks: React.FC = () => {
     return (
         <VolumeProvider>
             <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
-                <VolumeController />
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                     {tracks.map((track) => (
                         <li key={track.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center">
