@@ -65,12 +65,12 @@ export const tracks = createTable(
   {
     id: varchar("id").primaryKey().notNull(),
     name: text("name").notNull(),
-    preview_url: text("preview_url"),
-    track_number: numeric("track_number"),
+    image_url: text("image_url"),
     artists_name: text("artists_name").references(() => artists.name),
     album_name: text("album_name").references(() => albums.name),
     user_id: text("user_id").references(() => users.id),
     popularity: numeric("popularity"),
+    created_at: timestamp("created_at").default(sql`current_timestamp`),
   }
 );
 
