@@ -140,17 +140,104 @@ body {
   scale: 1.05;
 }
 
-#spotify-artists-rest {
+#spotify-artist-first {
   width: auto;
-  padding-top: 4px;
+  padding-top: 2px;
+  margin-bottom: 20vh;
   height: fit-content;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
-
   img {
+    height: 214px;
     object-fit: contain;
     border: 0px;
     border-radius: 10%;
+  }
+}
+
+#spotify-artist-first:hover {
+  transition-duration: 100ms;
+  scale: 1.06;
+  #spotify-artist-first-details {
+    opacity: 1;
+    scale: 1.02;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
+  }
+}
+
+#spotify-artist-second {
+  width: auto;
+  padding-top: 2px;
+  height: fit-content;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 214px;
+    object-fit: contain;
+    border: 0px;
+    border-radius: 10%;
+  }
+}
+#spotify-artist-second:hover {
+  transition-duration: 100ms;
+  scale: 1.06;
+  #spotify-artist-rest-details {
+    opacity: 1;
+    scale: 1.02;
+    visibility: visible;
+    transition-duration: 300ms;
+  }
+}
+#spotify-artist-rest-details {
+  opacity: 1;
+  scale: 1.02;
+  visibility: visible;
+  transition-duration: 300ms;
+  border-radius: 200px;
+}
+
+#spotify-artist-third {
+  width: auto;
+  padding-top: 2px;
+  height: fit-content;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 214px;
+    object-fit: contain;
+    border: 0px;
+    border-radius: 10%;
+  }
+}
+
+#spotify-artists-rest {
+  width: auto;
+  padding-top: 2px;
+  height: fit-content;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 214px;
+    object-fit: contain;
+    border: 0px;
+    border-radius: 10%;
+  }
+}
+#spotify-artists-rest:hover{
+  transition-duration: 100ms;
+  scale: 1.06;
+  #spotify-artists-rest-details{
+    opacity: 1;
+    scale: 1.02;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
   }
 }
 
@@ -220,7 +307,6 @@ body {
   a:hover{
     flex-grow: 5;
     transition: flex-grow .3s;
-    background-color: rgb(14, 150, 48);
     -webkit-transition: flex-grow .3s;
   }
 }

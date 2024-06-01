@@ -102,44 +102,35 @@ export default function TopTracks() {
 
     return (
         <div>
-            <h1 className={`${imageLoaded ? "font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight artisting-tight font-bold my-4 mx-auto max-w-2xl" : "hidden"}`} id="top-artist-heading">
+            <h1 className={`${imageLoaded ? "font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-4 mx-auto max-w-2xl" : "hidden"}`} id="top-track-heading">
                 Top Artists
             </h1>
             <div className={`${imageLoaded ? "" : "hidden"}`}>
             <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
 
-                {/* <div className="flex flex-row mb-4 p-4" id="spotify-top-artists-main">
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-artist-second">
+                <div className="flex flex-row mb-4 p-4" id="spotify-top-artists-main">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white rounded-2xl flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-artist-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {artists.length > 0 && (
-                            <li key={artists[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center">
-                                <div className="relative w-full h-64">
+                            <li key={artists[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }}>
+                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }}>
                                     <img
-                                        src={artists[1]?.album.images[0]?.url}
+                                        src={artists[1]?.images[0]?.url}
                                         alt={artists[1]?.name}
                                         className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {artists[1]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {artists[1]?.artist_number} of {artists[1]?.album.total_artists}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {artists[1]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(artists[1]?.id ?? '')}
-                                        >
-                                            {currentTrackId === artists[1]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${artists[1]?.id}`} src={artists[1]?.preview_url} className="hidden"></audio>
-                                        <a href={artists[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[1]?.popularity}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[1]?.followers.total}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <a href={artists[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
+                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[1]?.genres.map(genres => genres).join(', ')}</p>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
@@ -155,26 +146,16 @@ export default function TopTracks() {
                         {artists.length > 0 && (
                             <li key={artists[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }}>
                                 <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }}>
-                                    <img src={artists[0]?.album.images[0]?.url} alt={artists[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {artists[0]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {artists[0]?.artist_number} of {artists[0]?.album.total_artists}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {artists[0]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(artists[0]?.id ?? '')}
-                                        >
-                                            {currentTrackId === artists[0]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${artists[0]?.id}`} src={artists[0]?.preview_url} className="hidden"></audio>
-
-                                        <a href={artists[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <img src={artists[0]?.images[0]?.url} alt={artists[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[0]?.popularity}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[0]?.followers.total}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <a href={artists[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
+                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[0]?.genres.map(genres => genres).join(', ')}</p>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
@@ -190,19 +171,16 @@ export default function TopTracks() {
                         {artists.length > 0 && (
                             <li key={artists[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[2]?.id ?? ""] }}>
                                 <div className="relative w-full h-64">
-                                    <img src={artists[2]?.album.images[0]?.url} alt={artists[2]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {artists[2]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {artists[2]?.artist_number} of {artists[2]?.album.total_artists}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {artists[2]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <audio id={`audio-${artists[2]?.id}`} src={artists[2]?.preview_url} className="hidden"></audio>
-                                        <a href={artists[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <img src={artists[2]?.images[0]?.url} alt={artists[2]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
+                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[2]?.popularity}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[2]?.followers.total}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <a href={artists[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
+                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[2]?.genres.map(genres => genres).join(', ')}</p>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[artists[2]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
@@ -212,17 +190,17 @@ export default function TopTracks() {
                         )}
                         <h1>#3</h1>
                     </div>
-                </div> */}
+                </div>
 
                 <div className="max-w-screen-lg mx-auto p-4 h-auto w-full text-white flex flex-col items-center justify-center">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                        {artists.map((artist) => (
+                        {artists.slice(3).map((artist) => (
                             <li key={artist.id} className={`min-h-fit relative rounded-lg shadow-md p-2 flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[artist.id] }}>
-                                <div className="relative w-full" id="spotify-artists-rest">
+                                <div className="w-full" id="spotify-artists-rest">
                                     <img src={artist.images[0]?.url} alt={artist.name} className="shadow-xl rounded-md mb-2" onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}/>
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
+                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artist.popularity}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Followers: {artist.followers.total}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
