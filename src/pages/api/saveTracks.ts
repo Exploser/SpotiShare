@@ -76,17 +76,15 @@ const saveTracks = async (req: NextApiRequest, res: NextApiResponse) => {
             console.error('Track id is missing:', trackData);
             // continue; // Skip to the next trackData
           }
-
           try {
             await db.insert(tracks).values({
               id: trackData.id,
               name: trackData.name,
-              preview_url: trackData.preview_url,
-              track_number: trackData.track_number.toString(), // Convert track_number to string
+              image_url: trackData.album.images[0]?.url,
               album_name: trackAlbum.name,
               artists_name: trackArtist.map((artist) => artist.name).join(', '),
               user_id: userId,
-              popularity: trackData.popularity?.toString() || '0', // Convert popularity to string or default to '0'
+              popularity: trackData.popularity?.toString() || '0',
             });
           } catch (error) {
             console.error('Error inserting track:', error);
