@@ -85,50 +85,84 @@ interface Image {
     tracks: Track[];
   }
 
-export default function discover() {
+export default function Discover() {
+    const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [artists, setTracks] = useState<any[]>([]);
-    const [timeRange, setTimeRange] = useState('medium_term');
-    const [limit, setLimit] = useState(19);
-    const buildSpotifyAPIUrl = (timeRange = 'seed_artists=4NHQUGzhtTLFvgF5SZesLK', limit = 19, offset = 0) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
+
+    const [seed_genres, setSeedGenres] = useState('heavy-metal');
+    const [seed_artists, setSeedArtists] = useState('2h93pZq0e7k5yf4dywlkpM');
+    const [seed_tracks, setSeedTracks] = useState('0725YWm6Z0TpZ6wrNk64Eb');
+
+    const buildSpotifyAPIUrl = (seed_tracks?: string, seed_artists?: string, seed_genres?: string) => {
         const baseUrl = '/api/spotifyAPICalls/getRecommendations';
-        const params = new URLSearchParams({
-            time_range: timeRange,
-            limit: limit.toString(),
-            offset: offset.toString(),
-        });
-        // return `${baseUrl}?${params.toString()}`;
-        return baseUrl;
+        if (!seed_tracks && !seed_artists && !seed_genres) {
+            return baseUrl;
+        } else if (seed_tracks && seed_artists && !seed_genres) {
+            return `${baseUrl}?seed_tracks=${seed_tracks}&seed_artists=${seed_artists}`;
+        } else if (seed_tracks && seed_artists && seed_genres) {
+            const params = new URLSearchParams({
+                seed_tracks: seed_tracks,
+                seed_artists: seed_artists,
+                seed_genres: seed_genres,
+            });
+            return `${baseUrl}?${params.toString()}`;
+        } else {
+            return 'Error';
+        }
     };
-    const fetchTopTracks = async (timeRange: string, limit: number) => {
+    const fetchTopTracks = async (seed_tracks: string, seed_artists: string, seed_genres: string) => {
+        console.log(seed_tracks, seed_artists, seed_genres);
         try {
-            const url = buildSpotifyAPIUrl(timeRange, limit);
+            const url = buildSpotifyAPIUrl();
+            console.log(url);
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error('Failed to fetch top artists');
+                throw new Error('Failed to fetch top tracks');
             }
-            const data: SpotifyTopTracksResponse = await response.json() as SpotifyTopTracksResponse;
-            setTracks(data.items);
-            console.log(data.items);
+            const data: TracksResponse = await response.json() as TracksResponse;
+            setTracks(data.tracks);
+            console.log(data.tracks);
         } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             }
         }
+
         console.log(error);
         return error;
     };
+
     useEffect(() => {
-        fetchTopTracks(timeRange, limit).catch((err) => console.error(err));
+        fetchTopTracks(seed_tracks, seed_artists, seed_genres).catch((err) => console.error(err));
     }, []);
 
-    return (
-        <section>
-            {artists.map((track) => (
-                <div key={track.id}>
-                    <h1>{track.tracks.album.album_type}</h1>
-                </div>
-            ))}
-        </section>
-    )
+  return (
+    <section>
+        <SavedController 
+            seedtracks={seed_tracks}
+            setSeedTracks={setSeedTracks}
+            seedartists={seed_artists}
+            setSeedArtists={setSeedArtists}
+            seedgenres={seed_genres}
+            setSeedGenres={setSeedGenres}
+            handleRefetch={() => fetchTopTracks(seed_tracks, seed_artists, seed_genres)}
+         />
+        {tracks.length > 0 && (
+            <div>
+                <h2>Recommendations</h2>
+                <ul>
+                    {tracks.map((track) => (
+                        <li key={track.id}>
+                            <h3>{track.name}</h3>
+                            <img src={`${track.album.images[0]?.url}`} alt={track.name} />
+                            <p>{track.album.name}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )}
+    </section>
+  );
 }
