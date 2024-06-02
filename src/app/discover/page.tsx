@@ -91,31 +91,34 @@ export default function Discover() {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
 
-    const [seed_genres, setSeedGenres] = useState('heavy-metal');
-    const [seed_artists, setSeedArtists] = useState('2h93pZq0e7k5yf4dywlkpM');
     const [seed_tracks, setSeedTracks] = useState('0725YWm6Z0TpZ6wrNk64Eb');
+    const [seed_artists, setSeedArtists] = useState('2h93pZq0e7k5yf4dywlkpM');
+    const [seed_genres, setSeedGenres] = useState('heavy-metal');
 
     const buildSpotifyAPIUrl = (seed_tracks?: string, seed_artists?: string, seed_genres?: string) => {
-        const baseUrl = '/api/spotifyAPICalls/getRecommendations';
-        if (!seed_tracks && !seed_artists && !seed_genres) {
-            return baseUrl;
-        } else if (seed_tracks && seed_artists && !seed_genres) {
-            return `${baseUrl}?seed_tracks=${seed_tracks}&seed_artists=${seed_artists}`;
-        } else if (seed_tracks && seed_artists && seed_genres) {
-            const params = new URLSearchParams({
-                seed_tracks: seed_tracks,
-                seed_artists: seed_artists,
-                seed_genres: seed_genres,
-            });
-            return `${baseUrl}?${params.toString()}`;
-        } else {
-            return 'Error';
-        }
+      const baseUrl = '/api/spotifyAPICalls/getRecommendations';
+      const params = new URLSearchParams();
+    
+      if (seed_tracks) {
+        params.append('seed_tracks', seed_tracks);
+      }
+    
+      if (seed_artists) {
+        params.append('seed_artists', seed_artists);
+      }
+    
+      if (seed_genres) {
+        console.log('HELLO'+seed_genres);
+        params.append('seed_genres', seed_genres);
+      }
+    
+      return `${baseUrl}?${params.toString()}`;
     };
+    
     const fetchTopTracks = async (seed_tracks: string, seed_artists: string, seed_genres: string) => {
         console.log(seed_tracks, seed_artists, seed_genres);
         try {
-            const url = buildSpotifyAPIUrl();
+            const url = buildSpotifyAPIUrl(seed_tracks, seed_artists, seed_genres);
             console.log(url);
             const response = await fetch(url);
             if (!response.ok) {
