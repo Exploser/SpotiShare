@@ -20,6 +20,11 @@ const SpotifyFeatures: React.FC = () => {
                 >
                     Saved Tracks
             </a>
+            <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105"
+                    href="/discover"
+                >
+                    Discover
+            </a>
             <h1 className="text-xl font-bold text-white my-4">More features coming soon....</h1>
         </div>
     )
