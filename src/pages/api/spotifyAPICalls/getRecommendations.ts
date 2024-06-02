@@ -2,8 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { parse } from 'cookie';
-import { fetchSpotifyRecommendations, fetchSpotifyToken,} from '../../../lib/spotify';
-import { getMyTracks } from '~/server/queries';
+import { fetchSpotifyRecommendations, fetchSpotifyToken, } from '../../../lib/spotify';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -12,28 +11,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const parsedCookies = parse(cookies);
         let accessToken = parsedCookies.spotify_access_token;
-        // if (!accessToken) {
-        //     try{
-        //         accessToken = await fetchSpotifyToken();
-        //     } catch (error) {
-        //         console.error('Error fetching Spotify token:', error);
-        //         res.status(500).json({ error: 'Error fetching Spotify token' });
-        //     }
-        // };
+        if (!accessToken) {
+            try {
+                accessToken = await fetchSpotifyToken();
+            } catch (error) {
+                console.error('Error fetching Spotify token:', error);
+                res.status(500).json({ error: 'Error fetching Spotify token' });
+            }
+        };
 
         // Get query parameters
-        
-        const offset = parseInt(req.query.offset as string) || 0;
+        const seed_tracks = req.query.seed_tracks as string || '0725YWm6Z0TpZ6wrNk64Eb';
+        const seed_artist = req.query.seed_artist as string || '2h93pZq0e7k5yf4dywlkpM';
+        const seed_genres = req.query.seed_genres as string || 'heavy-metal';
 
-        const seed_tracks = ['seed_artists=4NHQUGzhtTLFvgF5SZesLK'];
-        const limit = 10;
+        console.log('seed_genres:', seed_genres);
 
-        if (accessToken && seed_tracks) {
-        const recommendations = await fetchSpotifyRecommendations(accessToken, seed_tracks, limit,);
-        res.status(200).json(recommendations);
+        try {
+            if (accessToken) {
+                const recommendations = await fetchSpotifyRecommendations(accessToken, seed_tracks, seed_artist, seed_genres);
+                res.status(200).json(recommendations);
+            }
         }
-        else {
-            throw new Error('Spotify access token not found');
+        catch {
+            throw new Error('Something Went Wrong');
         }
     } catch (error) {
         if (error instanceof Error) {
