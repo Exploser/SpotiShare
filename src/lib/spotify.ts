@@ -85,13 +85,14 @@ export const fetchSpotifyTopArtists = async (
 
 export const fetchSpotifyRecommendations = async (
   accessToken: string,
-  seed_tracks: string[],
-  limit: number
+  seed_artist: string,
+  seed_tracks: string,
+  seed_genres: string,
 ): Promise<SpotifyTopTracksResponse> => {
-  console.log(seed_tracks);
-  console.log(`${seed_tracks.join(',')}&limit=${limit}`)
+  console.log('seed_genres:', seed_genres);
   const response = await fetch(
-    `https://api.spotify.com/v1/recommendations?seed_tracks=${seed_tracks.join(',')}&limit=${limit}`,
+  //  `https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA`,
+      `https://api.spotify.com/v1/recommendations?seed_artists=${seed_artist}&seed_genres=${seed_genres}&seed_tracks=${seed_tracks}`,
     {
       method: 'GET',
       headers: {
