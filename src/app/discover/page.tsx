@@ -88,8 +88,36 @@ interface Image {
 export default function Discover() {
     const [tracks, setTracks] = useState<Track[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
+
+    const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    // Set isMounted to true when the component mounts
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const seed_tracks = urlParams.get('seed_tracks');
+      const seed_artists = urlParams.get('seed_artist');
+      
+      if (seed_tracks) {
+        const selectedIds = seed_tracks.split(',');
+        console.log('Selected Discover Tracks:', selectedIds);  // Log the IDs
+        const seedTracks = selectedIds.slice(0, 5).join(',');
+        fetchRecommendations(seedTracks, '', '').catch((err) => console.error(err));
+      }
+      if (seed_artists) {
+        const selectedIds = seed_artists.split(',');
+        console.log('Selected Discover Artist:', selectedIds);  // Log the IDs
+        const seedArtists = selectedIds.slice(0, 5).join(',');
+        fetchRecommendations('', seedArtists, '').catch((err) => console.error(err));
+      }
+    }
+  }, [isMounted]);
+
 
     const [seed_tracks, setSeedTracks] = useState('0725YWm6Z0TpZ6wrNk64Eb');
     const [seed_artists, setSeedArtists] = useState('2h93pZq0e7k5yf4dywlkpM');
