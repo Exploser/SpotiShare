@@ -143,7 +143,7 @@ export default function Discover() {
       return `${baseUrl}?${params.toString()}`;
     };
     
-    const fetchTopTracks = async (seed_tracks: string, seed_artists: string, seed_genres: string) => {
+    const fetchRecommendations = async (seed_tracks: string, seed_artists: string, seed_genres: string) => {
         console.log(seed_tracks, seed_artists, seed_genres);
         try {
             const url = buildSpotifyAPIUrl(seed_tracks, seed_artists, seed_genres);
@@ -166,7 +166,7 @@ export default function Discover() {
     };
 
     useEffect(() => {
-        fetchTopTracks(seed_tracks, seed_artists, seed_genres).catch((err) => console.error(err));
+      fetchRecommendations(seed_tracks, seed_artists, seed_genres).catch((err) => console.error(err));
     }, []);
 
   return (
@@ -178,7 +178,7 @@ export default function Discover() {
             setSeedArtists={setSeedArtists}
             seedgenres={seed_genres}
             setSeedGenres={setSeedGenres}
-            handleRefetch={() => fetchTopTracks(seed_tracks, seed_artists, seed_genres)}
+            handleRefetch={() => fetchRecommendations(seed_tracks, seed_artists, seed_genres)}
          />
         {tracks.length > 0 && (
             <div>
