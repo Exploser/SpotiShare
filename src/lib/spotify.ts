@@ -135,3 +135,21 @@ export const fetchSpotifyToken = async () => {
   }
   return response.json.toString();
 };
+
+export const fetchSpotifyGenres = async (accessToken: string) => {
+  const response = await fetch('https://api.spotify.com/v1/recommendations/available-genre-seeds', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json() as SpotifyError;
+    throw new Error(`Spotify API Error: ${error.error.message}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
