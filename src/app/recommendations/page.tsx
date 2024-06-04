@@ -31,12 +31,17 @@ interface Artist {
 interface SpotifyTopArtistResponse {
   items: Artist[];
 }
+interface SpotifyGenresResponse {
+  genres: string[];
+}
 
 export default function Recommendations() {
   const [artists, setArtist] = useState<Artist[]>([]);
+  const [genres, setGenres] = useState<string[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [selectedTrackIds, setSelectedTrackIds] = useState(Array<string>());
   const [selectedArtistIds, setSelectedArtistIds] = useState(Array<string>());
-  const [tracks, setTracks] = useState<Track[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState(Array<string>());
   const [error, setError] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
@@ -115,6 +120,29 @@ export default function Recommendations() {
 
   useEffect(() => {
     fetchTopArtist(timeRange, limit).catch((err) => console.error(err));
+  }, []);
+
+  const fetchGenres = async () => {
+    try {
+      const url = '/api/spotifyAPICalls/getGenres';
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch top artists');
+      }
+      const genres: SpotifyGenresResponse = await response.json() as SpotifyGenresResponse;
+      setGenres(genres.genres);
+      console.log(genres);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    }
+    console.log(error);
+    return error;
+  };
+
+  useEffect(() => {
+    fetchGenres().catch((err) => console.error(err));
   }, []);
 
   const handleSelect = (id: string, type: string) => {
