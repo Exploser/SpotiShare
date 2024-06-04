@@ -291,8 +291,55 @@ export default function Discover() {
                   </div>
                   <p className="text-lg font-semibold text-center spotify-track-title">#{position++} {removeTextInParentheses(track.name)}</p>
                 </div>
+              </li>
+
+            ))}
+          </ul>
         </div>
-      )}
+        <div id="controller">
+          <div className="flex flex-col items-center justify-center mb-4">
+            <SavedController
+              seed_tracks={seed_tracks}
+              seed_artists={seed_artists}
+              seed_genres={seed_genres}
+            />
+          </div>
+        </div>
+
+        <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
+          {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
+          <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              {`.spinner_GmWz{ 
+                            fill: white;
+                            animation: spinner_Ctle 0.8s linear infinite; 
+                            animation-delay: -0.8s; }
+
+                            .spinner_NuDr { animation-delay: -0.65s; }
+                            .spinner_OlQ0 { animation-delay: -0.5s; }
+                            @keyframes spinner_Ctle { 93.75%, 100% { opacity: 0.2; } }`}
+            </style>
+            <rect className="spinner_GmWz" x="1" y="4" width="6" height="14" />
+            <rect className="spinner_GmWz spinner_NuDr" x="9" y="4" width="6" height="14" />
+            <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
+          </svg>
+        </div>
+      </div>
+      <div className='volume-control'>
+        <label className='whitespace-nowrap mx-2' htmlFor="volume">
+          Volume: {Math.round(volume * 100)}%
+        </label>
+        <input
+          id="volume"
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className="w-full"
+        />
+      </div>
     </section>
   );
 }
