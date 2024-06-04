@@ -103,6 +103,27 @@ body {
     margin-top: 10px;
   }
 }
+.volume-control {
+  position: sticky;
+  width: 20vw;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+}
+
+.volume-control label {
+  margin: 0 10px;
+}
+
+.volume-control input {
+  flex-grow: 1;
+}
+
 .recommendations-form {
   max-width: 600px;
   margin: auto;
