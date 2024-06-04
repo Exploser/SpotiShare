@@ -20,31 +20,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return; // Return early if there is an error fetching the token
       }
     }
-    console.log(req);
 
     // Get query parameters
     const seed_tracks = req.query.seed_tracks as string || '';
     const seed_artist = req.query.seed_artist as string || '';
     const seed_genres = req.query.seed_genres as string || '';
 
-        console.log('seed_genres:', seed_genres);
-
-        try {
-            if (accessToken) {
-                const recommendations = await fetchSpotifyRecommendations(accessToken, seed_tracks, seed_artist, seed_genres);
-                res.status(200).json(recommendations);
-            }
-        }
-        catch {
-            throw new Error('Something Went Wrong');
-        }
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message);
-            res.status(500).json({ error: error.message });
-        } else {
-            console.error('Unexpected error', error);
-            res.status(500).json({ error: 'An unexpected error occurred' });
-        }
+    try {
+      if (accessToken) {
+        const recommendations = await fetchSpotifyRecommendations(accessToken, seed_artist, seed_tracks, seed_genres);
+        res.status(200).json(recommendations);
+      } else {
+        throw new Error('Access token is not available');
+      }
+    } catch (fetchError) {
+      console.error('Error fetching recommendations:', fetchError);
+      res.status(500).json({ error: 'Failed to fetch recommendations' });
     }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      res.status(500).json({ error: error.message });
+    } else {
+      console.error('Unexpected error', error);
+      res.status(500).json({ error: 'An unexpected error occurred' });
+    }
+  }
 }
