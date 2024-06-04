@@ -60,6 +60,7 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
       handleRefetch();
     }
   };
+  
   const { volume, setVolume } = useVolume();
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
