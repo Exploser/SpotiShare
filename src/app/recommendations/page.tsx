@@ -4,32 +4,32 @@ import { SpotifyTopTracksResponse, Track } from "../toptracks/page";
 import { useRouter } from 'next/router';
 
 interface Artist {
-    name: string;
-    id: string;
-    external_urls: {
-        spotify: string;
-    };
+  name: string;
+  id: string;
+  external_urls: {
     spotify: string;
-    images: Array<{ url: string; height: number; width: number }>;
-    followers: { total: number };
-    genres: string[];
-    popularity: number;
+  };
+  spotify: string;
+  images: Array<{ url: string; height: number; width: number }>;
+  followers: { total: number };
+  genres: string[];
+  popularity: number;
 }
 interface Artist {
-    name: string;
-    id: string;
-    external_urls: {
-        spotify: string;
-    };
+  name: string;
+  id: string;
+  external_urls: {
     spotify: string;
-    images: Array<{ url: string; height: number; width: number }>;
-    followers: { total: number };
-    genres: string[];
-    popularity: number;
+  };
+  spotify: string;
+  images: Array<{ url: string; height: number; width: number }>;
+  followers: { total: number };
+  genres: string[];
+  popularity: number;
 }
 
 interface SpotifyTopArtistResponse {
-    items: Artist[];
+  items: Artist[];
 }
 
 export default function Recommendations() {
