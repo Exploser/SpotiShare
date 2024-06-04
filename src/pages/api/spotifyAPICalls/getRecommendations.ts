@@ -1,29 +1,31 @@
-// src/pages/api/spotifyAPICalls/getTopArtists.ts
+// src/pages/api/spotifyAPICalls/getRecommendations.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { parse } from 'cookie';
-import { fetchSpotifyRecommendations, fetchSpotifyToken, } from '../../../lib/spotify';
+import { fetchSpotifyRecommendations, fetchSpotifyToken } from '../../../lib/spotify';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    try {
-        const cookies = req.headers.cookie;
-        if (!cookies) throw new Error('No cookies found');
+  try {
+    const cookies = req.headers.cookie;
+    if (!cookies) throw new Error('No cookies found');
 
-        const parsedCookies = parse(cookies);
-        let accessToken = parsedCookies.spotify_access_token;
-        if (!accessToken) {
-            try {
-                accessToken = await fetchSpotifyToken();
-            } catch (error) {
-                console.error('Error fetching Spotify token:', error);
-                res.status(500).json({ error: 'Error fetching Spotify token' });
-            }
-        };
+    const parsedCookies = parse(cookies);
+    let accessToken = parsedCookies.spotify_access_token;
+    if (!accessToken) {
+      try {
+        accessToken = await fetchSpotifyToken();
+      } catch (error) {
+        console.error('Error fetching Spotify token:', error);
+        res.status(500).json({ error: 'Error fetching Spotify token' });
+        return; // Return early if there is an error fetching the token
+      }
+    }
+    console.log(req);
 
-        // Get query parameters
-        const seed_tracks = req.query.seed_tracks as string || '0725YWm6Z0TpZ6wrNk64Eb';
-        const seed_artist = req.query.seed_artist as string || '2h93pZq0e7k5yf4dywlkpM';
-        const seed_genres = req.query.seed_genres as string || 'heavy-metal';
+    // Get query parameters
+    const seed_tracks = req.query.seed_tracks as string || '';
+    const seed_artist = req.query.seed_artist as string || '';
+    const seed_genres = req.query.seed_genres as string || '';
 
         console.log('seed_genres:', seed_genres);
 
