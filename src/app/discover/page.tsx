@@ -257,8 +257,8 @@ export default function Discover() {
         <div className="max-w-screen-lg h-full w-fit text-white">
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full">
             {tracks.map((track) => (
-              <li 
-                key={track.id} 
+              <li
+                key={track.id}
                 className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
                 style={{ backgroundColor: sampleColors[track.id] }}>
 
@@ -305,12 +305,13 @@ export default function Discover() {
             />
           </div>
         </div>
+      </div>
 
-        <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
-          {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
-          <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <style>
-              {`.spinner_GmWz{ 
+      <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
+        {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
+        <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            {`.spinner_GmWz{ 
                             fill: white;
                             animation: spinner_Ctle 0.8s linear infinite; 
                             animation-delay: -0.8s; }
@@ -318,13 +319,13 @@ export default function Discover() {
                             .spinner_NuDr { animation-delay: -0.65s; }
                             .spinner_OlQ0 { animation-delay: -0.5s; }
                             @keyframes spinner_Ctle { 93.75%, 100% { opacity: 0.2; } }`}
-            </style>
-            <rect className="spinner_GmWz" x="1" y="4" width="6" height="14" />
-            <rect className="spinner_GmWz spinner_NuDr" x="9" y="4" width="6" height="14" />
-            <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
-          </svg>
-        </div>
+          </style>
+          <rect className="spinner_GmWz" x="1" y="4" width="6" height="14" />
+          <rect className="spinner_GmWz spinner_NuDr" x="9" y="4" width="6" height="14" />
+          <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
+        </svg>
       </div>
+      
       <div className='volume-control'>
         <label className='whitespace-nowrap mx-2' htmlFor="volume">
           Volume: {Math.round(volume * 100)}%
