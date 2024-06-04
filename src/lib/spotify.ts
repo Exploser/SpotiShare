@@ -85,22 +85,38 @@ export const fetchSpotifyTopArtists = async (
 
 export const fetchSpotifyRecommendations = async (
   accessToken: string,
-  seed_artist: string,
-  seed_tracks: string,
-  seed_genres: string,
+  seed_artist?: string,
+  seed_tracks?: string,
+  seed_genres?: string,
 ): Promise<SpotifyTopTracksResponse> => {
-  console.log('seed_genres:', seed_genres);
-  const response = await fetch(
-  //  `https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA`,
-      `https://api.spotify.com/v1/recommendations?seed_artists=${seed_artist}&seed_genres=${seed_genres}&seed_tracks=${seed_tracks}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  if (!seed_artist && !seed_tracks && !seed_genres) {
+    throw new Error('At least one of seed_artist, seed_tracks, or seed_genres must be provided');
+  }
+
+  const baseUrl = 'https://api.spotify.com/v1/recommendations';
+  const params = new URLSearchParams();
+
+  if (seed_artist) {
+    params.append('seed_artists', seed_artist);
+  }
+
+  if (seed_tracks) {
+    params.append('seed_tracks', seed_tracks);
+  }
+
+  if (seed_genres) {
+    params.append('seed_genres', seed_genres);
+  }
+
+  const url = `${baseUrl}?${params.toString()}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
   if (!response.ok) {
     const error = await response.json() as SpotifyError;
