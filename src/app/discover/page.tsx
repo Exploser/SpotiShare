@@ -94,7 +94,6 @@ export default function Discover() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Set isMounted to true when the component mounts
     setIsMounted(true);
   }, []);
 
@@ -102,100 +101,116 @@ export default function Discover() {
     if (isMounted) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const seed_tracks = urlParams.get('seed_tracks');
-      const seed_artists = urlParams.get('seed_artist');
-      
-      if (seed_tracks) {
-        const selectedIds = seed_tracks.split(',');
-        console.log('Selected Discover Tracks:', selectedIds);  // Log the IDs
+      const seedtracks = urlParams.get('seed_tracks');
+      const seedartists = urlParams.get('seed_artists');
+
+      if (seedtracks) {
+        const selectedIds = seedtracks.split(',');
         const seedTracks = selectedIds.slice(0, 5).join(',');
-        fetchRecommendations(seedTracks, '', '').catch((err) => console.error(err));
+        setSeedTracks(seedTracks);
       }
-      if (seed_artists) {
-        const selectedIds = seed_artists.split(',');
-        console.log('Selected Discover Artist:', selectedIds);  // Log the IDs
+      if (seedartists) {
+        const selectedIds = seedartists.split(',');
         const seedArtists = selectedIds.slice(0, 5).join(',');
-        fetchRecommendations('', seedArtists, '').catch((err) => console.error(err));
+        setSeedArtists(seedArtists);
       }
     }
   }, [isMounted]);
 
+  useEffect(() => {
+    if (seed_tracks || seed_artists) {
+      fetchRecommendations(seed_tracks, seed_artists).catch((err) =>
+        console.error(err)
+      );
+    }
+  }, [seed_tracks, seed_artists, seed_genres]);
 
-    const [seed_tracks, setSeedTracks] = useState('0725YWm6Z0TpZ6wrNk64Eb');
-    const [seed_artists, setSeedArtists] = useState('2h93pZq0e7k5yf4dywlkpM');
-    const [seed_genres, setSeedGenres] = useState('heavy-metal');
+  const buildSpotifyAPIUrl = (seed_tracks?: string, seed_artists?: string, seed_genres?: string) => {
+    const baseUrl = '/api/spotifyAPICalls/getRecommendations';
+    const params = new URLSearchParams();
 
-    const buildSpotifyAPIUrl = (seed_tracks?: string, seed_artists?: string, seed_genres?: string) => {
-      const baseUrl = '/api/spotifyAPICalls/getRecommendations';
-      const params = new URLSearchParams();
-    
-      if (seed_tracks) {
-        params.append('seed_tracks', seed_tracks);
+    if (seed_tracks) {
+      params.append('seed_tracks', seed_tracks);
+    }
+
+    if (seed_artists) {
+      params.append('seed_artists', seed_artists);
+    }
+
+    if (seed_genres) {
+      params.append('seed_genres', seed_genres);
+    }
+
+    return `${baseUrl}?${params.toString()}`;
+  };
+
+  const fetchRecommendations = async (seed_tracks?: string, seed_artists?: string, seed_genres?: string) => {
+    try {
+      const url = buildSpotifyAPIUrl(seed_tracks, seed_artists, seed_genres);
+      console.log(url);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch top tracks');
       }
-    
-      if (seed_artists) {
-        params.append('seed_artists', seed_artists);
+      const data: TracksResponse = await response.json();
+      setTracks(data.tracks);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
       }
-    
-      if (seed_genres) {
-        console.log('HELLO'+seed_genres);
-        params.append('seed_genres', seed_genres);
-      }
-    
-      return `${baseUrl}?${params.toString()}`;
-    };
-    
-    const fetchRecommendations = async (seed_tracks: string, seed_artists: string, seed_genres: string) => {
-        console.log(seed_tracks, seed_artists, seed_genres);
-        try {
-            const url = buildSpotifyAPIUrl(seed_tracks, seed_artists, seed_genres);
-            console.log(url);
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Failed to fetch top tracks');
-            }
-            const data: TracksResponse = await response.json() as TracksResponse;
-            setTracks(data.tracks);
-            console.log(data.tracks);
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            }
-        }
-
-        console.log(error);
-        return error;
-    };
-
-    useEffect(() => {
-      fetchRecommendations(seed_tracks, seed_artists, seed_genres).catch((err) => console.error(err));
-    }, []);
+    }
+  };
 
   return (
     <section>
-        <SavedController 
-            seedtracks={seed_tracks}
-            setSeedTracks={setSeedTracks}
-            seedartists={seed_artists}
-            setSeedArtists={setSeedArtists}
-            seedgenres={seed_genres}
-            setSeedGenres={setSeedGenres}
-            handleRefetch={() => fetchRecommendations(seed_tracks, seed_artists, seed_genres)}
-         />
-        {tracks.length > 0 && (
-            <div>
-                <h2>Recommendations</h2>
-                <ul>
-                    {tracks.map((track) => (
-                        <li key={track.id}>
-                            <h3>{track.name}</h3>
-                            <img src={`${track.album.images[0]?.url}`} alt={track.name} />
-                            <p>{track.album.name}</p>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )}
+      <SavedController
+        seedtracks={seed_tracks}
+        setSeedTracks={setSeedTracks}
+        seedartists={seed_artists}
+        setSeedArtists={setSeedArtists}
+        seedgenres={seed_genres}
+        setSeedGenres={setSeedGenres}
+        handleRefetch={() => fetchRecommendations(seed_tracks, seed_artists, seed_genres)}
+      />
+      {tracks.length > 0 && (
+        <div>
+          <h2>Recommendations</h2>
+          <div className="max-w-screen-lg h-full w-fit text-white">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full">
+                        {tracks.slice(3).map((track) => (
+                            <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center`}>
+                                <div className="relative w-full" id="spotify-tracks-rest">
+                                    <img
+                                        src={track.album.images[0]?.url}
+                                        alt={track.name}
+                                        // onLoad={() => {
+                                        //     setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        // }}
+                                        className="w-full object-contain shadow-xl rounded-md mb-2"
+                                    />
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Album: {track.album.name}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {track.track_number} of {track.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">By: {track.artists.map(artist => artist.name).join(', ')}</p>
+                                        {/* <div className="flex flex-row justify-evenly items-center w-full">
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(track.id)}>
+                                                {currentTrackId === track.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${track.id}`} src={track.preview_url} className="hidden"></audio>
+                                            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div> */}
+                                    </div>
+                                    <p className="text-lg font-semibold text-center spotify-track-title">{track.name}</p>
+                                </div>
+                            </li>
+
+                        ))}
+                    </ul>
+                </div>
+        </div>
+      )}
     </section>
   );
 }
