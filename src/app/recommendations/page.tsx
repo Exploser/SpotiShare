@@ -159,7 +159,8 @@ export default function Recommendations() {
       const newSelectedGenres = [...selectedGenres, id];
       setSelectedGenres(newSelectedGenres);
     }
-    if (selectedTrackIds.length + selectedArtistIds.length >= 5) {
+    if (selectedTrackIds.length + selectedArtistIds.length + selectedGenres.length >= 5) {
+      console.log('Redirecting to discover page');
       redirectToDiscover(selectedTrackIds, selectedArtistIds, selectedGenres);
     }
   };
@@ -237,7 +238,7 @@ export default function Recommendations() {
               className={`min-h-fit relative rounded-lg shadow-md p-4 flex flex-col bg-green-900 items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
               style={{ backgroundColor: sampleColors[artist.id] }}
             >
-              <div className="relative w-full">
+              <div className="relative w-full" id="spotify-tracks-rest">
                 <img
                   src={artist.images[0]?.url}
                   alt={artist.name}
@@ -251,13 +252,11 @@ export default function Recommendations() {
                   <p className="text-sm text-gray-300 text-center mb-2">Followers: {artist.followers.total}</p>
                   <p className="text-sm text-gray-300 text-center mb-2">{artist.genres.map(genre => genre).join(', ')}</p>
                 </div>
-                <div className="flex flex-col justify-center items-center mt-4">
+              </div>
                   <p className="text-lg font-semibold text-center spotify-artist-title">{removeTextInParentheses(artist.name)}</p>
                   <button onClick={() => handleSelect(artist.id, 'artist')} className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
                     Select Artist
                   </button>
-                </div>
-              </div>
             </li>
           ))}
         </ul>
