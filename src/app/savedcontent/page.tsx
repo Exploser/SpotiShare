@@ -1,7 +1,42 @@
-import { getMyTracks } from "~/server/queries";
+'use client';
+import { useEffect, useState } from "react";
 
-export default async function savedcontent() {
-    const tracks = await getMyTracks();
+interface Track {
+    id: string;
+    name: string;
+    image_url?: string;
+    artists_name?: string;
+    album_name?: string;
+    user_id?: string;
+    popularity?: number;
+    created_at?: Date;
+}  
+
+export default function SavedContent() {
+    const [tracks, setTracks] = useState<Track[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    
+    const fetchSavedTracks = async () => {
+        try {
+            const url = '/api/spotifyAPICalls/getSavedContent';
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch top artists');
+            }
+            const data: Track[] = await response.json() as Track[];
+            setTracks(data);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
+        }
+        console.log(error);
+        return error;
+    };
+
+    useEffect(() => {
+        fetchSavedTracks().catch((err) => console.error(err));
+    }, []);
 
     const removeTextInParentheses = (str: string) => {
         const splitStr = str.split('(');
