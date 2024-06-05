@@ -96,19 +96,22 @@ export const fetchSpotifyRecommendations = async (
   const baseUrl = 'https://api.spotify.com/v1/recommendations';
   const params = new URLSearchParams();
 
-  if (seed_artist) {
-    params.append('seed_artists', seed_artist);
-  }
-
   if (seed_tracks) {
     params.append('seed_tracks', seed_tracks);
+    console.log('seed_tracks:', seed_tracks);
   }
-
+  if (seed_artist) {
+    params.append('seed_artists', seed_artist);
+    console.log('seed_artist:', seed_artist);
+  }
   if (seed_genres) {
     params.append('seed_genres', seed_genres);
+    console.log('seed_genres:', seed_genres);
   }
 
+
   const url = `${baseUrl}?${params.toString()}`;
+  console.log('url:', url);
 
   const response = await fetch(url, {
     method: 'GET',
