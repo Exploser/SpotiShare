@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!accessToken) throw new Error('Spotify access token not found');
 
         
-        const getGenres = await fetchSpotifyGenres(accessToken);
+        const getGenres: Array<string> = await fetchSpotifyGenres(accessToken);
 
         res.status(200).json(getGenres);
     } catch (error) {
