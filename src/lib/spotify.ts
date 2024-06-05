@@ -149,6 +149,6 @@ export const fetchSpotifyGenres = async (accessToken: string) => {
     throw new Error(`Spotify API Error: ${error.error.message}`);
   }
 
-  const data = await response.json();
+  const data: Array<string> = await response.json() as Array<string>;
   return data;
 }
