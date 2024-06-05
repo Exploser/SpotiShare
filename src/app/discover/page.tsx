@@ -87,13 +87,12 @@ interface TracksResponse {
 }
 
 export default function Discover() {
-  let position = 4;
   const { volume, setVolume } = useVolume();
   const [tracks, setTracks] = useState<Track[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [seed_tracks, setSeedTracks] = useState('');
   const [seed_artists, setSeedArtists] = useState('');
-  const [seed_genres, setSeedGenres] = useState('heavy-metal');
+  const [seed_genres, setSeedGenres] = useState('');
   const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -123,6 +122,7 @@ export default function Discover() {
       const urlParams = new URLSearchParams(queryString);
       const seedtracks = urlParams.get('seed_tracks');
       const seedartists = urlParams.get('seed_artists');
+      const seedgenres = urlParams.get('seed_genres');
 
       if (seedtracks) {
         const selectedIds = seedtracks.split(',');
@@ -134,12 +134,17 @@ export default function Discover() {
         const seedArtists = selectedIds.slice(0, 5).join(',');
         setSeedArtists(seedArtists);
       }
+      if (seedgenres) {
+        const selectedIds = seedgenres.split(',');
+        const seedGenres = selectedIds.slice(0, 5).join(',');
+        setSeedGenres(seedGenres);
+      }
     }
   }, [isMounted]);
 
   useEffect(() => {
     if (seed_tracks || seed_artists) {
-      fetchRecommendations(seed_tracks, seed_artists).catch((err) =>
+      fetchRecommendations(seed_tracks, seed_artists, seed_genres).catch((err) =>
         console.error(err)
       );
     }
@@ -289,8 +294,8 @@ export default function Discover() {
                       </a>
                     </div>
                   </div>
-                  <p className="text-lg font-semibold text-center spotify-track-title">#{position++} {removeTextInParentheses(track.name)}</p>
                 </div>
+                <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
               </li>
 
             ))}
@@ -325,7 +330,7 @@ export default function Discover() {
           <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
         </svg>
       </div>
-      
+
       <div className='volume-control'>
         <label className='whitespace-nowrap mx-2' htmlFor="volume">
           Volume: {Math.round(volume * 100)}%
