@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Get query parameters
     const seed_tracks = req.query.seed_tracks as string || '';
-    const seed_artist = req.query.seed_artist as string || '';
+    const seed_artist = req.query.seed_artists as string || '';
     const seed_genres = req.query.seed_genres as string || '';
 
     try {
