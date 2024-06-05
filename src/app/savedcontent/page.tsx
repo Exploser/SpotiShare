@@ -58,8 +58,7 @@ export default function SavedContent() {
       if (!response.ok) {
         throw new Error('Failed to fetch top tracks');
       }
-      const data: any = await response.json();
-
+      const data: Track[] = await response.json() as Track[];
       setTracks(data);
     } catch (err) {
       if (err instanceof Error) {
