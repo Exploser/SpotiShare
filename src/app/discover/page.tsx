@@ -69,7 +69,6 @@ interface Track {
   href: string;
   id: string;
   is_playable: boolean;
-  linked_from?: any; // Adjust the type if you have a specific structure for this field
   restrictions?: {
     reason: string;
   };
@@ -177,7 +176,7 @@ export default function Discover() {
       if (!response.ok) {
         throw new Error('Failed to fetch top tracks');
       }
-      const data: TracksResponse = await response.json();
+      const data: TracksResponse = await response.json() as TracksResponse;
       setTracks(data.tracks);
     } catch (err) {
       if (err instanceof Error) {
@@ -304,9 +303,13 @@ export default function Discover() {
         <div id="controller">
           <div className="flex flex-col items-center justify-center mb-4">
             <SavedController
-              seed_tracks={seed_tracks}
-              seed_artists={seed_artists}
-              seed_genres={seed_genres}
+              seedtracks={seed_tracks}
+              setSeedTracks={setSeedTracks}
+              seedartists={seed_artists}
+              setSeedArtists={setSeedArtists}
+              seedgenres={seed_genres}
+              setSeedGenres={setSeedGenres}
+              handleRefetch={() => fetchRecommendations(seed_artists,seed_genres,seed_tracks)}
             />
           </div>
         </div>
