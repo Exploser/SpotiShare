@@ -15,8 +15,10 @@ export default function HomePage() {
         </SignedOut>
         <SignedIn>
           <VolumeProvider>
-            <SpotifyProfile />  
-            <SpotifyFeatures />
+            <div className='flex flex-row justify-evenly items-center w-full'>
+              <SpotifyProfile />
+              <SpotifyFeatures />
+            </div>
           </VolumeProvider>
         </SignedIn>
       </div>
