@@ -16,12 +16,12 @@ const SpotifyFeatures: React.FC = () => {
                 </a>
             </div>
             <div id="spotify-features-buttons">
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105"
+                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105 text-center"
                     href="/savedcontent"
                 >
                     Saved
                 </a>
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105"
+                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105 text-center"
                     href="/recommendations"
                 >
                     Discover
