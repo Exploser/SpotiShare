@@ -160,7 +160,6 @@ export default function Recommendations() {
       setSelectedGenres(newSelectedGenres);
     }
     if (selectedTrackIds.length + selectedArtistIds.length + selectedGenres.length >= 5) {
-      console.log('Redirecting to discover page');
       redirectToDiscover(selectedTrackIds, selectedArtistIds, selectedGenres);
     }
   };
