@@ -12,8 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const topArtists = await getMyTracks(userId);
 
-        console.log('topArtists:', topArtists);
-
         res.status(200).json(topArtists);
     } catch (error) {
         if (error instanceof Error) {

@@ -325,7 +325,6 @@ export default function TopTracks() {
             </div>
 
             <div className={`${imageLoaded ? "hidden" : "flex justify-center items-center text-white h-screen"}`}>
-                {/* <p className="text-3xl">Loading...  &nbsp;</p>  */}
                 <svg width="126" height="126" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <style>
                         {`.spinner_GmWz{ 
