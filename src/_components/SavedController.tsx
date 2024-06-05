@@ -2,10 +2,19 @@
 
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const RecommendationsController: React.FC<any> = (
+interface SavedControllerProps {
+    seedtracks: string;
+    setSeedTracks: (value: string) => void;
+    seedartists: string;
+    setSeedArtists: (value: string) => void;
+    seedgenres: string;
+    setSeedGenres: (value: string) => void;
+    handleRefetch: () => void;
+}
+
+const RecommendationsController: React.FC<SavedControllerProps> = (
     {
         seedtracks,
         setSeedTracks,
@@ -39,33 +48,6 @@ const RecommendationsController: React.FC<any> = (
     const handleSeedGenresChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSeedGenres(e.target.value);
     };
-
-    //   const handleSaveTracks = async () => {
-    //     if (isSaving) return; // Prevent the function from running if it's already in progress
-
-    //     setIsSaving(true);
-    //     try {
-    //       const response = await fetch('/api/saveTracks', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({ seedTracks, seedArtists, seedGenres }),
-    //       });
-
-    //       if (!response.ok) {
-    //         throw new Error('Failed to save tracks');
-    //       }
-
-    //       // Handle success (optional)
-    //       console.log('Tracks saved successfully');
-    //     } catch (error) {
-    //       console.error(error);
-    //       // Handle error (optional)
-    //     } finally {
-    //       setIsSaving(false); // Re-enable the button after the operation is complete
-    //     }
-    //   };
 
     const handleRefetchIfDifferent = () => {
         setRefetchAttempted(true);
