@@ -21,7 +21,7 @@ interface Artist {
 interface SpotifyTopTracksResponse {
     items: Artist[];
 }
-export default function TopTracks() {
+export default function TopArtists() {
     let position = 4;
     const [artists, setTracks] = useState<Artist[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -109,84 +109,100 @@ export default function TopTracks() {
             <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
 
                 <div className="flex flex-row mb-4 p-4" id="spotify-top-artists-main">
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white rounded-2xl flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-artist-second">
+
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white rounded-2xl flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-artist-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {artists.length > 0 && (
-                            <li key={artists[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }}>
-                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }}>
+
+                            <li key={artists[1]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[artists[1]?.id ?? ''] }}>
+                                <div className="relative w-full h-fit" id="spotify-artist-rest">
                                     <img
                                         src={artists[1]?.images[0]?.url}
                                         alt={artists[1]?.name}
-                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-artist-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[1]?.popularity}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[1]?.followers.total}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Genres: {artists[1]?.genres.map(genres => genres).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
                                             <a href={artists[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                                 <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
                                             </a>
                                         </div>
-                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[1]?.genres.map(genres => genres).join(', ')}</p>
                                     </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-artist-title">{removeTextInParentheses(artists[1]?.name ?? '')}</p>
+                                    <div style={{ backgroundColor: sampleColors[artists[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center spotify-artist-title">{removeTextInParentheses(artists[1]?.name ?? '')}</p>
+                                    </div>
                                 </div>
                             </li>
                         )}
                         <h1>#2</h1>
                     </div>
 
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-top-artist-first">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-artist-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {artists.length > 0 && (
-                            <li key={artists[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }}>
-                                <div className="relative w-full h-64" style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }}>
-                                    <img src={artists[0]?.images[0]?.url} alt={artists[0]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
+                            <li key={artists[0]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[artists[0]?.id ?? ''] }}>
+                                <div className="relative w-full h-fit" id="spotify-artist-rest">
+                                    <img
+                                        src={artists[0]?.images[0]?.url}
+                                        alt={artists[0]?.name}
+                                        onLoad={() => {
+                                            setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                        }}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                    />
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-artist-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[0]?.popularity}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[0]?.followers.total}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Genres: {artists[0]?.genres.map(genres => genres).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
                                             <a href={artists[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                                 <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
                                             </a>
                                         </div>
-                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[0]?.genres.map(genres => genres).join(', ')}</p>
                                     </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-artist-title">{removeTextInParentheses(artists[0]?.name ?? '')}</p>
+                                    <div style={{ backgroundColor: sampleColors[artists[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(artists[0]?.name ?? '')}</p>
+                                    </div>
                                 </div>
                             </li>
                         )}
                         <h1>#1</h1>
                     </div>
 
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-artist-third">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-artist-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {artists.length > 0 && (
-                            <li key={artists[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[artists[2]?.id ?? ""] }}>
-                                <div className="relative w-full h-64">
-                                    <img src={artists[2]?.images[0]?.url} alt={artists[2]?.name} className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform" />
-                                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
-                                        <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[2]?.popularity}</p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[2]?.followers.total}</p>
-                                        <div className="flex flex-row justify-evenly items-center w-full">
-                                            <a href={artists[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
-                                            </a>
-                                        </div>
-                                        <p className="text-sm text-gray-300 text-center mb-2">{artists[2]?.genres.map(genres => genres).join(', ')}</p>
+                            <li key={artists[2]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[artists[2]?.id ?? ''] }}>
+                            <div className="relative w-full h-fit" id="spotify-artist-rest">
+                                <img
+                                    src={artists[2]?.images[0]?.url}
+                                    alt={artists[2]?.name}
+                                    onLoad={() => {
+                                        setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
+                                    }}
+                                    className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                />
+                                <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-artist-details">
+                                    <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artists[2]?.popularity}</p>
+                                    <p className="text-sm text-gray-300 text-center mb-2">Followers: {artists[2]?.followers.total}</p>
+                                    <p className="text-sm text-gray-300 text-center mb-2">Genres: {artists[2]?.genres.map(genres => genres).join(', ')}</p>
+                                    <div className="flex flex-row justify-evenly items-center w-full">
+                                        <a href={artists[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                            <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                        </a>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sampleColors[artists[2]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-artist-title">{removeTextInParentheses(artists[2]?.name ?? '')}</p>
+                                    <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(artists[2]?.name ?? '')}</p>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                         )}
                         <h1>#3</h1>
                     </div>
@@ -197,18 +213,23 @@ export default function TopTracks() {
                         {artists.slice(3).map((artist) => (
                             <li key={artist.id} className={`min-h-fit relative rounded-lg shadow-md p-2 flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[artist.id] }}>
                                 <div className="w-full" id="spotify-artists-rest">
-                                    <img src={artist.images[0]?.url} alt={artist.name} className="shadow-xl rounded-md mb-2" onLoad={() => {
+                                    <img 
+                                        src={artist.images[0]?.url} 
+                                        alt={artist.name} 
+                                        className="w-full object-contain shadow-xl rounded-md mb-2"
+                                        onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
-                                        }}/>
+                                        }}
+                                    />
                                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4" id="spotify-artists-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artist.popularity}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Followers: {artist.followers.total}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Genres: {artists[1]?.genres.map(genres => genres).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
                                             <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                                 <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
                                             </a>
                                         </div>
-                                        <p className="text-sm text-gray-300 text-center mb-2">{artist.genres.map(genres => genres).join(', ')}</p>
                                     </div>
                                     <p className="text-lg font-semibold text-center spotify-artist-title object-contain text-nowrap">#{position++} {removeTextInParentheses(artist.name)}</p>
                                 </div>
