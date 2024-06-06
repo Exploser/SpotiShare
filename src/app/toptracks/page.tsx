@@ -153,9 +153,10 @@ export default function TopTracks() {
             <div className={`${imageLoaded ? "w-full flex flex-col justify-center items-center" : "hidden"}`}>
 
                 <div className="flex flex-row mb-4 p-4" id="spotify-top-tracks-main">
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
+
                             <li key={tracks[1]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ''] }}>
                                 <div className="relative w-full h-fit" id="spotify-tracks-rest">
                                     <img
@@ -185,11 +186,12 @@ export default function TopTracks() {
                                     </div>
                                 </div>
                             </li>
+                            
                         )}
                         <h1>#2</h1>
                     </div>
 
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-top-track-first">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-track-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
                             <li key={tracks[0]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ''] }}>
@@ -225,7 +227,7 @@ export default function TopTracks() {
                         <h1>#1</h1>
                     </div>
 
-                    <div className={`max-w-screen-lg mx-auto p-4 h-fit w-screen text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-track-third">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-fit w-screen text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-track-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
 
@@ -273,10 +275,10 @@ export default function TopTracks() {
                                     <img
                                         src={track.album.images[0]?.url}
                                         alt={track.name}
+                                        className="w-full object-contain shadow-xl rounded-md mb-2"
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
-                                        className="w-full object-contain shadow-xl rounded-md mb-2"
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {track.album.name}</p>
