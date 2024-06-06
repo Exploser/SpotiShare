@@ -1,8 +1,6 @@
 'use client';
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import React, { useEffect, useState } from 'react';
-import logo from '../static/logo.svg';
-
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,7 +29,7 @@ export function Navbar() {
         <div className="max-w-screen-xl flex justify-between items-center w-full mx-auto">
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="https://utfs.io/f/ae825872-1847-443e-b354-206e5dc5a2be-1zbfv.svg" className="h-8" alt="Wrapify Logo" />
+              <div className="logo"></div>
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark">TacoTunes</span>
             </a>
           </div>

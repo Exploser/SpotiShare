@@ -96,6 +96,8 @@ body {
     margin-top: 10px;
   }
 }
+
+/* Volume Controller */
 .volume-control {
   position: sticky;
   width: 20vw;
@@ -116,43 +118,23 @@ body {
 .volume-control input {
   flex-grow: 1;
 }
-
-.recommendations-form {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.form-group {
-  margin-bottom: 15px;
-}
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-.submit-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4caf50;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-.submit-button:hover {
-  background-color: #45a049;
+/* Add this CSS to your stylesheet */
+.logo {
+  width: 64px;
+  height: 64px;
+  background: url('https://utfs.io/f/ae825872-1847-443e-b354-206e5dc5a2be-1zbfv.svg') no-repeat center center;
+  background-size: contain;
+  transition: background-image 3s ease-in-out;
+  border: none; /* Ensure no border is applied */
+  outline: none; /* Remove any outline */
+  box-shadow: none; /* Remove any box shadow */
 }
 
+.logo:hover {
+  background: url('https://utfs.io/f/19778f9e-80e7-4422-8d89-64253a0f2d07-l09rug.svg') no-repeat center center;
+  background-size: contain;
+  alt: 'TacoTunes Logo';
+}
 #spotify-top-tracks-main>div {
   margin-bottom: 16px;
 }
