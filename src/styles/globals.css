@@ -126,9 +126,9 @@ body {
   background: url('https://utfs.io/f/ae825872-1847-443e-b354-206e5dc5a2be-1zbfv.svg') no-repeat center center;
   background-size: contain;
   transition: background-image 3s ease-in-out;
-  border: none; /* Ensure no border is applied */
-  outline: none; /* Remove any outline */
-  box-shadow: none; /* Remove any box shadow */
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .logo:hover {
@@ -149,30 +149,50 @@ body {
   }
 }
 
+#spotify-top-track-third {
+  margin-top: 15%;
+}
+#spotify-top-track-second  {
+  margin-top: 20%;
+}
+
+/* Top Tracks Hover */
 #spotify-top-track-first:hover {
   transition-duration: 100ms;
   rotate: 0deg;
-  scale: 1.05;
-}
-
-#spotify-top-track-second {
-  margin-top: 10%;
+  scale: 1.06;
+  flex-grow: 5;
+  #spotify-tracks-details {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
+  }
 }
 
 #spotify-top-track-second:hover {
   transition-duration: 100ms;
-  scale: 1.05;
-}
-
-#spotify-top-track-third {
-  margin-top: 10%;
+  scale: 1.06;
+  #spotify-tracks-details {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
+  }
 }
 
 #spotify-top-track-third:hover {
   transition-duration: 100ms;
-  scale: 1.05;
+  scale: 1.06;
+  #spotify-tracks-details {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 10px;
+    transition-duration: 300ms;
+  }
 }
 
+/* Spotify Artists */
 #spotify-artist-first {
   width: auto;
   padding-top: 2px;
@@ -343,7 +363,6 @@ body {
     -webkit-transition: flex-grow .3s;
   }
 }
-
 /* Mobile view adjustments */
 @media (max-width: 768px) {
   #spotify-top-tracks-main {
@@ -361,6 +380,7 @@ body {
   #spotify-top-track-second,
   #spotify-top-track-third {
     margin-bottom: 10px;
+    
   }
 
   .spotify-track-title {

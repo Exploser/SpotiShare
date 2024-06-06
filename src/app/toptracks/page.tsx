@@ -155,38 +155,33 @@ export default function TopTracks() {
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInLeft' : 'hidden'}`} id="spotify-top-track-second">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[1]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }}>
-                                <div className="relative w-full h-64">
+                            <li key={tracks[1]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ''] }}>
+                                <div className="relative w-full h-fit" id="spotify-tracks-rest">
                                     <img
                                         src={tracks[1]?.album.images[0]?.url}
                                         alt={tracks[1]?.name}
-                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
+                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[1]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[1]?.track_number} of {tracks[1]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(tracks[1]?.id ?? '')}
-                                        >
-                                            {currentTrackId === tracks[1]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[1]?.id}`} src={tracks[1]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[1]?.album.name}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[1]?.track_number} of {tracks[0]?.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[1]?.id ?? '')}>
+                                                {currentTrackId === tracks[1]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[1]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[1]?.name ?? '')}</p>
+                                    <div style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(tracks[1]?.name ?? '')}</p>
+                                    </div>
                                 </div>
                             </li>
                         )}
@@ -196,80 +191,73 @@ export default function TopTracks() {
                     <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInDown' : 'hidden'}`} id="spotify-top-track-first">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[0]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center" style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }}>
-                                <div className="relative w-full h-64" id="test">
-                                    <img src={tracks[0]?.album.images[0]?.url}
+                            <li key={tracks[0]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ''] }}>
+                                <div className="relative w-full h-fit" id="spotify-tracks-rest">
+                                    <img
+                                        src={tracks[0]?.album.images[0]?.url}
+                                        alt={tracks[0]?.name}
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
-                                        alt={tracks[0]?.name}
                                         className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[0]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[0]?.track_number} of {tracks[0]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[0]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(tracks[0]?.id ?? '')}
-                                        >
-                                            {currentTrackId === tracks[0]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[0]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
-
-                                        <a href={tracks[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[0]?.album.name}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[0]?.track_number} of {tracks[0]?.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[0]?.artists.map(artist => artist.name).join(', ')}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[0]?.id ?? '')}>
+                                                {currentTrackId === tracks[0]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[0]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[0]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[0]?.name ?? '')}</p>
+                                    <div style={{ backgroundColor: sampleColors[tracks[0]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(tracks[0]?.name ?? '')}</p>
+                                    </div>
                                 </div>
                             </li>
                         )}
                         <h1>#1</h1>
                     </div>
 
-                    <div className={`max-w-screen-lg mx-auto p-4 h-full w-full text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-track-third">
+                    <div className={`max-w-screen-lg mx-auto p-4 h-fit w-screen text-white flex flex-col items-center justify-center ${imageLoaded ? 'animate__animated animate__backInRight' : 'hidden'}`} id="spotify-top-track-third">
                         <canvas ref={canvasRef} width="1" height="1" style={{ display: 'none' }}></canvas>
                         {tracks.length > 0 && (
-                            <li key={tracks[2]?.id} className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center flex-shrink-1" style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }}>
-                                <div className="relative w-full h-64">
-                                    <img src={tracks[2]?.album.images[0]?.url}
+
+                            <li key={tracks[2]?.id} className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-md p-1 flex flex-col items-center`} style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ''] }}>
+                                <div className="relative w-full h-fit" id="spotify-tracks-rest">
+                                    <img
+                                        src={tracks[2]?.album.images[0]?.url}
                                         alt={tracks[2]?.name}
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
                                         className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Album: {tracks[2]?.album.name}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            Track: {tracks[2]?.track_number} of {tracks[2]?.album.total_tracks}
-                                        </p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">
-                                            By: {tracks[2]?.artists.map(artist => artist.name).join(', ')}
-                                        </p>
-                                        <button
-                                            className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
-                                            onClick={() => handlePlay(tracks[2]?.id ?? '')}
-                                        >
-                                            {currentTrackId === tracks[2]?.id ? 'Pause' : 'Play'}
-                                        </button>
-                                        <audio id={`audio-${tracks[2]?.id}`} src={tracks[2]?.preview_url} className="hidden"></audio>
-                                        <a href={tracks[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Listen on Spotify</a>
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
+                                        <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[2]?.album.name}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[2]?.track_number} of {tracks[2]?.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[2]?.artists.map(artist => artist.name).join(', ')}</p>
+                                        <div className="flex flex-row justify-evenly items-center w-full">
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[2]?.id ?? '')}>
+                                                {currentTrackId === tracks[2]?.id ? 'Pause' : 'Play'}
+                                            </button>
+                                            <audio id={`audio-${tracks[2]?.id}`} src={tracks[2]?.preview_url} className="hidden"></audio>
+                                            <a href={tracks[2]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                                <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
+                                        <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(tracks[2]?.name ?? '')}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sampleColors[tracks[2]?.id ?? ""] }} className="w-full h-8 rounded-b-lg">
-                                    <p className="text-lg font-semibold text-center mt-1 spotify-track-title">{removeTextInParentheses(tracks[2]?.name ?? '')}</p>
-                                </div>
                             </li>
+
                         )}
                         <h1>#3</h1>
                     </div>
@@ -278,9 +266,10 @@ export default function TopTracks() {
                 <div className="max-w-screen-lg h-full w-fit text-white">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full">
                         {tracks.slice(3).map((track) => (
+
                             <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className="relative w-full" id="spotify-tracks-rest">
-                                    <img 
+                                    <img
                                         src={track.album.images[0]?.url}
                                         alt={track.name}
                                         onLoad={() => {
@@ -302,7 +291,9 @@ export default function TopTracks() {
                                             </a>
                                         </div>
                                     </div>
-                                    <p className="text-lg font-semibold text-center spotify-track-title">#{position++} {removeTextInParentheses(track.name)}</p>
+                                    <div>
+                                        <p className="text-lg font-semibold text-center spotify-track-title">#{position++} {removeTextInParentheses(track.name)}</p>
+                                    </div>
                                 </div>
                             </li>
 
