@@ -165,17 +165,17 @@ export default function TopTracks() {
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
-                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                        className={`w-full object-contain shadow-xl mb-2 ${currentTrackId === tracks[1]?.id ? 'rotate rounded-full transition-all' : 'rounded-md transition-all'}`}
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[1]?.album.name}</p>
-                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[1]?.track_number} of {tracks[0]?.album.total_tracks}</p>
+                                        <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[1]?.track_number} of {tracks[1]?.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
                                             <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[1]?.id ?? '')}>
                                                 {currentTrackId === tracks[1]?.id ? 'Pause' : 'Play'}
                                             </button>
-                                            <audio id={`audio-${tracks[1]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
+                                            <audio id={`audio-${tracks[1]?.id}`} src={tracks[1]?.preview_url} className="hidden"></audio>
                                             <a href={tracks[1]?.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                                                 <img className='h-14 object-contain' src="https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" alt="Listen on Spotify" />
                                             </a>
@@ -202,7 +202,7 @@ export default function TopTracks() {
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
-                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                        className={`w-full object-contain shadow-xl mb-2 ${currentTrackId === tracks[0]?.id ? 'rotate rounded-full transition-all' : 'rounded-md transition-all'}`}
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[0]?.album.name}</p>
@@ -239,7 +239,7 @@ export default function TopTracks() {
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
-                                        className="w-full h-full object-cover rounded-xl shadow-xl transition-transform transform"
+                                        className={`w-full object-contain shadow-xl mb-2 ${currentTrackId === tracks[2]?.id ? 'rotate rounded-full transition-all' : 'rounded-md transition-all'}`}
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[2]?.album.name}</p>
@@ -271,11 +271,11 @@ export default function TopTracks() {
                         {tracks.slice(3).map((track) => (
 
                             <li key={track.id} className={`relative rounded-lg shadow-md p-2 flex flex-col items-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
-                                <div className="relative w-full" id="spotify-tracks-rest">
+                                <div className={`relative w-full`} id="spotify-tracks-rest">
                                     <img
                                         src={track.album.images[0]?.url}
                                         alt={track.name}
-                                        className="w-full object-contain shadow-xl rounded-md mb-2"
+                                        className={`w-full object-contain shadow-xl mb-2 ${currentTrackId === track.id ? 'rotate rounded-full transition-all' : 'rounded-md transition-all'}`}
                                         onLoad={() => {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
@@ -303,7 +303,7 @@ export default function TopTracks() {
                         ))}
                     </ul>
                 </div>
-
+                   
                 <div id="controller">
                     <div className="flex flex-col items-center justify-center mb-4">
                         <TopTracksController
@@ -336,6 +336,7 @@ export default function TopTracks() {
                 </svg>
             </div>
             <VolumeController />
+
         </div>
     );
 }

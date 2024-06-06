@@ -87,11 +87,6 @@ body {
   text-shadow: 1px 1px 3px #000000;
 }
 
-#volume-controller {
-  margin-top: 10px;
-  color: white;
-}
-
 #spotify-top-tracks-main {
   margin-top: 25px;
   transition-duration: 100ms;
@@ -107,6 +102,7 @@ body {
 
 /* Volume Controller */
 .volume-controller {
+  visibility: visible;
   position: sticky;
   width: 20vw;
   bottom: 0;
@@ -457,6 +453,10 @@ body {
     height: fit-content;
     object-fit: cover;
   }
+
+.volume-controller {
+  visibility: hidden;
+}
 }
 #spotify-tracks-rest-details {
   opacity: 0;
@@ -519,9 +519,6 @@ body {
 #controller{
   min-width: 100%;
 }
-.volume-controller {
-  visibility: hidden;
-}
 
 /* Tablet view adjustments */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -548,6 +545,9 @@ body {
 
   .spotify-track-title {
     font-size: 1.5rem;
+  }
+  .volume-controller {
+    visibility: hidden;
   }
 }
 
@@ -631,6 +631,9 @@ body {
   opacity: 0.9;
 }
 
+.rotate {
+  animation: rotate 2s linear infinite;
+}
 
 /* Animations */
 @keyframes push {
