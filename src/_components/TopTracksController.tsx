@@ -109,19 +109,6 @@ const TopTracksController: React.FC<TopTracksControllerProps> = ({ timeRange, se
             </label>
           </div>
         </div>
-        <div className='flex flex-row my-2 w-full px-24'>
-          <label className=' whitespace-nowrap mx-2' htmlFor="volume"> Volume: {Math.round(volume * 100)}% </label>
-          <input
-            id="volume"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-full"
-          />
-        </div>
         <div id='controller-buttons'>
           <button
             onClick={handleRefetchIfDifferent}
