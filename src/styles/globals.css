@@ -118,7 +118,8 @@ body {
 .volume-control input {
   flex-grow: 1;
 }
-/* Add this CSS to your stylesheet */
+
+/* Logo */
 .logo {
   width: 64px;
   height: 64px;
@@ -135,6 +136,7 @@ body {
   background-size: contain;
   alt: 'TacoTunes Logo';
 }
+/* Top Tracks */
 #spotify-top-tracks-main>div {
   margin-bottom: 16px;
 }

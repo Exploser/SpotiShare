@@ -23,17 +23,16 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50">
       <nav
-        className={`flex justify-between items-center text-xl font-semibold duration-100 h-20 ${scrolled ? 'bg-green-600 bg-opacity-60 p-4 text-black h-fit' : 'text-white bg-transparent h-20 p-2'
+        className={`flex justify-between items-center text-xl font-semibold duration-100 h-20 ${scrolled ? 'scrolled bg-green-600 bg-opacity-60 p-4 text-black h-12' : 'text-white bg-transparent h-20 p-2'
           }`}
       >
         <div className="max-w-screen-xl flex justify-between items-center w-full mx-auto">
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className="logo"></div>
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark">TacoTunes</span>
+              <div className={`logo ${scrolled ? 'items-center justify-center' : ''}`}></div>
+              <span className={`text-2xl font-semibold whitespace-nowrap dark ${scrolled ? 'hidden' : ''}`}>TacoTunes</span>
             </a>
           </div>
-          
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <SignedOut>
               <SignInButton />
