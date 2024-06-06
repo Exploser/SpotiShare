@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import SavedController from "~/_components/SavedController";
+import VolumeController from "~/_components/VolumeController";
 import { useVolume } from "~/context/VolumeContext";
 
 interface Image {
@@ -333,22 +334,7 @@ export default function Discover() {
           <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
         </svg>
       </div>
-
-      <div className='volume-control'>
-        <label className='whitespace-nowrap mx-2' htmlFor="volume">
-          Volume: {Math.round(volume * 100)}%
-        </label>
-        <input
-          id="volume"
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={handleVolumeChange}
-          className="w-full"
-        />
-      </div>
+      <VolumeController />
     </section>
   );
 }
