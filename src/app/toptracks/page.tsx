@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import TopTracksController from "~/_components/TopTracksController";
 import { useVolume } from "~/context/VolumeContext";
 import 'animate.css';
+import VolumeController from "~/_components/VolumeController";
 
 export interface Artist {
     id: string;
@@ -263,7 +264,7 @@ export default function TopTracks() {
                     </div>
                 </div>
 
-                <div className="max-w-screen-lg h-full w-fit text-white">
+                <div className="max-w-screen-lg h-full w-fit text-white" id="spotify-tracks-grid">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 w-full">
                         {tracks.slice(3).map((track) => (
 
@@ -332,6 +333,7 @@ export default function TopTracks() {
                     <rect className="spinner_GmWz spinner_OlQ0" x="17" y="4" width="6" height="14" />
                 </svg>
             </div>
+            <VolumeController />
         </div>
     );
 }
