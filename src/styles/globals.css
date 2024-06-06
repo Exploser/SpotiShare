@@ -16,13 +16,21 @@ body {
   background: linear-gradient(315deg, rgb(22, 101, 0) 3%, rgba(60, 132, 206, 1) 38%, rgb(124, 238, 48) 68%, rgb(75, 255, 25) 98%);
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
-  background-attachment: fixed;
 }
 
 .animated-hover {
   animation: float 6s ease-in-out infinite;
 }
 
+#main-content {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* Spotify Profile Card */
 #spotify-profile-card {
   background: rgb(5, 150, 14);
   background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
@@ -98,7 +106,7 @@ body {
 }
 
 /* Volume Controller */
-.volume-control {
+.volume-controller {
   position: sticky;
   width: 20vw;
   bottom: 0;
@@ -111,11 +119,11 @@ body {
   color: white;
 }
 
-.volume-control label {
+.volume-controller label {
   margin: 0 10px;
 }
 
-.volume-control input {
+.volume-controller input {
   flex-grow: 1;
 }
 
@@ -365,6 +373,13 @@ body {
 }
 /* Mobile view adjustments */
 @media (max-width: 768px) {
+  #main-content {
+    display: flex;
+    flex-direction: column;
+  }
+  #spotify-tracks-grid {
+    padding: 5vw;
+  }
   #spotify-top-tracks-main {
     margin-top: 10px;
     padding: 10px;
@@ -410,7 +425,10 @@ body {
   scale: 1.02;
 }
 #controller{
-  width: 100%;
+  min-width: 100%;
+}
+.volume-controller {
+  visibility: hidden;
 }
 
 /* Tablet view adjustments */
