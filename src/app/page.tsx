@@ -22,9 +22,6 @@ export default function HomePage() {
           </VolumeProvider>
         </SignedIn>
       </div>
-      <div className="wave"></div>
-      <div className="wave"></div>
-      <div className="wave"></div>
     </main>
   );
 }

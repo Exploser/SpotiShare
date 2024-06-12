@@ -53,28 +53,16 @@ body {
   text-decoration: none;
   text-shadow: 1px 1px 1px #000000;
 }
-
 #spotify-features {
   width: 95%;
   border-radius: 1rem;
   padding: 24px;
 }
-
-#spotify-features:hover {
-  background: rgb(5, 150, 7, 0.8);
-  background: linear-gradient(27deg, rgba(5, 150, 7, 1) 0%, rgba(19, 103, 0, 1) 41%, rgba(24, 112, 2, 1) 64%, rgba(57, 175, 16, 1) 100%);
-}
-
 #spotify-features a {
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px #000000;
   transition: background-color 0.3s, transform 0.3s;
-}
-
-#spotify-features a:hover {
-  background-color: #2e7d32;
-  transform: scale(1.05);
 }
 #top-tracks-controller {
   width: 50%;
@@ -384,7 +372,7 @@ body {
   flex-direction: row;
   width: inherit;
   justify-content: space-between;
-  div{
+  a{
     margin-left: 5px;
     width: 120px;
     height: fit-content;
@@ -396,7 +384,7 @@ body {
     border-radius: 10px;
     padding: 10px;
   }
-  div:hover{
+  a:hover{
     transition: flex-grow .3s;
     -webkit-transition: flex-grow .3s;
     flex-grow: 1.5;
@@ -452,72 +440,102 @@ body {
     object-fit: cover;
   }
 
-.volume-controller {
-  visibility: hidden;
-}
-}
-#spotify-tracks-rest-details {
-  opacity: 0;
-  border-radius: 10px;
-  transition-duration: 300ms;
-  width: full;
-  scale: 1.02;
-}
-#spotify-tracks-rest:hover {
-  transition-duration: 100ms;
-  scale: 1.06;
+  .volume-controller {
+    visibility: hidden;
+  }
+
   #spotify-tracks-rest-details {
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
     border-radius: 10px;
     transition-duration: 300ms;
+    width: full;
+    scale: 1.02;
   }
-}
-#spotify-artist-details {
-  opacity: 0;
-  scale: 1.06;
-  visibility: visible;
-  transition-duration: 300ms;
-  border-radius: 20px;
-  img{
-    height: 48px;
-    object-fit: contain;
-    border: 0px;
-    border-radius: 10%;
+  #spotify-tracks-rest:hover {
+    transition-duration: 100ms;
+    scale: 1.06;
+    #spotify-tracks-rest-details {
+      opacity: 1;
+      visibility: visible;
+      border-radius: 10px;
+      transition-duration: 300ms;
+    }
   }
-}
-
-#spotify-artist-first:hover {
-  transition-duration: 100ms;
-  scale: 1.06;
   #spotify-artist-details {
-    opacity: 1;
-    scale: 1.04;
+    opacity: 0;
+    scale: 1.06;
     visibility: visible;
-    border-radius: 20px;
     transition-duration: 300ms;
+    border-radius: 20px;
+    img{
+      height: 48px;
+      object-fit: contain;
+      border: 0px;
+      border-radius: 10%;
+    }
+  }
+
+  #spotify-artist-first:hover {
+    transition-duration: 100ms;
+    scale: 1.06;
+    #spotify-artist-details {
+      opacity: 1;
+      scale: 1.04;
+      visibility: visible;
+      border-radius: 20px;
+      transition-duration: 300ms;
+    }
+  }
+
+  #spotify-artists-rest-details{
+    opacity: 0;
+    border-radius: 10px;
+    scale: 1.02;
+    width: full;
+    visibility: hidden;
+    transition-duration: 300ms;
+    border-radius: 200px;
+    img{
+      height: 48px;
+      object-fit: contain;
+      border: 0px;
+      border-radius: 10%;
+    }
+  }
+  #controller{
+    min-width: 100%;
+  }
+  #spotify-features-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    justify-content: space-between;
+    a{
+      margin: 5px;
+      padding: 5px;
+      width: 120px;
+      height: 120px;
+      flex-basis: 1;
+      transition: flex-grow .3s;
+      flex-grow: 1;
+      -webkit-transition: flex-grow .3s;
+      border: 1px solid #0f0;
+      border-radius: 10px;
+      padding: 10px;
+      img{
+        height: 80px;
+        object-fit: contain;
+        border: 0px;
+        border-radius: 10%;
+      }
+    }
+    a:hover{
+      transition: flex-grow .3s;
+      -webkit-transition: flex-grow .3s;
+      flex-grow: 1.5;
+    }
   }
 }
-
-#spotify-artists-rest-details{
-  opacity: 0;
-  border-radius: 10px;
-  scale: 1.02;
-  width: full;
-  visibility: hidden;
-  transition-duration: 300ms;
-  border-radius: 200px;
-  img{
-    height: 48px;
-    object-fit: contain;
-    border: 0px;
-    border-radius: 10%;
-  }
-}
-#controller{
-  min-width: 100%;
-}
-
 /* Tablet view adjustments */
 @media (min-width: 769px) and (max-width: 1024px) {
   #spotify-top-tracks-main {
