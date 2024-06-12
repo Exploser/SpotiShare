@@ -25,7 +25,7 @@ body {
 #main-content {
   display: flex;
   width: 100%;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -55,11 +55,9 @@ body {
 }
 
 #spotify-features {
-  background: rgb(5, 150, 7, 0.6);
-  background: linear-gradient(27deg, rgba(5, 150, 7, 0.2) 0%, rgba(12, 133, 71, 0.4) 41%, rgba(56, 177, 26, 0.4) 64%, rgba(57, 175, 16, 0.2) 100%);
+  width: 95%;
   border-radius: 1rem;
   padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #spotify-features:hover {
@@ -384,9 +382,9 @@ body {
 #spotify-features-buttons{
   display: flex;
   flex-direction: row;
+  width: inherit;
   justify-content: space-between;
-  width: full;
-  a{
+  div{
     margin-left: 5px;
     width: 120px;
     height: fit-content;
@@ -398,10 +396,10 @@ body {
     border-radius: 10px;
     padding: 10px;
   }
-  a:hover{
-    flex-grow: 5;
+  div:hover{
     transition: flex-grow .3s;
     -webkit-transition: flex-grow .3s;
+    flex-grow: 1.5;
   }
 }
 /* Mobile view adjustments */

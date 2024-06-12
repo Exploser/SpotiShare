@@ -4,28 +4,34 @@ const SpotifyFeatures: React.FC = () => {
             id="spotify-features">
             <h1 className="text-3xl font-bold text-white mb-4">Features!</h1>
             <div id="spotify-features-buttons">
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105"
-                    href="/toptracks"
-                >
-                    Top Tracks
-                </a>
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105"
-                    href="/topartists"
-                >
-                    Top Artists
-                </a>
-            </div>
-            <div id="spotify-features-buttons">
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105 text-center"
-                    href="/savedcontent"
-                >
-                    Saved
-                </a>
-                <a className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded my-4 h-fit hover:scale-105 text-center"
-                    href="/recommendations"
-                >
-                    Discover
-                </a>
+                <div className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit">
+                    <img src="/images/top-tracks.svg"
+                        alt="Top Tracks"
+                        className="h-64 w-64 inline-block"
+                    />
+                    <a href="/toptracks">Top Tracks</a>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit">
+                    <img src="/images/top-artists.svg"
+                        alt="Top Tracks"
+                        className="h-64 w-64 inline-block"
+                    />
+                    <a href="/topartists">Top Artists</a>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
+                    <img src="/images/saved-content.svg"
+                        alt="Top Tracks"
+                        className="h-64 w-64 inline-block"
+                    />
+                    <a href="/savedcontent">Saved</a>
+                </div>
+                <div className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
+                    <img src="/images/discover-music.svg"
+                        alt="Top Tracks"
+                        className="h-64 w-64 inline-block"
+                    />
+                    <a href="/recommendations">Discover</a>
+                </div>
             </div>
             {/* <h1 className="text-xl font-bold text-white my-4">More features coming soon....</h1> */}
         </div>
