@@ -123,7 +123,7 @@ export default function TopTracks() {
             const pixelData = context.getImageData(0, 0, 1, 1);
             if (!pixelData) return;
             const pixel = pixelData.data;
-            const color = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}`;
+            const color = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, 0.5`;
             setSampleColors(prevColors => ({ ...prevColors, [trackId]: color }));
         };
     };
@@ -167,7 +167,7 @@ export default function TopTracks() {
                                         }}
                                         className={`w-full object-contain shadow-xl mb-2 ${currentTrackId === tracks[1]?.id ? 'rotate rounded-full transition-all' : 'rounded-md transition-all'}`}
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details">
+                                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-details"  style={{ backgroundColor: sampleColors[tracks[1]?.id ?? ''] }}>
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[1]?.album.name}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[1]?.track_number} of {tracks[1]?.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}</p>
