@@ -5,7 +5,7 @@ const SpotifyFeatures: React.FC = () => {
             <div id="spotify-features-buttons">
                 <a href="/toptracks" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
                     <div>
-                        <img src="/images/top-tracks.svg"
+                        <img src="/images/tracks.svg"
                             alt="Top Tracks"
                             className="h-64 w-64 inline-block"
                         />
@@ -14,7 +14,7 @@ const SpotifyFeatures: React.FC = () => {
                 </a>
                 <a href="/topartists" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
                     <div>
-                        <img src="/images/top-artists.svg"
+                        <img src="/images/artist.svg"
                             alt="Top Tracks"
                             className="h-64 w-64 inline-block"
                         />
@@ -23,7 +23,7 @@ const SpotifyFeatures: React.FC = () => {
                 </a>
                 <a href="/savedcontent" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
                     <div>
-                        <img src="/images/saved-content.svg"
+                        <img src="/images/saved.svg"
                             alt="Top Tracks"
                             className="h-64 w-64 inline-block"
                         />
@@ -32,7 +32,7 @@ const SpotifyFeatures: React.FC = () => {
                 </a>
                 <a href="/recommendations" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
                     <div>
-                        <img src="/images/discover-music.svg"
+                        <img src="/images/discover.svg"
                             alt="Top Tracks"
                             className="h-64 w-64 inline-block"
                         />
