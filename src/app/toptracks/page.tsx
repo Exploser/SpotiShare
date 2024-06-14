@@ -167,13 +167,13 @@ export default function TopTracks() {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
                                     />
-                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[1]?.name || '')}</p>
+                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[1]?.name ?? '')}</p>
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[1]?.album.name}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[1]?.track_number} of {tracks[1]?.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[1]?.artists.map(artist => artist.name).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
-                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[1]?.id || '')}>
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[1]?.id ?? '')}>
                                                 {currentTrackId === tracks[1]?.id ? 'Pause' : 'Play'}
                                             </button>
                                             <audio id={`audio-${tracks[1]?.id}`} src={tracks[1]?.preview_url} className="hidden"></audio>
@@ -202,13 +202,13 @@ export default function TopTracks() {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
                                     />
-                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[0]?.name || '')}</p>
+                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[0]?.name ?? '')}</p>
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[0]?.album.name}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[0]?.track_number} of {tracks[0]?.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[0]?.artists.map(artist => artist.name).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
-                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[0]?.id || '')}>
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[0]?.id ?? '')}>
                                                 {currentTrackId === tracks[0]?.id ? 'Pause' : 'Play'}
                                             </button>
                                             <audio id={`audio-${tracks[0]?.id}`} src={tracks[0]?.preview_url} className="hidden"></audio>
@@ -237,13 +237,13 @@ export default function TopTracks() {
                                             setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
                                         }}
                                     />
-                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[2]?.name || '')}</p>
+                                    <p className="absolute bottom-2 left-4 text-lg font-semibold spotify-track-title">{removeTextInParentheses(tracks[2]?.name ?? '')}</p>
                                     <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
                                         <p className="text-sm text-gray-300 text-center mb-2">Album: {tracks[2]?.album.name}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">Track: {tracks[2]?.track_number} of {tracks[2]?.album.total_tracks}</p>
                                         <p className="text-sm text-gray-300 text-center mb-2">By: {tracks[2]?.artists.map(artist => artist.name).join(', ')}</p>
                                         <div className="flex flex-row justify-evenly items-center w-full">
-                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[2]?.id || '')}>
+                                            <button className="play-button bg-blue-500 text-white px-4 py-2 rounded-md mb-2" onClick={() => handlePlay(tracks[2]?.id ?? '')}>
                                                 {currentTrackId === tracks[2]?.id ? 'Pause' : 'Play'}
                                             </button>
                                             <audio id={`audio-${tracks[2]?.id}`} src={tracks[2]?.preview_url} className="hidden"></audio>
