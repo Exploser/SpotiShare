@@ -13,8 +13,9 @@ body {
   margin: 0;
   padding: 0;
   overflow: auto;
-  background: linear-gradient(90deg, rgba(255,255,255,1) 16%, rgba(0,255,217,1) 50%, rgba(255,255,255,1) 84%);
+  /* background: linear-gradient(90deg, rgba(255,255,255,1) 16%, rgba(0,255,217,1) 50%, rgba(255,255,255,1) 84%); */
   /* background: linear-gradient(90deg, rgba(50,50,50,1) 16%, rgba(74,210,190,1) 50%, rgba(50,50,50,1) 84%); */
+  background: linear-gradient(0deg, rgba(255,237,201,1) 20%, rgba(237,191,178,1) 40%, rgba(237,191,178,1) 60%, rgba(255,237,201,1) 80%);
   animation: gradient 15s ease infinite;
   background-size: 400% 400%;
 }
@@ -30,6 +31,23 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
+main {
+  background-image: url('/images/background.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+main::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+}
+
 
 /* Spotify Profile Card */
 #spotify-profile-card {
@@ -37,6 +55,12 @@ body {
   background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
   animation: gradient 10s ease infinite;
   background-size: 200% 200%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  flex: 0 1 auto;
+  transform: translate(-50%, -50%);
+  width: 15%;
 }
 
 #spotify-profile-card:hover {
@@ -55,9 +79,14 @@ body {
   text-shadow: 1px 1px 1px #000000;
 }
 #spotify-features {
-  width: 95%;
+  width: 100dvw;
   border-radius: 1rem;
-  padding: 24px;
+  flex: 0 1 auto;
+  position: absolute;
+  top: 90%;
+  width: 80%;
+  text-align: center;
+  z-index: 1;
 }
 #spotify-features a {
   color: white;
@@ -213,8 +242,8 @@ body {
   }
   #spotify-features-buttons{
     display: grid;
+    width: 90%;
     grid-template-columns: 1fr 1fr;
-    width: fit-content;
     justify-content: space-between;
     a{
       margin: 5px;
@@ -491,7 +520,7 @@ body {
 #spotify-features-buttons{
   display: flex;
   flex-direction: row;
-  width: inherit;
+  width: 80%;
   justify-content: space-between;
   a{
     margin-left: 5px;
