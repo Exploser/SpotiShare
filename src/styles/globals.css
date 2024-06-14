@@ -56,7 +56,7 @@ main::before {
   animation: gradient 10s ease infinite;
   background-size: 200% 200%;
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 50%;
   flex: 0 1 auto;
   transform: translate(-50%, -50%);
@@ -85,6 +85,7 @@ main::before {
   position: absolute;
   top: 90%;
   width: 80%;
+  left: 18%;
   text-align: center;
   z-index: 1;
 }
@@ -174,6 +175,10 @@ main::before {
     height: fit-content;
     object-fit: cover;
   }
+  #artist-img{
+    height: 214px;
+    width: 214px;
+  }
   #spotify-artists-rest {
     height: fit-content;
     object-fit: cover;
@@ -188,7 +193,7 @@ main::before {
   }
   #spotify-tracks-rest:hover {
     transition-duration: 100ms;
-    scale: 1.06;
+    scale: 0.9;
     #spotify-tracks-rest-details {
       opacity: 1;
       visibility: visible;
@@ -568,6 +573,33 @@ main::before {
 
   .volume-controller {
     visibility: hidden;
+  }
+  #spotify-profile-card {
+    background: rgb(5, 150, 14);
+    background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
+    animation: gradient 10s ease infinite;
+    background-size: 200% 200%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    flex: 0 1 auto;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+  }
+  #spotify-features {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 90%;
+    left: 0;
+    text-align: center;
+    z-index: 1;
+  }
+  #spotify-features a {
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000000;
+    transition: background-color 0.3s, transform 0.3s;
   }
 }
 /* Tablet view adjustments */

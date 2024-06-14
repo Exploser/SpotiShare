@@ -1,6 +1,6 @@
 const SpotifyFeatures: React.FC = () => {
     return (
-        <div className="flex flex-col items-center bg-opacity-10 rounded-xl my-8"
+        <div
             id="spotify-features">
             <div id="spotify-features-buttons">
                 <a href="/toptracks" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">

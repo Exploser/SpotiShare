@@ -263,7 +263,6 @@ export default function TopTracks() {
                 <div className="text-white w-screen bg-slate-500 bg-opacity-50 rounded-xl p-8">
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
                         {tracks.slice(3).map((track) => (
-
                             <li key={track.id} className={` w-fit h-fit rounded-xl shadow-md ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`} style={{ backgroundColor: sampleColors[track.id] }}>
                                 <div className={`relative w-full`} id="spotify-tracks-rest">
                                     <img
@@ -292,7 +291,6 @@ export default function TopTracks() {
                                     </div>
                                 </div>
                             </li>
-
                         ))}
                     </ul>
                 </div>
