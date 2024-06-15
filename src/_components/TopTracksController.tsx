@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Artist, Track } from '~/app/toptracks/page';
+import type { Artist, Track } from '~/app/toptracks/page';
 import { useVolume } from '~/context/VolumeContext';
 
 interface TopTracksControllerProps {

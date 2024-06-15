@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAuth } from '@clerk/nextjs/server';
 import { albums, artists, savedTracks, tracks, users } from "~/server/db/schema";
 import { db } from '~/server/db';
-import { SpotifyTopTracksResponse } from '~/app/toptracks/page';
+import type { SpotifyTopTracksResponse } from '~/app/toptracks/page';
 
 const saveTracks = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

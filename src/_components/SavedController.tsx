@@ -34,7 +34,6 @@ const RecommendationsController: React.FC<SavedControllerProps> = (
         
     }) => {
 
-    const [isSaving, setIsSaving] = useState(false);
     const [refetchAttempted, setRefetchAttempted] = useState(false);
 
     const handleSeedTracksChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +110,7 @@ const RecommendationsController: React.FC<SavedControllerProps> = (
                         // onClick={handleSaveTracks} disabled={isSaving}
                         id='save-controller-button'
                     >
-                        {isSaving ? 'Saving...' : 'Save'}
+                        {/* {isSaving ? 'Saving...' : 'Save'} */}
                     </button>
                 </div>
             </div>

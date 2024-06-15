@@ -1,5 +1,4 @@
 // Code: src/app/discover/page.tsx
-
 'use client';
 
 import { useEffect, useRef, useState } from "react";
@@ -99,18 +98,6 @@ export default function Discover() {
   const [sampleColors, setSampleColors] = useState<Record<string, string>>({});
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(Number(event.target.value));
-  };
-
-  useEffect(() => {
-    const audioElements: NodeListOf<HTMLAudioElement> = document.querySelectorAll('audio.playing');
-    audioElements.forEach(audio => {
-      audio.volume = volume;
-    });
-  }, [volume]);
-
 
   useEffect(() => {
     setIsMounted(true);

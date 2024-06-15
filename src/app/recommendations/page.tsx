@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
 import { SpotifyTopTracksResponse, Track } from "../toptracks/page";
-import { useRouter } from 'next/router';
 
 interface Artist {
   name: string;
@@ -32,8 +31,6 @@ export default function Recommendations() {
   const [selectedGenres, setSelectedGenres] = useState<Array<string>>([]);
   const [error, setError] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
-  const [sampleColors, setSampleColors] = useState<Record<string, string>>({}); // Track ID -> Color
   const [timeRange, setTimeRange] = useState('medium_term');
   const [limit, setLimit] = useState(10);
 
@@ -188,7 +185,6 @@ export default function Recommendations() {
             <li
               key={track.id}
               className={`relative rounded-lg shadow-md p-4 flex flex-col items-center bg-gray-700 ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
-              style={{ backgroundColor: sampleColors[track.id] }}
             >
               <div className="relative w-full" id="spotify-tracks-rest">
                 <img
@@ -227,7 +223,6 @@ export default function Recommendations() {
             <li
               key={artist.id}
               className={`min-h-fit relative rounded-lg shadow-md p-4 flex flex-col bg-green-900 items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
-              style={{ backgroundColor: sampleColors[artist.id] }}
             >
               <div className="relative w-full" id="spotify-tracks-rest">
                 <img

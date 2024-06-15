@@ -1,7 +1,6 @@
 // src/server/db/schema.ts
-import { sql, relations, One } from "drizzle-orm";
+import { sql, relations} from "drizzle-orm";
 import {
-  index,
   pgTableCreator,
   timestamp,
   varchar,
