@@ -15,18 +15,6 @@ interface Artist {
   genres: string[];
   popularity: number;
 }
-interface Artist {
-  name: string;
-  id: string;
-  external_urls: {
-    spotify: string;
-  };
-  spotify: string;
-  images: Array<{ url: string; height: number; width: number }>;
-  followers: { total: number };
-  genres: string[];
-  popularity: number;
-}
 
 interface SpotifyTopArtistResponse {
   items: Artist[];
@@ -39,9 +27,9 @@ export default function Recommendations() {
   const [artists, setArtist] = useState<Artist[]>([]);
   const [genres, setGenres] = useState<string[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
-  const [selectedTrackIds, setSelectedTrackIds] = useState(Array<string>());
-  const [selectedArtistIds, setSelectedArtistIds] = useState(Array<string>());
-  const [selectedGenres, setSelectedGenres] = useState(Array<string>());
+  const [selectedTrackIds, setSelectedTrackIds] = useState<Array<string>>([]);
+  const [selectedArtistIds, setSelectedArtistIds] = useState<Array<string>>([]);
+  const [selectedGenres, setSelectedGenres] = useState<Array<string>>([]);
   const [error, setError] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentTrackId, setCurrentTrackId] = useState<string | null>(null);
@@ -175,9 +163,9 @@ export default function Recommendations() {
       window.location.href = `/discover?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}&seed_genres=${genreQueryString}`;
     }
     if (trackIds && artistIds && !genres) {
-    const trackQueryString = trackIds.join(',');
-    const artistQueryString = artistIds.join(',');
-    window.location.href = `/discover?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}`;
+      const trackQueryString = trackIds.join(',');
+      const artistQueryString = artistIds.join(',');
+      window.location.href = `/discover?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}`;
     }
     if (trackIds && !artistIds && !genres) {
       const trackQueryString = trackIds.join(',');
@@ -218,8 +206,12 @@ export default function Recommendations() {
                 </div>
               </div>
               <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
-              <button onClick={() => handleSelect(track.id, 'track')} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                Select Track
+              <button 
+                onClick={() => handleSelect(track.id, 'track')} 
+                className={`mt-2 px-4 py-2 rounded transition ${selectedTrackIds.includes(track.id) ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+                disabled={selectedTrackIds.includes(track.id)}
+              >
+                {selectedTrackIds.includes(track.id) ? 'Selected' : 'Select Track'}
               </button>
             </li>
           ))}
@@ -252,10 +244,14 @@ export default function Recommendations() {
                   <p className="text-sm text-gray-300 text-center mb-2">{artist.genres.map(genre => genre).join(', ')}</p>
                 </div>
               </div>
-                  <p className="text-lg font-semibold text-center spotify-artist-title">{removeTextInParentheses(artist.name)}</p>
-                  <button onClick={() => handleSelect(artist.id, 'artist')} className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
-                    Select Artist
-                  </button>
+              <p className="text-lg font-semibold text-center spotify-artist-title">{removeTextInParentheses(artist.name)}</p>
+              <button 
+                onClick={() => handleSelect(artist.id, 'artist')} 
+                className={`mt-2 px-4 py-2 rounded transition ${selectedArtistIds.includes(artist.id) ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600 text-white'}`}
+                disabled={selectedArtistIds.includes(artist.id)}
+              >
+                {selectedArtistIds.includes(artist.id) ? 'Selected' : 'Select Artist'}
+              </button>
             </li>
           ))}
         </ul>
@@ -267,10 +263,11 @@ export default function Recommendations() {
         {genres.map((genre) => (
           <li key={genre} className="">
             <button 
-            className="p-4 bg-gray-800 text-white rounded-lg shadow-md flex items-center justify-center hover:bg-gray-700 transition"
-            onClick={() => handleSelect(genre, 'genre')}
+              className={`p-4 rounded-lg shadow-md flex items-center justify-center transition ${selectedGenres.includes(genre) ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-800 hover:bg-gray-700 text-white'}`}
+              onClick={() => handleSelect(genre, 'genre')}
+              disabled={selectedGenres.includes(genre)}
             >
-              {genre}
+              {selectedGenres.includes(genre) ? 'Selected' : genre}
             </button>
           </li>
         ))}
