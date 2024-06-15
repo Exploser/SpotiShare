@@ -59,13 +59,12 @@ const SpotifyProfile: React.FC = () => {
         )}
       </div>
       {user.external_urls.spotify && (
-        <p className="text-center text-white">
+        <p>
           <a
             href={user.external_urls.spotify}
             target='_blank'
             rel="noopener noreferrer"
-            className="underline hover:text-gray-300"
-            id='spotify-profile-name'
+            className="text-2xl font-bold text-white mb-4"
           > 
             {user.display_name}
           </a>
