@@ -51,21 +51,32 @@ main::before {
 
 /* Spotify Profile Card */
 #spotify-profile-card {
-  background: rgb(5, 150, 14);
-  background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
-  animation: gradient 10s ease infinite;
-  background-size: 200% 200%;
+  background: rgba(74, 83, 79, 0.8);
   position: absolute;
   top: 35%;
   left: 50%;
   flex: 0 1 auto;
   transform: translate(-50%, -50%);
-  width: 15%;
+  width: 20%;
+  h1{
+  }
 }
 
 #spotify-profile-card:hover {
-  background: rgb(5, 150, 14);
-  background: linear-gradient(38deg, rgb(7, 174, 19) 0%, rgb(6, 119, 142) 38%, rgb(2, 58, 137) 64%, rgb(58, 202, 10) 100%);
+  background: rgba(74, 83, 79, 0.8);
+  background: linear-gradient(38deg, rgba(237, 191, 178, 0.8) 0%, rgba(255, 237, 201, 0.8) 38%, rgba(255, 237, 201, 0.8) 64%, rgba(237, 191, 178, 0.8) 100%);
+  h1:hover{
+    color: #000000;
+    text-shadow: 0px 4px 0px rgba(255, 237, 201, 1),
+             0px 7px 0px rgba(107, 203, 179, 1),
+             0px 9px 0px rgba(122, 69, 32, 1);
+  }
+  a:hover{
+    color: #000000;
+    text-shadow: 0px 4px 0px rgba(255, 237, 201, 1),
+             0px 7px 0px rgba(107, 203, 179, 1),
+             0px 9px 0px rgba(122, 69, 32, 1);
+  }
 }
 
 #tracks-rest-artist {
@@ -73,11 +84,6 @@ main::before {
   text-shadow: 1px 1px 1px #000000;
 }
 
-#spotify-profile-name {
-  color: white;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #000000;
-}
 #spotify-features {
   width: 100dvw;
   border-radius: 1rem;
@@ -575,10 +581,6 @@ main::before {
     visibility: hidden;
   }
   #spotify-profile-card {
-    background: rgb(5, 150, 14);
-    background: linear-gradient(38deg, rgba(7, 197, 20, 0.8) 0%, rgba(5, 106, 127, 0.8) 38%, rgba(3, 73, 171, 0.8) 64%, rgba(57, 175, 16, 0.8) 100%);
-    animation: gradient 10s ease infinite;
-    background-size: 200% 200%;
     position: absolute;
     top: 40%;
     left: 50%;
