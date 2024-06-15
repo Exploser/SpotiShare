@@ -32,7 +32,7 @@ const SpotifyFeatures: React.FC = () => {
                 </a>
                 <a href="/recommendations" className="flex flex-col justify-center items-center bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 border border-green-700 rounded whitespace-nowrap text-center my-4 h-fit hover:scale-105">
                     <div>
-                        <img src="/images/discover.svg"
+                        <img src="/images/discover.png"
                             alt="Top Tracks"
                             className="h-64 w-64 inline-block"
                         />
