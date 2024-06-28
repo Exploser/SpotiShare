@@ -1,4 +1,4 @@
-![image](https://github.com/Exploser/SpotiShare/assets/126280113/2c8e74a6-6075-43ca-a45d-8a934cb701eb)# SpotiShare: Discover and share music!
+# SpotiShare: Discover and share music!
 
 ## Descriptions:
   A simple web-app to look at your top artists and tracks on Spotify, and find more music like it.
