@@ -1,15 +1,7 @@
-# Create T3 App
+![image](https://github.com/Exploser/SpotiShare/assets/126280113/2c8e74a6-6075-43ca-a45d-8a934cb701eb)# SpotiShare: Discover and share music!
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Descriptions:
+  A simple web-app to look at your top artists and tracks on Spotify, and find more music like it.
 
-## TODO
-
-- [X] Deploy (w/ vercel)
-- [X] Add Auth (w/Clerk)
-- [X] Connect Spotify API
-- [X] Setup Spotify OAuth
-- [ ] Scaffold Basic UI
-- [ ] Get info from API
-- [ ] Nice UI to display the info from the API
-- [ ] Customize Info
-- [ ] Create a Playlist & get Share link
+## Screenshot
+  ![image](https://github.com/Exploser/SpotiShare/assets/126280113/c4e9d8c2-a1e8-406d-a738-ca28ebb86459)
