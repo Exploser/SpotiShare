@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
 
     const headers = new Headers();
     headers.append('Set-Cookie', cookie);
-    headers.append('Location', '/');
+    headers.append('Location', '/dashboard');
 
     // Redirect to the home page
     return new NextResponse(null, {
