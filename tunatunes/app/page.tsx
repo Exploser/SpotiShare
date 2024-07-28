@@ -9,7 +9,6 @@ export default function Home() {
     <div className="h-full bg-[#111827]">
       <LandingNavbar />
       <LandingHero />
-      <SpotifyProfile />
     </div>
   );
 }
