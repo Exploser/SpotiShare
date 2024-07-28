@@ -30,3 +30,18 @@ export interface SpotifyTrack {
   export interface SpotifyTopTracksResponse {
     items: SpotifyTrack[];
   }
+  export interface SpotifyTopArtistsResponse {
+    items: Artist[];
+  }
+  export interface Artist {
+    name: string;
+    id: string;
+    external_urls: {
+        spotify: string;
+    };
+    spotify: string;
+    images: Array<{ url: string; height: number; width: number }>;
+    followers: { total: number };
+    genres: string[];
+    popularity: number;
+}
