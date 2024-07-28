@@ -1,16 +1,17 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+// /app/api/spotify/getProfile/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { parse } from 'cookie';
 import { SpotifyUser } from '@/types/type';
 
 interface SpotifyError {
-    error: {
-        status: number;
-        message: string;
-      };
+  error: {
+    status: number;
+    message: string;
+  };
 }
 
-export const fetchSpotifyUserData = async (req: NextApiRequest): Promise<SpotifyUser> => {
-  const cookies = req.headers.cookie;
+const fetchSpotifyUserData = async (req: NextRequest): Promise<SpotifyUser> => {
+  const cookies = req.headers.get('cookie');
   if (!cookies) throw new Error('No cookies found');
 
   const parsedCookies = parse(cookies);
@@ -35,17 +36,17 @@ export const fetchSpotifyUserData = async (req: NextApiRequest): Promise<Spotify
   return userData;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-try {
+export const GET = async (req: NextRequest) => {
+  try {
     const userData = await fetchSpotifyUserData(req);
-    res.status(200).json(userData);
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message);
-            res.status(500).json({ error: error.message });
-        } else {
-            console.error('Unexpected error', error);
-            res.status(500).json({ error: 'An unexpected error occurred' });
-        }
+    return NextResponse.json(userData, { status: 200 });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      console.error('Unexpected error', error);
+      return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
     }
-}
+  }
+};
