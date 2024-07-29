@@ -1,14 +1,7 @@
 // /app/api/spotify/getProfile/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { parse } from 'cookie';
-import { SpotifyUser } from '@/types/type';
-
-interface SpotifyError {
-  error: {
-    status: number;
-    message: string;
-  };
-}
+import { SpotifyError, SpotifyUser } from '@/types/type';
 
 const fetchSpotifyUserData = async (req: NextRequest): Promise<SpotifyUser> => {
   const cookies = req.headers.get('cookie');
@@ -16,7 +9,7 @@ const fetchSpotifyUserData = async (req: NextRequest): Promise<SpotifyUser> => {
 
   const parsedCookies = parse(cookies);
   const accessToken = parsedCookies.spotify_access_token;
-  console.log('accessToken:', accessToken);
+
   if (!accessToken) throw new Error('Spotify access token not found');
 
   const response = await fetch('https://api.spotify.com/v1/me', {
