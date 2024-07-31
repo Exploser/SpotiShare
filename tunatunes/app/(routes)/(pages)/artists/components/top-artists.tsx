@@ -1,5 +1,6 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Artist } from "@/types/type";
+import { RefreshCcwDot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -55,9 +56,9 @@ const TopArtistsDisplay = ({ artists, loadMoreTracks }: TopArtistsDisplayProps) 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 m-8 mb-0">
             {artists.map((artist) => (
-                <Card 
-                    key={artist.id} 
-                    className="m-2" 
+                <Card
+                    key={artist.id}
+                    className="m-2"
                     style={{ backgroundColor: sampleColors[artist.id] }}
                     onMouseEnter={() => setHoveredArtistId(artist.id)}
                     onMouseLeave={() => setHoveredArtistId(null)}
@@ -91,18 +92,17 @@ const TopArtistsDisplay = ({ artists, loadMoreTracks }: TopArtistsDisplayProps) 
                     <CardFooter className="border-0 p-0 justify-center items-center">
                         <CardTitle className="text-center py-4">{removeTextInParentheses(artist?.name ?? 'None')}</CardTitle>
                     </CardFooter>
-                   
                 </Card>
             ))}
-            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-            <div className="flex justify-center mt-4">
-                <button 
-                    onClick={loadMoreTracks}
-                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-                >
-                    Load More
+            <Card className="m-2">
+                <button onClick={loadMoreTracks} className="bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    <CardHeader className="rounded-xl items-center justify-center">
+                        <RefreshCcwDot height={200} width={100} />
+                        <CardTitle className="text-white text-center">Load More Tracks</CardTitle>
+                    </CardHeader>
                 </button>
-            </div>
+            </Card>
+            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
         </div>
     );
 }
