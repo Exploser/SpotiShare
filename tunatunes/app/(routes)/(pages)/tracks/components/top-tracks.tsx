@@ -11,7 +11,6 @@ interface TopTracksDisplayProps {
 }
 
 const TopTracksDisplay = ({ tracks, loadMoreTracks }: TopTracksDisplayProps) => {
-    console.log(tracks, 'tracks');
     const [sampleColors, setSampleColors] = useState<Record<string, string>>({});
     const [hoveredTrackId, setHoveredArtistId] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
