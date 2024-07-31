@@ -1,5 +1,6 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tracks } from "@/types/type";
+import { RefreshCcwDot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +11,7 @@ interface TopTracksDisplayProps {
 }
 
 const TopTracksDisplay = ({ tracks, loadMoreTracks }: TopTracksDisplayProps) => {
+    console.log(tracks, 'tracks');
     const [sampleColors, setSampleColors] = useState<Record<string, string>>({});
     const [hoveredTrackId, setHoveredArtistId] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -54,9 +56,9 @@ const TopTracksDisplay = ({ tracks, loadMoreTracks }: TopTracksDisplayProps) => 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 m-8 mb-0">
             {tracks.map((track) => (
-                <Card 
-                    key={track.id} 
-                    className="m-2" 
+                <Card
+                    key={track.id}
+                    className="m-2"
                     style={{ backgroundColor: sampleColors[track.id] }}
                     onMouseEnter={() => setHoveredArtistId(track.id)}
                     onMouseLeave={() => setHoveredArtistId(null)}
@@ -72,36 +74,39 @@ const TopTracksDisplay = ({ tracks, loadMoreTracks }: TopTracksDisplayProps) => 
                                     objectFit="cover"
                                     className="rounded-t-lg"
                                 />
-                                {/* {hoveredTrackId === track.id && (
+                                {hoveredTrackId === track.id && (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-75 text-white p-4 rounded-t-lg">
-                                        <h3 className="text-sm font-semibold">Genres: </h3>
-                                        <p className="font-semibold"> {artist.genres.map(genres => genres).join(', ')}</p>
+                                        <h3 className="text-sm font-semibold">Artists: </h3>
+                                        <p className="font-semibold"> {track.artists.map(artists => artists.name).join(', ')}</p>
                                         <p className="text-sm mt-6">
-                                            Followers: {artist.followers.total.toLocaleString()}
+                                            Release Date: {track.album.release_date.toLocaleString()}
                                         </p>
                                         <p className="text-sm">
-                                            Popularity: {artist.popularity}
+                                            Album: {track.album.name}
+                                        </p>
+                                        <p className="text-sm">
+                                            Track: {`${track.track_number} of ${track.album.total_tracks}`}
                                         </p>
                                     </div>
-                                )} */}
+                                )}
                             </div>
                         </Link>
                     </CardHeader>
                     <CardFooter className="border-0 p-0 justify-center items-center">
                         <CardTitle className="text-center py-4">{removeTextInParentheses(track?.name ?? 'None')}</CardTitle>
                     </CardFooter>
-                   
+
                 </Card>
             ))}
-            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-            <div className="flex justify-center mt-4">
-                <button 
-                    onClick={loadMoreTracks}
-                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
-                >
-                    Load More
+            <Card className="m-2">
+                <button onClick={loadMoreTracks} className="bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    <CardHeader className="rounded-xl items-center justify-center">
+                        <RefreshCcwDot height={200} width={100} />
+                        <CardTitle className="text-white text-center">Load More Tracks</CardTitle>
+                    </CardHeader>
                 </button>
-            </div>
+            </Card>
+            <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
         </div>
     );
 }
