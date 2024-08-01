@@ -24,12 +24,12 @@ const TopArtistsCarousel = ({ tracks }: TopArtistsCarouselProps) => {
                 {tracks.slice(0, 5).map((track) => (
                     <CarouselItem key={track.id} className="pl-1 md:basis-1/2 lg:basis-1/3">
                         <div className="flex flex-col items-center justify-center p-2">
-                            <img
-                                src={track.album.images[0]?.url}
-                                alt={track.name}
-                                className="w-32 h-32 rounded-xl mb-2"
-                            />
-                            <p className="text-center">{track.name}</p>
+                            <Card className="bg-center bg-cover bg-no-repeat h-auto" style={{backgroundImage: `url(${track.album.images[0]?.url})`}}>
+                                <CardHeader className="bg-black bg-opacity-60 rounded-xl items-center justify-center">
+                                    <Image src={track.album.images[0]?.url} alt={track.name} width={200} height={200} />
+                                    <CardTitle className="text-white text-center">{track.name}</CardTitle>
+                                </CardHeader>
+                            </Card>
                         </div>
                     </CarouselItem>
                 ))}
