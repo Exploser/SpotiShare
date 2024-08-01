@@ -9,7 +9,10 @@ export interface SpotifyTrack {
   external_urls: {
     spotify: string;
   };
+  preview_url?: string;
+  explicit: boolean;
 }
+
 export interface SpotifyError {
   error: {
     status: number;
@@ -67,4 +70,29 @@ export interface Tracks {
 
 export interface SpotifyTopTracksResponse {
   items: Tracks[];
+}
+
+interface SpotifyContext {
+  type: string;
+  external_urls: string[];
+  href: string;
+  uri: string;
+}
+
+export interface SpotifyPlayHistory {
+  track: SpotifyTrack;
+  played_at: string;
+  context: SpotifyContext;
+}
+
+export interface recentlyPlayed {
+  href: string;
+  limit: number;
+  next: string;
+  cursors: {
+    after: string;
+    before: string;
+  };
+  total: number;
+  items: SpotifyPlayHistory[];
 }
