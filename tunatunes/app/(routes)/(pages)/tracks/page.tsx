@@ -3,6 +3,7 @@ import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
 import { SpotifyTopTracksResponse, Tracks } from "@/types/type";
 import { useEffect, useState } from "react";
 import TopTracksDisplay from "./components/top-tracks";
+import { Heading } from "@/components/ui/heading";
 // import TopArtistsDisplay from "./components/top-tracks";
 
 const ArtistsPage = () => {
@@ -67,6 +68,7 @@ const ArtistsPage = () => {
 
     return (
         <div className="h-full w-full">
+            <Heading title="Top Tracks" description="Your top tracks" />
             <Tabs defaultValue="this-month" onValueChange={handleTabChange}>
                 <TabsList className="h-full w-full">
                     <TabsTrigger value="this-month" className="text-xl px-8">This Month</TabsTrigger>
