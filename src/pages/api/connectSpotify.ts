@@ -19,7 +19,7 @@ const generateRandomString = (length: number) => {
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const state = generateRandomString(16);
   // Required scopes for the application 
-  const scope = 'user-top-read user-library-read user-read-recently-played'; 
+  const scope = 'user-read-email user-read-private user-library-read user-top-read user-read-recently-played'; 
 
   const params = new URLSearchParams({
     response_type: 'code',
