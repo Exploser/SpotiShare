@@ -1,6 +1,9 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Artist } from "@/types/type";
 import Link from "next/link";
+import Autoplay from "embla-carousel-autoplay"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from "next/image";
 
 interface TopArtistsCarouselProps {
     artists: Artist[];
@@ -8,17 +11,25 @@ interface TopArtistsCarouselProps {
 
 const TopArtistsCarousel = ({ artists }: TopArtistsCarouselProps) => {
     return (
-        <Carousel className="w-[60vw] ml-20">
+        <Carousel
+            plugins={[
+                Autoplay({
+                    delay: 2000,
+                    stopOnMouseEnter: true,
+                    stopOnLastSnap: true,
+                }),
+            ]}
+            className="w-[60vw] ml-20">
             <CarouselContent>
                 {artists.slice(0, 5).map((artist) => (
                     <CarouselItem key={artist.id} className="pl-1 md:basis-1/2 lg:basis-1/3">
                         <div className="flex flex-col items-center justify-center p-2">
-                            <img
-                                src={artist.images[0]?.url}
-                                alt={artist.name}
-                                className="w-32 h-32 rounded-xl mb-2"
-                            />
-                            <p className="text-center">{artist.name}</p>
+                            <Card className="xs:min-h-full xs:min-w-full bg-center bg-cover bg-no-repeat" style={{backgroundImage: `url(${artist.images[0]?.url})`}}>
+                                <CardHeader className="bg-black bg-opacity-60 rounded-xl items-center justify-center">
+                                    <Image src={artist.images[0]?.url} alt={artist.name} width={200} height={200} />
+                                    <CardTitle className="text-white text-center">{artist.name}</CardTitle>
+                                </CardHeader>
+                            </Card>
                         </div>
                     </CarouselItem>
                 ))}
