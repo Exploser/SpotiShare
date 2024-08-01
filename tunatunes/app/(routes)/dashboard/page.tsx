@@ -81,7 +81,6 @@ const DashboardPage = () => {
             <div className="w-fit">
                 <TopArtistsCarousel artists={artists} />
             </div>
-
             <h3 className="font-bold text-2xl py-8 px-4"> Top Tracks</h3>
             <div className="w-fit">
                 <TopTracksCarousel tracks={tracks} />
