@@ -29,7 +29,7 @@ export const LandingHero = () => {
                 </div>
                 <div>
                     <Link href={`https://accounts.spotify.com/authorize/?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`}>
-                        <Button variant={'premium'} className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
+                        <Button variant={'spotify'} className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
                             Continue with Spotify
                         </Button>
                     </Link>

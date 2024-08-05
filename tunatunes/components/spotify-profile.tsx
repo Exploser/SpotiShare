@@ -56,7 +56,7 @@ const SpotifyProfile: React.FC = () => {
             />
           )}
         </div>
-        <p>
+        <p className='text-center'>
           <a
             href={user.external_urls.spotify}
             target='_blank'

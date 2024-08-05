@@ -2,7 +2,7 @@
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
 import { Artist, SpotifyTopArtistsResponse } from "@/types/type";
 import { useEffect, useState } from "react";
-import TopArtistsDisplay from "./components/top-artists";
+import TopArtistsDisplay from "@/components/top-artists";
 import { Heading } from "@/components/ui/heading";
 
 const ArtistsPage = () => {

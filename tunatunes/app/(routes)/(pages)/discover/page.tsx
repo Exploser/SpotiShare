@@ -1,11 +1,9 @@
 'use client';
 import { Heading } from "@/components/ui/heading";
-import { Artist, SpotifyTopArtistsResponse, SpotifyTopTracksResponse, Tracks } from "@/types/type";
+import { Artist, SpotifyGenresResponse, SpotifyTopArtistsResponse, SpotifyTopTracksResponse, Tracks } from "@/types/type";
 import { useEffect, useState } from "react";
-
-interface SpotifyGenresResponse {
-    genres: string[];
-}
+import SelectTracksCarousel from "./components/select-tracks";
+import SelectArtistsCarousel from "./components/select-artists";
 
 const DiscoverPage = () => {
     const [artists, setArtist] = useState<Artist[]>([]);
@@ -142,116 +140,56 @@ const DiscoverPage = () => {
             const trackQueryString = trackIds.join(',');
             const artistQueryString = artistIds.join(',');
             const genreQueryString = selectedGenres.join(',');
-            window.location.href = `/discover?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}&seed_genres=${genreQueryString}`;
+            window.location.href = `/discover/results?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}&seed_genres=${genreQueryString}`;
         }
         if (trackIds && artistIds && !genres) {
             const trackQueryString = trackIds.join(',');
             const artistQueryString = artistIds.join(',');
-            window.location.href = `/discover?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}`;
+            window.location.href = `/discover/results?seed_tracks=${trackQueryString}&seed_artists=${artistQueryString}`;
         }
         if (trackIds && !artistIds && !genres) {
             const trackQueryString = trackIds.join(',');
-            window.location.href = `/discover?seed_tracks=${trackQueryString}`;
+            window.location.href = `/discover/results?seed_tracks=${trackQueryString}`;
         }
         if (artistIds && !trackIds && !genres) {
             const artistQueryString = artistIds.join(',');
-            window.location.href = `/discover?seed_artists=${artistQueryString}`;
+            window.location.href = `/discover/results?seed_artists=${artistQueryString}`;
         }
     };
 
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-4 mx-auto max-w-2xl" id="top-track-heading">
-                Choose Tracks
-            </h1>
-            <div className="max-w-screen-lg h-full w-fit my-8 text-white">
-                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-                    {tracks.map((track) => (
-                        <li
-                            key={track.id}
-                            className={`relative rounded-lg shadow-md p-4 flex flex-col items-center bg-gray-700 ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
-                        >
-                            <div className="relative w-full" id="spotify-tracks-rest">
-                                <img
-                                    src={track.album.images[0]?.url}
-                                    alt={track.name}
-                                    onLoad={() => {
-                                        setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
-                                    }}
-                                    className="w-full object-contain shadow-xl rounded-md mb-2"
-                                />
-                                <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 w-full" id="spotify-tracks-rest-details">
-                                    <p className="text-sm text-gray-300 text-center mb-2">Album: {track.album.name}</p>
-                                    <p className="text-sm text-gray-300 text-center mb-2">Track: {track.track_number} of {track.album.total_tracks}</p>
-                                    <p className="text-sm text-gray-300 text-center mb-2">By: {track.artists.map(artist => artist.name).join(', ')}</p>
-                                </div>
-                            </div>
-                            <p className="text-lg font-semibold text-center spotify-track-title">{removeTextInParentheses(track.name)}</p>
+        <div className="w-full">
+            <Heading title="Discover" description="Find New music based on the tracks and artists you like, Choose Upto 5 Items" />
+            <div className="flex flex-col items-start justify-between p-4 pb-0">
+                <h2 className="text-3xl font-bold tracking-tight text-slate-600">
+                    Choose Tracks,
+                </h2>
+                <div className="h-full w-full my-8 text-white">
+                    <SelectTracksCarousel tracks={tracks} handleSelect={handleSelect} selectedTrackIds={selectedTrackIds} />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight text-slate-600">
+                    Choose Artists,
+                </h2>
+                <div className="h-full w-full my-8 text-white">
+                    <SelectArtistsCarousel artists={artists} handleSelect={handleSelect} selectedArtistsIds={selectedArtistIds} />
+                </div>
+                <h2 className="text-3xl font-bold tracking-tight text-slate-600">
+                    Choose Genres,
+                </h2>
+                <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 m-8">
+                    {genres.map((genre) => (
+                        <li key={genre} className="">
                             <button
-                                onClick={() => handleSelect(track.id, 'track')}
-                                className={`mt-2 px-4 py-2 rounded transition ${selectedTrackIds.includes(track.id) ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
-                                disabled={selectedTrackIds.includes(track.id)}
+                                className={`p-4 rounded-lg shadow-md flex items-center justify-center transition ${selectedGenres.includes(genre) ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-800 hover:bg-gray-700 text-white'}`}
+                                onClick={() => handleSelect(genre, 'genre')}
+                                disabled={selectedGenres.includes(genre)}
                             >
-                                {selectedTrackIds.includes(track.id) ? 'Selected' : 'Select Track'}
+                                {selectedGenres.includes(genre) ? 'Selected' : genre}
                             </button>
                         </li>
                     ))}
                 </ul>
             </div>
-
-            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-8 mx-auto max-w-2xl" id="top-track-heading">
-                Choose Artist
-            </h1>
-            <div className="max-w-screen-lg mx-auto p-4 h-auto w-full my-8 text-white flex flex-col items-center justify-center">
-                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                    {artists.map((artist) => (
-                        <li
-                            key={artist.id}
-                            className={`min-h-fit relative rounded-lg shadow-md p-4 flex flex-col bg-green-900 items-center justify-center ${imageLoaded ? 'animate__animated animate__fadeInUp' : 'hidden'}`}
-                        >
-                            <div className="relative w-full" id="spotify-tracks-rest">
-                                <img
-                                    src={artist.images[0]?.url}
-                                    alt={artist.name}
-                                    className="shadow-xl rounded-md mb-2 w-full"
-                                    onLoad={() => {
-                                        setTimeout(() => setImageLoaded(true), 1000); // Delay the animation start
-                                    }}
-                                />
-                                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4">
-                                    <p className="text-sm text-gray-300 text-center mb-2">Popularity: {artist.popularity}</p>
-                                    <p className="text-sm text-gray-300 text-center mb-2">Followers: {artist.followers.total}</p>
-                                    <p className="text-sm text-gray-300 text-center mb-2">{artist.genres.map(genre => genre).join(', ')}</p>
-                                </div>
-                            </div>
-                            <p className="text-lg font-semibold text-center spotify-artist-title">{removeTextInParentheses(artist.name)}</p>
-                            <button
-                                onClick={() => handleSelect(artist.id, 'artist')}
-                                className={`mt-2 px-4 py-2 rounded transition ${selectedArtistIds.includes(artist.id) ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600 text-white'}`}
-                                disabled={selectedArtistIds.includes(artist.id)}
-                            >
-                                {selectedArtistIds.includes(artist.id) ? 'Selected' : 'Select Artist'}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl text-white text-center leading-tight tracking-tight font-bold my-4 mx-auto max-w-2xl" id="top-track-heading">
-                Choose Genre
-            </h1>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8">
-                {genres.map((genre) => (
-                    <li key={genre} className="">
-                        <button
-                            className={`p-4 rounded-lg shadow-md flex items-center justify-center transition ${selectedGenres.includes(genre) ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-800 hover:bg-gray-700 text-white'}`}
-                            onClick={() => handleSelect(genre, 'genre')}
-                            disabled={selectedGenres.includes(genre)}
-                        >
-                            {selectedGenres.includes(genre) ? 'Selected' : genre}
-                        </button>
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 }

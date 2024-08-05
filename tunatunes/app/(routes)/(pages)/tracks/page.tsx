@@ -2,9 +2,9 @@
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "@/components/ui/tabs";
 import { SpotifyTopTracksResponse, Tracks } from "@/types/type";
 import { useEffect, useState } from "react";
-import TopTracksDisplay from "./components/top-tracks";
+import TopTracksDisplay from "@/components/top-tracks";
 import { Heading } from "@/components/ui/heading";
-// import TopArtistsDisplay from "./components/top-tracks";
+import VolumeController from "@/components/volume-controller";
 
 const ArtistsPage = () => {
     const [error, setError] = useState<string | null>(null);
@@ -36,14 +36,15 @@ const ArtistsPage = () => {
             if (err instanceof Error) {
                 setError(err.message);
             }
+            console.log(error);
+            return error;
         }
-        console.log(error);
-        return error;
+        return null;
     };
 
     useEffect(() => {
         fetchTopTracks(timeRange, limit).catch((err) => console.error(err));
-    }, []);
+    }, [timeRange, limit]);
 
     const handleTabChange = (value: string) => {
         switch (value) {
@@ -63,7 +64,6 @@ const ArtistsPage = () => {
 
     const loadMoreTracks = () => {
         setLimit(prevLimit => prevLimit + 10);
-        fetchTopTracks(timeRange, limit).catch((err) => console.error(err));
     };
 
     return (
@@ -71,9 +71,9 @@ const ArtistsPage = () => {
             <Heading title="Top Tracks" description="Your top tracks" />
             <Tabs defaultValue="this-month" onValueChange={handleTabChange}>
                 <TabsList className="h-full w-full">
-                    <TabsTrigger value="this-month" className="text-xl px-8">This Month</TabsTrigger>
-                    <TabsTrigger value="this-year" className="text-xl px-8">This Year</TabsTrigger>
-                    <TabsTrigger value="all-time" className="text-xl px-8">All Time</TabsTrigger>
+                    <TabsTrigger value="this-month" className="md:text-xl sm:text-lg px-8">This Month</TabsTrigger>
+                    <TabsTrigger value="this-year" className="md:text-xl sm:text-lg px-8">This Year</TabsTrigger>
+                    <TabsTrigger value="all-time" className="md:text-xl sm:text-lg px-8">All Time</TabsTrigger>
                 </TabsList>
                 <TabsContent value="this-month">
                     <TopTracksDisplay tracks={tracks} loadMoreTracks={loadMoreTracks} />
@@ -85,6 +85,7 @@ const ArtistsPage = () => {
                     <TopTracksDisplay tracks={tracks} loadMoreTracks={loadMoreTracks} />
                 </TabsContent>
             </Tabs>
+            <VolumeController />
         </div>
     );
 }

@@ -1,20 +1,23 @@
 // src/pages/api/spotifyAPICalls/getGenres.ts
 
-import { NextRequest, NextResponse } from 'next/server';
-import { parse } from 'cookie';
+import { NextResponse } from 'next/server';
 import { fetchSpotifyGenres } from '@/lib/spotify';
+import { cookies } from 'next/headers';
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
-    const cookies = req.headers.get('cookie');
-    if (!cookies) throw new Error('No cookies found');
+    // Retrieve the Spotify access token from cookies
+    const cookieData = cookies().get('spotify_access_token');
+    const accessToken = cookieData?.value;
 
-    const parsedCookies = parse(cookies);
-    const accessToken = parsedCookies.spotify_access_token;
-    if (!accessToken) throw new Error('Spotify access token not found');
+    if (!accessToken) {
+      throw new Error('Spotify access token not found');
+    }
 
+    // Fetch genres using the access token
     const genres: Array<string> = await fetchSpotifyGenres(accessToken);
 
+    // Return the genres as a JSON response
     return NextResponse.json(genres, { status: 200 });
   } catch (error) {
     if (error instanceof Error) {

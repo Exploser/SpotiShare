@@ -96,3 +96,17 @@ export interface recentlyPlayed {
   total: number;
   items: SpotifyPlayHistory[];
 }
+
+export interface SpotifyGenresResponse {
+  genres: string[];
+}
+
+interface Seeds {
+  href: string;
+  type: string;
+}
+
+export interface SpotifyRecommendationsResponse {
+  tracks: Tracks[];
+  seeds: Seeds[];
+}

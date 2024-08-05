@@ -6,7 +6,7 @@ import SpotifyProfile from "@/components/spotify-profile";
 export default function Home() {
 
   return (
-    <div className="h-full bg-[#111827]">
+    <div className="h-full bg-[#501069] w-full">
       <LandingNavbar />
       <LandingHero />
     </div>

@@ -4,6 +4,7 @@ import { Artist, SpotifyTopArtistsResponse, SpotifyTopTracksResponse, Tracks } f
 import { useEffect, useState } from "react";
 import TopArtistsCarousel from "./components/top-artists-carousel";
 import TopTracksCarousel from "./components/top-tracks-carousel";
+import { Heading } from "@/components/ui/heading";
 
 const DashboardPage = () => {
     const [artists, setArtitst] = useState<Artist[]>([]);
@@ -21,6 +22,7 @@ const DashboardPage = () => {
         });
         return `${baseUrl}?${params.toString()}`;
     };
+
     const buildSpotifyTracksURL = (timeRange = 'short_term', limit = 5, offset = 0) => {
         const baseUrl = '/api/spotify/getTopTracks';
         const params = new URLSearchParams({
@@ -30,6 +32,7 @@ const DashboardPage = () => {
         });
         return `${baseUrl}?${params.toString()}`;
     };
+
     const fetchTopArtists = async (timeRange: string, limit: number) => {
         try {
             const url = buildSpotifyArtistsURL(timeRange, limit);
@@ -47,6 +50,7 @@ const DashboardPage = () => {
         console.log(error);
         return error;
     };
+
     const fetchTopTracks = async (timeRange: string, limit: number) => {
         try {
             const url = buildSpotifyTracksURL(timeRange, limit);
@@ -70,19 +74,20 @@ const DashboardPage = () => {
         fetchTopArtists(timeRange, limit).catch((err) => console.error(err));
         fetchTopTracks(timeRange, limit).catch((err) => console.error(err));
     }, []);
+
     return (
-        <div className="min-h-full">
-            <h1 className="font-semibold text-4xl p-4">Dashboard</h1>
+        <div className="h-full w-full z-10">
+            <Heading title="Dashboard" description="Find all your top items" />
             <h3 className="font-bold text-2xl py-8 px-4"> Hello, </h3>
             <div className="flex justify-center items-center w-full">
                 <SpotifyProfile />
             </div>
             <h3 className="font-bold text-2xl py-8 px-4"> Top Artists</h3>
-            <div className="w-fit">
+            <div className="w-full">
                 <TopArtistsCarousel artists={artists} />
             </div>
             <h3 className="font-bold text-2xl py-8 px-4"> Top Tracks</h3>
-            <div className="w-fit">
+            <div className="w-full">
                 <TopTracksCarousel tracks={tracks} />
             </div>
         </div>

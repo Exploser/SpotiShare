@@ -11,7 +11,7 @@ export const Heading: React.FC<HeadingProps> = ({
 }) => {
     return (
         <div className="flex flex-col items-start justify-between p-4 pb-0">
-            <h2 className="text-3xl font-bold tracking-tight">
+            <h2 className="text-4xl font-bold tracking-tight">
                 {title}
             </h2>
             <p className="text-sm text-muted-foreground mt-2 mx-4">
